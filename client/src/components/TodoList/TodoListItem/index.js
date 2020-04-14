@@ -8,10 +8,10 @@ export default function TodoListItem({todoId, title, status, onRemoveClicked}) {
                 {title}
             </div>
             <div className="item_options">
-                <button onClick={() => onRemoveClicked(todoId)}>
-                    remove
+                <button className="btn btn-outline-danger btn-sm float-right"
+                        onClick={() => onRemoveClicked(todoId)}>
+                    <i className="fa fa-trash-o"/>
                 </button>
-
             </div>
         </li>
     );
