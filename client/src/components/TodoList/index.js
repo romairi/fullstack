@@ -17,7 +17,8 @@ export default class TodoList extends React.Component {
                 title={todo.title}
                 status={todo.status}
                 onRemoveClicked={onRemoveClicked}
-            />);
+            />
+        );
         return (
             <div className="todo-list">
                 <ul className="todo-list-items">
