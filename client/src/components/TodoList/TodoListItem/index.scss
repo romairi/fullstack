@@ -1,0 +1,20 @@
+$todo_color: #e73e3ebd;
+$in_done: #42a56a;
+$in_progress: #df60df;
+
+$statuses: ("todo": $todo_color, "in_progress": $in_progress, "done": $in_done);
+
+.list-group-item {
+  border: 2px solid #0077d2;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  padding: .75rem 1.25rem;
+  background-color: #fff;
+
+  @each $status, $color in $statuses {
+    &.status_#{$status} .item_title{
+      color: $color;
+    }
+  }
+}
