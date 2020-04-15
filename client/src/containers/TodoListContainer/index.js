@@ -1,51 +1,69 @@
 import React from 'react';
 import _ from 'lodash';
 import './index.css';
-import Todolist from "../../components/Todolist";
-import {STATUSES} from "./constanst";
+import TodoListHeader from "../../components/TodoListHeader";
+import TodoList from "../../components/TodoList";
+import {STATUSES} from "./constants";
+import {filterTodoItemById} from "../../services/itemUtilitiesService";
+
 
 export default class TodoListContainer extends React.PureComponent {
+
+    maxId = 100;
+
     constructor(props) {
         super(props);
 
         this.state = {
-            todos: _.range(10).map(idx => ({
+            todos: _.range(5).map(idx => ({
                 id: `todo_id_${idx}`,
                 title: `todo_title_${idx}`,
                 status: Object.values(STATUSES)[_.random(0, 2)],
-            })),
-        };
+            }))
+        }
+    }
+
+    createTodoItem(title) {
+        return {
+            title,
+            id: this.maxId++,
+            status: STATUSES.TODO,
+        }
     }
 
     onRemoveClicked = (todoId) => {
-
-        this.setState({todos: this.state.todos.filter(todo => todo.id !== todoId)});
+        this.setState({todos: filterTodoItemById(this.state.todos, todoId)});
     };
+
+    onAddClicked = (text) => {
+        const newItem = this.createTodoItem(text);
+        this.setState(({todos}) => {
+            const newArr = [newItem, ...todos];
+            return {
+                todos: newArr
+            };
+        })
+    };
+
+    onChangeStatusClicked = (todoId, status) => {
+        //TODO validate the status - should be in Object.values(STATUSES)
+        const todoItem = _.find(this.state.todos, item => item.id === todoId);
+        todoItem.status = status;
+        this.setState({todos: [todoItem, ...filterTodoItemById(this.state.todos, todoId)]});
+    };
+
 
     render() {
         const {todos} = this.state;
         return (
-            <div className="todolist_container">
-                <div className="todolist_header"></div>
-                <Todolist todos={todos} onRemoveClicked={this.onRemoveClicked}/>
+            <div className="todo-list-container">
+                <TodoListHeader onAddClicked={this.onAddClicked}/>
+                <TodoList
+                    todos={todos}
+                    onRemoveClicked={this.onRemoveClicked}
+                    onChangeStatusClicked={this.onChangeStatusClicked}
+                />
             </div>
         );
     }
-}
-
-
-// export default function TodoListContainer() {
-//     const t = STATUSES;
-//     // const items = _.range(10).map(idx => `todo-${idx + 1}`); // TODO temp impl of todo
-//     const items = _.range(10).map(idx => ({
-//         id: `todo_id_${idx}`,
-//         title: `todo_title_${idx}`,
-//         status: Object.values(STATUSES)[_.random(0,2)],
-//     }));
-//     return (
-//         <div className="todolist_container">
-//             <div className="todolist_header"></div>
-//             <Todolist todos={items} onRemoveClicked={onRemoveClicked}/>
-//         </div>
-//     );
-// }
+};
