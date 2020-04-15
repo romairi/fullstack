@@ -1,34 +1,31 @@
 import React from 'react';
 import _ from 'lodash';
+import axios from 'axios';
 import './index.css';
 import TodoListHeader from "../../components/TodoListHeader";
 import TodoList from "../../components/TodoList";
-import {STATUSES} from "./constants";
+import {CREATE_TODO_ITEM_PATH, GET_TODO_ITEMS_PATH} from "./constants";
 import {filterTodoItemById} from "../../services/itemUtilitiesService";
 
 
 export default class TodoListContainer extends React.PureComponent {
-
-    maxId = 100;
-
     constructor(props) {
         super(props);
 
         this.state = {
-            todos: _.range(5).map(idx => ({
-                id: `todo_id_${idx}`,
-                title: `todo_title_${idx}`,
-                status: Object.values(STATUSES)[_.random(0, 2)],
-            }))
+            todos: [],
         }
     }
 
-    createTodoItem(title) {
-        return {
-            title,
-            id: this.maxId++,
-            status: STATUSES.TODO,
-        }
+    componentDidMount() {
+        axios.get(GET_TODO_ITEMS_PATH)
+            .then(res => {
+                const todos = res.data;
+                this.setState({todos});
+            })
+            .catch(err => {
+                console.error(err);
+            });
     }
 
     onRemoveClicked = (todoId) => {
@@ -36,13 +33,21 @@ export default class TodoListContainer extends React.PureComponent {
     };
 
     onAddClicked = (text) => {
-        const newItem = this.createTodoItem(text);
-        this.setState(({todos}) => {
-            const newArr = [newItem, ...todos];
-            return {
-                todos: newArr
-            };
+        axios.post(CREATE_TODO_ITEM_PATH, {
+            title: text,
         })
+            .then(res => {
+                const todoItem = res.data;
+                this.setState(({todos}) => {
+                    const newArr = [todoItem, ...todos];
+                    return {
+                        todos: newArr
+                    };
+                });
+            })
+            .catch(err => {
+                console.error(err);
+            });
     };
 
     onChangeStatusClicked = (todoId, status) => {
