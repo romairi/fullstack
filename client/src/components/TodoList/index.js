@@ -9,14 +9,16 @@ export default class TodoList extends React.Component {
     }
 
     render() {
-        const {todos, onRemoveClicked} = this.props;
+        const {todos, onRemoveClicked, onChangeStatusClicked} = this.props;
         const items = todos.map(todo =>
             <TodoListItem
                 todoId={todo.id}
                 key={todo.id}
                 title={todo.title}
                 status={todo.status}
+                inProgress={todo.status.IN_PROGRESS}
                 onRemoveClicked={onRemoveClicked}
+                onChangeStatusClicked={onChangeStatusClicked}
             />
         );
         return (

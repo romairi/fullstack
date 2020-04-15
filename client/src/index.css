@@ -15,3 +15,7 @@ code {
 .container {
     margin: 20px auto 0;
 }
+
+.btn {
+    margin: 1px
+}

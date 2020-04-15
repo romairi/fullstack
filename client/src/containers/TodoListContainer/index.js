@@ -22,24 +22,30 @@ export default class TodoListContainer extends React.PureComponent {
         }
     }
 
+    createTodoItem(title) {
+        return {
+            title,
+            id:this.maxId++,
+            status: STATUSES.TODO,
+        }
+    }
+
     onRemoveClicked = (todoId) => {
         this.setState({todos: this.state.todos.filter(todo => todo.id !== todoId)});
     };
 
     onAddClicked = (text) => {
-        const newItem = {
-            title: text,
-            id: this.maxId++,
-            status: Object.values(STATUSES)[_.random(0, 2)],
-        };
-
+        const newItem = this.createTodoItem(text);
         this.setState(({todos}) => {
             const newArr = [newItem, ...todos];
-
             return {
                 todos: newArr
             };
         })
+    };
+
+    onChangeStatusClicked = (todoId) => {
+        console.log('in progress',todoId)
     };
 
 
@@ -51,6 +57,7 @@ export default class TodoListContainer extends React.PureComponent {
                 <TodoList
                     todos={todos}
                     onRemoveClicked={this.onRemoveClicked}
+                    onChangeStatusClicked={this.onChangeStatusClicked}
                 />
             </div>
         );
