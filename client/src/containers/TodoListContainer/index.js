@@ -4,6 +4,7 @@ import './index.css';
 import TodoListHeader from "../../components/TodoListHeader";
 import TodoList from "../../components/TodoList";
 import {STATUSES} from "./constants";
+import {filterTodoItemById} from "../../services/itemUtilitiesService";
 
 
 export default class TodoListContainer extends React.PureComponent {
@@ -25,13 +26,13 @@ export default class TodoListContainer extends React.PureComponent {
     createTodoItem(title) {
         return {
             title,
-            id:this.maxId++,
+            id: this.maxId++,
             status: STATUSES.TODO,
         }
     }
 
     onRemoveClicked = (todoId) => {
-        this.setState({todos: this.state.todos.filter(todo => todo.id !== todoId)});
+        this.setState({todos: filterTodoItemById(this.state.todos, todoId)});
     };
 
     onAddClicked = (text) => {
@@ -44,8 +45,11 @@ export default class TodoListContainer extends React.PureComponent {
         })
     };
 
-    onChangeStatusClicked = (todoId) => {
-        console.log('in progress',todoId)
+    onChangeStatusClicked = (todoId, status) => {
+        //TODO validate the status - should be in Object.values(STATUSES)
+        const todoItem = _.find(this.state.todos, item => item.id === todoId);
+        todoItem.status = status;
+        this.setState({todos: [todoItem, ...filterTodoItemById(this.state.todos, todoId)]});
     };
 
 

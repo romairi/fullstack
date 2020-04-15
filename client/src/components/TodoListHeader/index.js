@@ -4,11 +4,6 @@ import AddForm from "../../AddForm";
 
 
 export default class TodoListHeader extends React.Component {
-
-    constructor(props) {
-        super(props)
-    }
-
     render() {
         const { onAddClicked} = this.props;
         return (

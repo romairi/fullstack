@@ -1,9 +1,10 @@
 .app-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     height: 100%;
 }
 
-
-
-.content-container {
-    margin-top: 50px;
+.content {
+    min-height: 100vh;
 }
