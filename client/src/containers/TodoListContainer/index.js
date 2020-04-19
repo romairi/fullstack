@@ -4,7 +4,7 @@ import axios from 'axios';
 import './index.css';
 import TodoListHeader from "../../components/TodoListHeader";
 import TodoList from "../../components/TodoList";
-import {CREATE_TODO_ITEM_PATH, GET_TODO_ITEMS_PATH} from "./constants";
+import {CREATE_TODO_ITEM_PATH, GET_TODO_ITEMS_PATH, REMOVE_TODO_ITEM_PATH} from "./constants";
 import {filterTodoItemById} from "../../services/itemUtilitiesService";
 
 
@@ -29,7 +29,17 @@ export default class TodoListContainer extends React.PureComponent {
     }
 
     onRemoveClicked = (todoId) => {
-        this.setState({todos: filterTodoItemById(this.state.todos, todoId)});
+
+        axios.post(REMOVE_TODO_ITEM_PATH, {
+            todoId
+        })
+            .then(() => {
+                debugger
+                this.setState(({todos: filterTodoItemById(this.state.todos, todoId)}));
+            })
+            .catch(err => {
+                console.error(err);
+            });
     };
 
     onAddClicked = (text) => {
@@ -37,6 +47,7 @@ export default class TodoListContainer extends React.PureComponent {
             title: text,
         })
             .then(res => {
+                debugger
                 const todoItem = res.data;
                 this.setState(({todos}) => {
                     const newArr = [todoItem, ...todos];

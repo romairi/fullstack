@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const {STATUSES} = require('../constants');
 
-const todoList = _.range(5).map(idx => ({
+let todoList = _.range(5).map(idx => ({
     id: `todo_id_${idx}`,
     title: `todo_title_${idx}`,
     status: Object.values(STATUSES)[_.random(0, 2)],
@@ -25,9 +25,35 @@ function create(req, res, next) {
     res.json(newItem);
 }
 
+//
 function remove(req, res, next) {
-    //TODO implement
+    debugger
+    let msg = 'Todo_Item not deleted';
+    const {todoId} = req.body;
+    console.log(todoId);
+    if(todoId) {
+        msg = 'Todo_Item deleted';
+
+       todoList = todoList.filter(elm => elm.id !== todoId);
+    }
+    res.json(todoId);
 }
+
+//
+// function remove(req, res, next) {
+//
+//     const {todoId} = req.body;
+//     if (todoId) {
+//         const item = todoList._find(todoId);
+//         if (item) {
+//             todoList = todoList.filter(elm => elm.id !== todoId);
+//             res.status(200).send('todo_item: ' + item + 'was deleted');
+//         }
+//         res.status(500).send('There was a problem deleting the item');
+//     }
+//
+// }
+
 
 function changeStatus(req, res, next) {
     //TODO implement
