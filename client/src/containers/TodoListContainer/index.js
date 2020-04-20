@@ -4,7 +4,12 @@ import axios from 'axios';
 import './index.css';
 import TodoListHeader from "../../components/TodoListHeader";
 import TodoList from "../../components/TodoList";
-import {CREATE_TODO_ITEM_PATH, GET_TODO_ITEMS_PATH} from "./constants";
+import {
+    CREATE_TODO_ITEM_PATH,
+    GET_TODO_ITEMS_PATH,
+    REMOVE_TODO_ITEM_PATH,
+    CHANGE_STATUS_TODO_ITEM_PATH
+} from "./constants";
 import {filterTodoItemById} from "../../services/itemUtilitiesService";
 
 
@@ -29,7 +34,15 @@ export default class TodoListContainer extends React.PureComponent {
     }
 
     onRemoveClicked = (todoId) => {
-        this.setState({todos: filterTodoItemById(this.state.todos, todoId)});
+        axios.post(REMOVE_TODO_ITEM_PATH, {
+            todoId
+        })
+            .then(() => {
+                this.setState(({todos: filterTodoItemById(this.state.todos, todoId)}));
+            })
+            .catch(err => {
+                console.error(err);
+            });
     };
 
     onAddClicked = (text) => {
@@ -51,12 +64,17 @@ export default class TodoListContainer extends React.PureComponent {
     };
 
     onChangeStatusClicked = (todoId, status) => {
-        //TODO validate the status - should be in Object.values(STATUSES)
-        const todoItem = _.find(this.state.todos, item => item.id === todoId);
-        todoItem.status = status;
-        this.setState({todos: [todoItem, ...filterTodoItemById(this.state.todos, todoId)]});
+        axios.post(CHANGE_STATUS_TODO_ITEM_PATH, {
+            todoId,
+            status
+        })
+            .then(({data: todoItem}) => {
+                this.setState({todos: [todoItem, ...filterTodoItemById(this.state.todos, todoId)]});
+            })
+            .catch(err => {
+                console.error(err);
+            });
     };
-
 
     render() {
         const {todos} = this.state;
