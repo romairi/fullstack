@@ -5,6 +5,7 @@ let todoList = _.range(5).map(idx => ({
     id: `todo_id_${idx}`,
     title: `todo_title_${idx}`,
     status: Object.values(STATUSES)[_.random(0, 2)],
+    date: (new Date()),
 }));
 
 let todo_id = 100;
@@ -20,6 +21,7 @@ function create(req, res, next) {
         id: `todo_id_${todo_id}`,
         title: title,
         status: STATUSES.TODO,
+        date: (new Date()),
     };
     todoList.push(newItem);
     res.json(newItem);
