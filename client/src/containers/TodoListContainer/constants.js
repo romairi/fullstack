@@ -20,3 +20,4 @@ const TODO_ITEM_API_PATH = '/api/todo_item';
 export const GET_TODO_ITEMS_PATH = `${TODO_ITEM_API_PATH}/get_items`;
 export const CREATE_TODO_ITEM_PATH = `${TODO_ITEM_API_PATH}/create`;
 export const REMOVE_TODO_ITEM_PATH = `${TODO_ITEM_API_PATH}/remove`;
+export const CHANGE_STATUS_TODO_ITEM_PATH = `${TODO_ITEM_API_PATH}/change_status`;

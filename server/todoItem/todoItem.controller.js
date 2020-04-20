@@ -25,38 +25,28 @@ function create(req, res, next) {
     res.json(newItem);
 }
 
-//
+
 function remove(req, res, next) {
-    debugger
     let msg = 'Todo_Item not deleted';
     const {todoId} = req.body;
     console.log(todoId);
-    if(todoId) {
+    if (todoId) {
         msg = 'Todo_Item deleted';
-
-       todoList = todoList.filter(elm => elm.id !== todoId);
+        todoList = todoList.filter(elm => elm.id !== todoId);
+        res.status(200)
     }
     res.json(todoId);
 }
 
-//
-// function remove(req, res, next) {
-//
-//     const {todoId} = req.body;
-//     if (todoId) {
-//         const item = todoList._find(todoId);
-//         if (item) {
-//             todoList = todoList.filter(elm => elm.id !== todoId);
-//             res.status(200).send('todo_item: ' + item + 'was deleted');
-//         }
-//         res.status(500).send('There was a problem deleting the item');
-//     }
-//
-// }
-
-
 function changeStatus(req, res, next) {
-    //TODO implement
+    const {todoId, status} = req.body;
+    const todoItem = _.find(todoList, item => item.id === todoId);
+    let msg = 'The status not changed';
+    if(todoItem){
+        todoItem.status = status;
+        msg = 'The status changed';
+    }
+    res.send(msg);
 }
 
 module.exports = {getItems, create, remove, changeStatus};
