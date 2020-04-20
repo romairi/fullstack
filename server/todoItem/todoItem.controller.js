@@ -27,26 +27,31 @@ function create(req, res, next) {
 
 
 function remove(req, res, next) {
-    let msg = 'Todo_Item not deleted';
     const {todoId} = req.body;
-    console.log(todoId);
-    if (todoId) {
+    let msg = 'Todo_Item not deleted';
+    let status = 400;
+
+    const todoItem = _.find(todoList, todoItem => todoItem.id === todoId);
+
+    if (todoItem) {
         msg = 'Todo_Item deleted';
+        status = 200;
         todoList = todoList.filter(elm => elm.id !== todoId);
-        res.status(200)
     }
-    res.json(todoId);
+
+    res.status(status).send(msg);
 }
 
 function changeStatus(req, res, next) {
     const {todoId, status} = req.body;
     const todoItem = _.find(todoList, item => item.id === todoId);
-    let msg = 'The status not changed';
-    if(todoItem){
+    const isSupportedStatus = _.find(Object.values(STATUSES), s => s === status);
+    let resStatus = 400;
+    if (todoItem && isSupportedStatus) {
         todoItem.status = status;
-        msg = 'The status changed';
+        resStatus = 200;
     }
-    res.send(msg);
+    res.status(resStatus).json(todoItem);
 }
 
 module.exports = {getItems, create, remove, changeStatus};

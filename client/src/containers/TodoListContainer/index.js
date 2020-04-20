@@ -34,7 +34,6 @@ export default class TodoListContainer extends React.PureComponent {
     }
 
     onRemoveClicked = (todoId) => {
-
         axios.post(REMOVE_TODO_ITEM_PATH, {
             todoId
         })
@@ -65,20 +64,16 @@ export default class TodoListContainer extends React.PureComponent {
     };
 
     onChangeStatusClicked = (todoId, status) => {
-        //TODO validate the status - should be in Object.values(STATUSES)
         axios.post(CHANGE_STATUS_TODO_ITEM_PATH, {
             todoId,
             status
         })
-            .then(() => {
-                // debugger
-                const todoItem = _.find(this.state.todos, item => item.id === todoId);
-                todoItem.status = status;
+            .then(({data: todoItem}) => {
                 this.setState({todos: [todoItem, ...filterTodoItemById(this.state.todos, todoId)]});
-            }).catch(err => {
-            console.error((err));
-        })
-
+            })
+            .catch(err => {
+                console.error(err);
+            });
     };
 
     render() {
