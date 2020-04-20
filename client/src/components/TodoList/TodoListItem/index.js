@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.scss';
-import {AVAILABLE_STATUSES_BY_STATUS, NAME_BY_STATUS} from "../../../containers/TodoListContainer/constants";
+import {AVAILABLE_STATUSES_BY_STATUS, NAME_BY_STATUS} from "../../../constants";
 
 export default class TodoListItem extends React.Component {
 

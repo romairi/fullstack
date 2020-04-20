@@ -4,13 +4,14 @@ import axios from 'axios';
 import './index.css';
 import TodoListHeader from "../../components/TodoListHeader";
 import TodoList from "../../components/TodoList";
+
+import {filterTodoItemById, sortTodoItems} from "../../services/itemUtilitiesService";
 import {
+    CHANGE_STATUS_TODO_ITEM_PATH,
     CREATE_TODO_ITEM_PATH,
     GET_TODO_ITEMS_PATH,
-    REMOVE_TODO_ITEM_PATH,
-    CHANGE_STATUS_TODO_ITEM_PATH
-} from "./constants";
-import {filterTodoItemById} from "../../services/itemUtilitiesService";
+    REMOVE_TODO_ITEM_PATH
+} from "../../constants";
 
 
 export default class TodoListContainer extends React.PureComponent {
@@ -25,7 +26,7 @@ export default class TodoListContainer extends React.PureComponent {
     componentDidMount() {
         axios.get(GET_TODO_ITEMS_PATH)
             .then(res => {
-                const todos = res.data;
+                const todos = sortTodoItems(res.data);
                 this.setState({todos});
             })
             .catch(err => {
@@ -52,7 +53,7 @@ export default class TodoListContainer extends React.PureComponent {
             .then(res => {
                 const todoItem = res.data;
                 this.setState(({todos}) => {
-                    const newArr = [todoItem, ...todos];
+                    const newArr = sortTodoItems([todoItem, ...todos]);
                     return {
                         todos: newArr
                     };
@@ -69,7 +70,7 @@ export default class TodoListContainer extends React.PureComponent {
             status
         })
             .then(({data: todoItem}) => {
-                this.setState({todos: [todoItem, ...filterTodoItemById(this.state.todos, todoId)]});
+                this.setState({todos: sortTodoItems([todoItem, ...filterTodoItemById(this.state.todos, todoId)])});
             })
             .catch(err => {
                 console.error(err);
