@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const TodoItemModel = require('./todoItem.model');
 const {STATUSES} = require('../constants');
 
 let todoList = _.range(5).map(idx => ({
@@ -8,23 +9,25 @@ let todoList = _.range(5).map(idx => ({
     date: (new Date()),
 }));
 
-let todo_id = 100;
-
-function getItems(req, res, next) {
-    res.json(todoList);
+async function getItems(req, res, next) {
+    const todoItems = await TodoItemModel.find({});
+    res.json(todoItems);
 }
 
-function create(req, res, next) {
+async function create(req, res, next) {
     const {title} = req.body;
-    todo_id++;
-    const newItem = {
-        id: `todo_id_${todo_id}`,
-        title: title,
+    const todoItem = new TodoItemModel({
+        title,
         status: STATUSES.TODO,
-        date: (new Date()),
-    };
-    todoList.push(newItem);
-    res.json(newItem);
+        date: new Date(),
+    });
+
+    try {
+        const newItem = await todoItem.save();
+        res.json(newItem);
+    } catch (e) {
+        next(e);
+    }
 }
 
 
