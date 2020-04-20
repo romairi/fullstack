@@ -16,6 +16,12 @@ export const AVAILABLE_STATUSES_BY_STATUS = {
     [STATUSES.DONE]: [STATUSES.IN_PROGRESS],
 };
 
+export const SORT_ORDER_BY_STATUS = {
+    [STATUSES.TODO]: 2,
+    [STATUSES.IN_PROGRESS]: 1,
+    [STATUSES.DONE]: 3,
+};
+
 const TODO_ITEM_API_PATH = '/api/todo_item';
 export const GET_TODO_ITEMS_PATH = `${TODO_ITEM_API_PATH}/get_items`;
 export const CREATE_TODO_ITEM_PATH = `${TODO_ITEM_API_PATH}/create`;
