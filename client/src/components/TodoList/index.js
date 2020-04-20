@@ -4,10 +4,6 @@ import TodoListItem from "./TodoListItem";
 
 export default class TodoList extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const {todos, onRemoveClicked, onChangeStatusClicked} = this.props;
         const items = todos.map(todo =>

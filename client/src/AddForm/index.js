@@ -3,10 +3,6 @@ import './index.css';
 
 export default class AddForm extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     state = {
         title: ''
     };
