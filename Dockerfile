@@ -27,4 +27,5 @@ RUN npm i --production
 COPY index.js index.js
 COPY ecosystem.config.js ecosystem.config.js
 COPY server server
+
 CMD ["npm", "start"]

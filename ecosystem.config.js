@@ -1,12 +1,12 @@
 const env = process.env.NODE_ENV;
 
 const appConfig = {
-  script: 'index.js',
+    script: 'index.js',
 };
 
-// if(env !== 'production') {
-//   appConfig.watch = '.';
-// }
+if (env !== 'production') {
+    appConfig.watch = '.';
+}
 
 const baseConfig = {
     apps: [appConfig],

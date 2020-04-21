@@ -7,11 +7,12 @@ services:
         ports:
             - "${EXTERNAL_PORT}:${PORT}"
         environment:
-            - NODE_ENV="production"
+            - NODE_ENV="dev"
             - PORT=${PORT}
             - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
             - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
-
+        volumes:
+            - ./:/usr/src/app
         restart: always
         depends_on: 
             - mongo
