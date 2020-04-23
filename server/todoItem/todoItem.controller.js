@@ -35,8 +35,8 @@ async function remove(req, res, next) {
     const {todoId} = req.body;
     let msg = 'Todo_Item not deleted';
     let status = 400;
-    const todoItems = await TodoItemModel.remove({_id: todoId});
-    if (todoItems) {
+    const todoItem = await TodoItemModel.remove({_id: todoId});
+    if (todoItem) {
         msg = 'Todo_Item deleted';
         status = 200;
     }
