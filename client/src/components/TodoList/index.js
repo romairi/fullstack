@@ -9,7 +9,7 @@ export default class TodoList extends React.Component {
         const items = todos.map(todo =>
             <TodoListItem
                 todoId={todo._id}
-                key={todo.id}
+                key={todo._id}
                 title={todo.title}
                 status={todo.status}
                 onRemoveClicked={onRemoveClicked}
