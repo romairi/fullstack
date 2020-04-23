@@ -31,21 +31,17 @@ async function create(req, res, next) {
     }
 }
 
-
-function remove(req, res, next) {
+async function remove(req, res, next) {
     const {todoId} = req.body;
     let msg = 'Todo_Item not deleted';
     let status = 400;
-
-    const todoItem = _.find(todoList, todoItem => todoItem.id === todoId);
-
-    if (todoItem) {
+    const todoItems = await TodoItemModel.remove({_id: todoId});
+    if (todoItems) {
         msg = 'Todo_Item deleted';
         status = 200;
-        todoList = todoList.filter(elm => elm.id !== todoId);
     }
-
     res.status(status).send(msg);
+
 }
 
 function changeStatus(req, res, next) {
