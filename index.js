@@ -3,7 +3,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const todoItemRoutes = require('./server/todoItem/todoItem.route');
 const serverConfig = require('./server/configs/serverConfig');
-const {logErrors, clientErrorHandler, errorHandler} = require('./server/services/errorHandling');
+const { logErrors, clientErrorHandler, errorHandler } = require('./server/services/errorHandling');
 
 const app = express();
 
