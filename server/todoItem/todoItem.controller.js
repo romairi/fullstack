@@ -9,7 +9,6 @@ let todoList = _.range(5).map(idx => ({
     date: (new Date()),
 }));
 
-
 async function getItems(req, res, next) {
     const todoItems = await TodoItemModel.find({});
     res.json(todoItems);
