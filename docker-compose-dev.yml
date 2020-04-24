@@ -1,0 +1,41 @@
+version: '3.5'
+services:
+  server:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    ports:
+      - "${EXTERNAL_PORT}:${PORT}"
+    environment:
+      - NODE_ENV="dev"
+      - PORT=${PORT}
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - ./:/usr/src/app
+    restart: always
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - mongodbdata:/data/db
+
+  admin-mongo:
+    # mongodb://ROMAN:12345@mongo
+    image: adicom/admin-mongo
+    ports:
+      - "${ADMIN_MONGO_PORT}:${ADMIN_MONGO_PORT}"
+    environment:
+      - PORT=${ADMIN_MONGO_PORT}
+      - HOST=mongo
+    depends_on:
+      - mongo
+
+volumes:
+  mongodbdata:
