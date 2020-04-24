@@ -1,7 +1,7 @@
 import {SORT_ORDER_BY_STATUS} from "../constants";
 
 export function filterTodoItemById(todoList, todoId) {
-    return todoList.filter(todo => todo.id !== todoId)
+    return todoList.filter(todo => todo._id !== todoId)
 }
 
 export function sortTodoItems(todoItems) {

@@ -1,10 +1,13 @@
 const express = require('express');
 const path = require('path');
+const mongoose = require('mongoose');
 const todoItemRoutes = require('./server/todoItem/todoItem.route');
-const {logErrors, clientErrorHandler, errorHandler} = require('./server/services/errorHandling');
+const serverConfig = require('./server/configs/serverConfig');
+const { logErrors, clientErrorHandler, errorHandler } = require('./server/services/errorHandling');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+
+mongoose.connect(serverConfig.mongo.hostUri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(express.json());
 app.use('/static', express.static(path.join(__dirname + '/client/build/static')));
@@ -18,4 +21,4 @@ app.use(logErrors);
 app.use(clientErrorHandler);
 app.use(errorHandler);
 
-app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
+app.listen(serverConfig.port, () => console.log(`Example app listening on port ${serverConfig.port}!`));
