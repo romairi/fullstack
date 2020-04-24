@@ -13,7 +13,7 @@ services:
             - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
 
         restart: always
-        depends_on: 
+        depends_on:
             - mongo
 
     mongo:
@@ -23,18 +23,18 @@ services:
             - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
             - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
         volumes:
-            - mongodbdata:/data/db 
+            - mongodbdata:/data/db
 
     admin-mongo:
         # mongodb://ROMAN:12345@mongo
         image: adicom/admin-mongo
         ports:
             - "${ADMIN_MONGO_PORT}:${ADMIN_MONGO_PORT}"
-        environment: 
+        environment:
             - PORT=${ADMIN_MONGO_PORT}
             - HOST=mongo
         depends_on:
             - mongo
-        
+
 volumes:
     mongodbdata:
