@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import axios from 'axios';
 import './index.css';
 import TodoListHeader from "../../components/TodoListHeader";

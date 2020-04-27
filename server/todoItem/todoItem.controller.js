@@ -1,5 +1,7 @@
 const _ = require('lodash');
+const TodoItemModel = require('./todoItem.model');
 const {STATUSES} = require('../constants');
+const HttpStatus = require('http-status-codes');
 
 let todoList = _.range(5).map(idx => ({
     id: `todo_id_${idx}`,
@@ -8,52 +10,71 @@ let todoList = _.range(5).map(idx => ({
     date: (new Date()),
 }));
 
-let todo_id = 100;
-
-function getItems(req, res, next) {
-    res.json(todoList);
+async function getItems(req, res, next) {
+    const todoItems = await TodoItemModel.find({});
+    res.json(todoItems);
 }
 
-function create(req, res, next) {
+async function create(req, res, next) {
     const {title} = req.body;
-    todo_id++;
-    const newItem = {
-        id: `todo_id_${todo_id}`,
-        title: title,
+    const todoItem = new TodoItemModel({
+        title,
         status: STATUSES.TODO,
-        date: (new Date()),
-    };
-    todoList.push(newItem);
-    res.json(newItem);
+        date: new Date(),
+    });
+
+    try {
+        const newItem = await todoItem.save();
+        res.json(newItem);
+    } catch (e) {
+        next(e);
+    }
 }
 
-
-function remove(req, res, next) {
+async function remove(req, res, next) {
     const {todoId} = req.body;
     let msg = 'Todo_Item not deleted';
-    let status = 400;
+    let status = HttpStatus.BAD_REQUEST;
+    let deletedCount;
 
-    const todoItem = _.find(todoList, todoItem => todoItem.id === todoId);
-
-    if (todoItem) {
-        msg = 'Todo_Item deleted';
-        status = 200;
-        todoList = todoList.filter(elm => elm.id !== todoId);
+    try {
+        const deletedResponse = await TodoItemModel.deleteOne({_id: todoId});
+        deletedCount = deletedResponse.deletedCount;
+    } catch (err) {
+        deletedCount = 0;
     }
 
+    if (deletedCount > 0) {
+        msg = 'Todo_Item deleted';
+        status = HttpStatus.OK;
+    }
     res.status(status).send(msg);
+
 }
 
-function changeStatus(req, res, next) {
+async function changeStatus(req, res, next) {
     const {todoId, status} = req.body;
-    const todoItem = _.find(todoList, item => item.id === todoId);
     const isSupportedStatus = _.find(Object.values(STATUSES), s => s === status);
-    let resStatus = 400;
-    if (todoItem && isSupportedStatus) {
-        todoItem.status = status;
-        resStatus = 200;
+    let resStatus = HttpStatus.BAD_REQUEST;
+
+    if (!isSupportedStatus) {
+        res.status(resStatus);
+        return;
     }
-    res.status(resStatus).json(todoItem);
+
+    try {
+        const todoItem = await TodoItemModel.findById(todoId);
+
+        if (todoItem) {
+            todoItem.status = status;
+            await todoItem.save();
+            resStatus = HttpStatus.OK;
+        }
+
+        res.status(resStatus).json(todoItem);
+    } catch(err) {
+        next(err);
+    }
 }
 
 module.exports = {getItems, create, remove, changeStatus};
