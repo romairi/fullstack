@@ -52,16 +52,29 @@ async function remove(req, res, next) {
 
 }
 
-function changeStatus(req, res, next) {
+async function changeStatus(req, res, next) {
     const {todoId, status} = req.body;
-    const todoItem = _.find(todoList, item => item.id === todoId);
     const isSupportedStatus = _.find(Object.values(STATUSES), s => s === status);
     let resStatus = HttpStatus.BAD_REQUEST;
-    if (todoItem && isSupportedStatus) {
-        todoItem.status = status;
-        resStatus = HttpStatus.OK;
+
+    if (!isSupportedStatus) {
+        res.status(resStatus);
+        return;
     }
-    res.status(resStatus).json(todoItem);
+
+    try {
+        const todoItem = await TodoItemModel.findById(todoId);
+
+        if (todoItem) {
+            todoItem.status = status;
+            await todoItem.save();
+            resStatus = HttpStatus.OK;
+        }
+
+        res.status(resStatus).json(todoItem);
+    } catch(err) {
+        next(err);
+    }
 }
 
 module.exports = {getItems, create, remove, changeStatus};
