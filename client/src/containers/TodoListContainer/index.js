@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import './index.css';
 import TodoListHeader from "../../components/TodoListHeader";
 import TodoList from "../../components/TodoList";
@@ -11,9 +10,14 @@ import {
     GET_TODO_ITEMS_PATH,
     REMOVE_TODO_ITEM_PATH
 } from "../../constants";
+import {connect} from "react-redux";
+import {createApiRequestAction} from "../../redux/middleware/ApiMiddleware/actions";
+import {API_METHOD_POST} from "../../redux/middleware/ApiMiddleware/constants";
+import todos from "../../redux/reducers/TodoItemReducer";
+import {createAddTodoItemAction, createSetTodosAction} from "../../redux/reducers/TodoItemReducer/actions";
 
 
-export default class TodoListContainer extends React.PureComponent {
+class TodoListContainer extends React.PureComponent {
     constructor(props) {
         super(props);
 
@@ -23,61 +27,58 @@ export default class TodoListContainer extends React.PureComponent {
     }
 
     componentDidMount() {
-        axios.get(GET_TODO_ITEMS_PATH)
-            .then(res => {
-                const todos = sortTodoItems(res.data);
-                this.setState({todos});
-            })
-            .catch(err => {
-                console.error(err);
-            });
+        this.props.createApiRequestAction({
+            url: GET_TODO_ITEMS_PATH,
+            onSuccess: res => {
+                this.props.createSetTodosAction(res.data);
+            }, onError: this.onError
+        });
     }
 
+    onError = err => console.log(err);
+
     onRemoveClicked = (todoId) => {
-        axios.post(REMOVE_TODO_ITEM_PATH, {
-            todoId
-        })
-            .then(() => {
+        this.props.createApiRequestAction({
+            method: API_METHOD_POST,
+            url: REMOVE_TODO_ITEM_PATH,
+            data: {
+                todoId,
+            },
+            onSuccess: () => {
                 this.setState(({todos: filterTodoItemById(this.state.todos, todoId)}));
-            })
-            .catch(err => {
-                console.error(err);
-            });
+            }, onError: this.onError
+        });
     };
 
     onAddClicked = (text) => {
-        axios.post(CREATE_TODO_ITEM_PATH, {
-            title: text,
-        })
-            .then(res => {
-                const todoItem = res.data;
-                this.setState(({todos}) => {
-                    const newArr = sortTodoItems([todoItem, ...todos]);
-                    return {
-                        todos: newArr
-                    };
-                });
-            })
-            .catch(err => {
-                console.error(err);
-            });
+        this.props.createApiRequestAction({
+            method: API_METHOD_POST,
+            url: CREATE_TODO_ITEM_PATH,
+            data: {
+                title: text,
+            },
+            onSuccess: res => {
+                this.props.createAddTodoItemAction(res.data);
+            }, onError: this.onError
+        });
     };
 
     onChangeStatusClicked = (todoId, status) => {
-        axios.post(CHANGE_STATUS_TODO_ITEM_PATH, {
-            todoId,
-            status
-        })
-            .then(({data: todoItem}) => {
+        this.props.createApiRequestAction({
+            method: API_METHOD_POST,
+            url: CHANGE_STATUS_TODO_ITEM_PATH,
+            data: {
+                todoId,
+                status,
+            },
+            onSuccess: ({data: todoItem}) => {
                 this.setState({todos: sortTodoItems([todoItem, ...filterTodoItemById(this.state.todos, todoId)])});
-            })
-            .catch(err => {
-                console.error(err);
-            });
+            }, onError: this.onError
+        });
     };
 
     render() {
-        const {todos} = this.state;
+        const {todos} = this.props;
         return (
             <div className="todo-list-container">
                 <TodoListHeader onAddClicked={this.onAddClicked}/>
@@ -89,4 +90,16 @@ export default class TodoListContainer extends React.PureComponent {
             </div>
         );
     }
+}
+
+const mapStateToProps = state => ({
+    todos: state.todos,
+});
+
+const mapDispatchToProps = {
+    createApiRequestAction,
+    createSetTodosAction,
+    createAddTodoItemAction,
 };
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoListContainer);
