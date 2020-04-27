@@ -1,3 +1,6 @@
+import {routerMiddleware} from 'connected-react-router'
 import apiMiddleware from './ApiMiddleware';
 
-export default [apiMiddleware];
+const createMiddleware = history => [routerMiddleware(history), apiMiddleware];
+
+export default createMiddleware;
