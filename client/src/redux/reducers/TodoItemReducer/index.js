@@ -1,5 +1,5 @@
-import {ADD_TODO_ITEM_ACTION_TYPE, SET_TODOS_ACTION_TYPE} from "./constants";
-import {sortTodoItems} from "../../../services/itemUtilitiesService";
+import {ADD_TODO_ITEM_ACTION_TYPE, SET_TODOS_ACTION_TYPE, REMOVE_TODO_ITEM_ACTION_TYPE} from "./constants";
+import {filterTodoItemById, sortTodoItems} from "../../../services/itemUtilitiesService";
 
 function todoItemReducer(state = [], action) {
     let newState;
@@ -9,6 +9,9 @@ function todoItemReducer(state = [], action) {
             break;
         case ADD_TODO_ITEM_ACTION_TYPE:
             newState = sortTodoItems([action.payload, ...state]);
+            break;
+        case REMOVE_TODO_ITEM_ACTION_TYPE:
+            newState = filterTodoItemById(state, action.payload);
             break;
         default:
             newState = state;
