@@ -3,7 +3,6 @@ import {connect} from "react-redux";
 import './index.css';
 import TodoListHeader from "../../components/TodoListHeader";
 import TodoList from "../../components/TodoList";
-import {filterTodoItemById, sortTodoItems} from "../../services/itemUtilitiesService";
 import {createApiRequestAction} from "../../redux/middleware/ApiMiddleware/actions";
 import {API_METHOD_POST} from "../../redux/middleware/ApiMiddleware/constants";
 import {
@@ -14,9 +13,11 @@ import {
 } from "../../constants";
 import todos from "../../redux/reducers/TodoItemReducer";
 import {
+    changeStatusTodoItemAction,
     createAddTodoItemAction,
     createSetTodosAction,
-    removeTodoItemAction
+    removeTodoItemAction,
+
 } from "../../redux/reducers/TodoItemReducer/actions";
 
 
@@ -75,7 +76,7 @@ class TodoListContainer extends React.PureComponent {
                 status,
             },
             onSuccess: ({data: todoItem}) => {
-                this.setState({todos: sortTodoItems([todoItem, ...filterTodoItemById(this.state.todos, todoId)])});
+                this.props.changeStatusTodoItemAction(todoItem)
             }, onError: this.onError
         });
     };
@@ -104,6 +105,7 @@ const mapDispatchToProps = {
     createSetTodosAction,
     createAddTodoItemAction,
     removeTodoItemAction,
+    changeStatusTodoItemAction
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoListContainer);
