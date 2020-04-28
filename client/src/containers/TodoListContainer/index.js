@@ -11,7 +11,6 @@ import {
     GET_TODO_ITEMS_PATH,
     REMOVE_TODO_ITEM_PATH
 } from "../../constants";
-import todos from "../../redux/reducers/TodoItemReducer";
 import {
     changeStatusTodoItemAction,
     createAddTodoItemAction,

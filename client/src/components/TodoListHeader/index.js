@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.css';
-import AddForm from "../../AddForm";
+import AddForm from "../AddForm";
 
 
 export default class TodoListHeader extends React.Component {
