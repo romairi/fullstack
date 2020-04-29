@@ -1,16 +1,16 @@
 import React from 'react'
 import {Route, Switch} from 'react-router'
 import TodoListContainer from "../containers/TodoListContainer";
-import SignupContainer from "../containers/SignupContainer";
+import SignUpContainer from "../containers/SignUpContainer";
 
 const routes = (
-    <div>
+
         <Switch>
-            <Route exact path="/" component={TodoListContainer}/>
+            <Route exact path="/" component={SignUpContainer}/>
             <Route exact path="/todos" component={TodoListContainer}/>
-            <Route exact path="/signup" component={SignupContainer}/>
+            <Route exact path="/signup" component={SignUpContainer}/>
         </Switch>
-    </div>
+
 );
 
 export default routes;
