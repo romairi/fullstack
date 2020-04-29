@@ -5,7 +5,7 @@ const appConfig = {
 };
 
 if (env !== 'production') {
-    appConfig.watch = 'server';
+    appConfig.watch = 'index.js';
 }
 
 const baseConfig = {
