@@ -26,9 +26,9 @@ export function removeTodoItemAction(todoItemId) {
     }
 }
 
-export function changeStatusTodoItemAction(todoItem) {
+export function changeStatusTodoItemAction(newTodoItem) {
     return {
         type: CHANGE_STATUS_TODO_ITEM_ACTION_TYPE,
-        payload: todoItem
+        payload: newTodoItem
     }
 }
