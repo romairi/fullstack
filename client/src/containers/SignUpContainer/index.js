@@ -6,9 +6,10 @@ class SignUpContainer extends React.PureComponent {
     render() {
         return (
             <div className="sign-up-container">
+                <div className="title_card"><h2>Sign up</h2></div>
                 <div className="sign-up-form">
                     <form>
-                        <div className="title_card"><h2>Sign up</h2></div>
+
                         <div className="form-group">
                             <input
                                 type="text"
