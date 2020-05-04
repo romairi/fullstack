@@ -7,6 +7,7 @@ import LoginContainer from "../containers/LoginContainer";
 const routes = (
         <Switch>
             <Route exact path="/" component={LoginContainer}/>
+            <Route exact path="/login" component={LoginContainer}/>
             <Route exact path="/todos" component={TodoListContainer}/>
             <Route exact path="/signup" component={SignUpContainer}/>
         </Switch>

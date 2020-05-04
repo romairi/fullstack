@@ -1,12 +1,13 @@
 .app-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*justify-content: space-between;*/
     height: 100%;
 }
 
 .content {
     min-height: 100vh;
-    align-items: center;
-    display: flex;
+    /*align-items: center;*/
+    /*display: flex;*/
 }
+
