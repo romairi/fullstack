@@ -3,6 +3,8 @@ import './index.scss';
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
 import {Card} from "../../components/Card/index"
+import Button from "../../components/Button";
+import TextField from "../../components/TextField";
 
 class LoginContainer extends React.PureComponent {
 
@@ -40,7 +42,7 @@ class LoginContainer extends React.PureComponent {
     //             <div className="sign-up-form">
     //                 <form>
     //                     <div className="form-group">
-    //                         <input
+    //                         <TextField
     //                             type="email"
     //                             className="form-control"
     //                             name="email"
@@ -50,7 +52,7 @@ class LoginContainer extends React.PureComponent {
     //                             onChange={this.handleChanged}/>
     //                     </div>
     //                     <div className="form-group">
-    //                         <input
+    //                         <TextField
     //                             type="password"
     //                             className="form-control"
     //                             name="password"
@@ -88,7 +90,7 @@ class LoginContainer extends React.PureComponent {
             //             //             <p className="text-success text-center">Some message error</p>
             //             //             <form>
             //             //                 <div className="form-group">
-            //             //                     <input
+            //             //                     <TextField
             //             //                         type="email"
             //             //                         className="form-control"
             //             //                         name="email"
@@ -99,7 +101,7 @@ class LoginContainer extends React.PureComponent {
             //             //                         onChange={this.handleChanged}/>
             //             //                 </div>
             //             //                 <div className="form-group">
-            //             //                     <input
+            //             //                     <TextField
             //             //                         type="password"
             //             //                         className="form-control"
             //             //                         name="password"
@@ -126,13 +128,14 @@ class LoginContainer extends React.PureComponent {
             //             //     </div>
             //             // </div>
 
-                <Card>
+                <div>
                     <h4 className="card-title text-center mb-4 mt-1">Login</h4>
                     <hr/>
                     <p className="text-success text-center">Some message error</p>
                     <form>
+                        <TextField type="text" label="email" />
                         <div className="form-group">
-                            <input
+                            <TextField
                                 type="email"
                                 className="form-control"
                                 name="email"
@@ -143,7 +146,7 @@ class LoginContainer extends React.PureComponent {
                                 onChange={this.handleChanged}/>
                         </div>
                         <div className="form-group">
-                            <input
+                            <TextField
                                 type="password"
                                 className="form-control"
                                 name="password"
@@ -154,19 +157,18 @@ class LoginContainer extends React.PureComponent {
                                 onChange={this.handleChanged}/>
                         </div>
                         <div className="form-group">
-                            <button
+                            <Button
                                 type="submit"
-                                className="btn btn-primary btn-lg"
                                 onClick={this.handleSubmitClicked}>
                                 Sign In
-                            </button>
+                            </Button>
                         </div>
                     </form>
                     <div className="text-center">
                         Don't have an account?
                         <Link to="/signup"> Sign up</Link>
                     </div>
-                </Card>
+                </div>
 
         );
     }

@@ -1,0 +1,44 @@
+@import "../../scss/variables";
+
+.text_field {
+  .text_field_input {
+    display: block;
+    margin: 5px 0;
+    padding: 5px 14px 7px;
+    width: 100%;
+    min-width: 0;
+    height: 1.1876em;
+    border: 1px solid #9c9c9c;
+    border-radius: 5px;
+    color: currentColor;
+    background: none;
+    font-size: $base_font_size;
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  .text_field_label {
+    opacity: 0;
+    position: absolute;
+    transform: translate(15px, 7px);
+    font-size: $base_font_size;
+    transition: transform 0.35s ease,
+                font-size 0.35s ease,
+                opacity 0.35s ease;
+    pointer-events: none;
+
+    &.focus {
+      padding: 0 3px;
+      opacity: 1;
+      transform: translate(6px, -6px);
+      font-size: 10px;
+      background-color: $color_white;
+      transition: transform 0.35s ease,
+                  font-size 0.35s ease,
+                  opacity 0.35s ease;
+    }
+  }
+}

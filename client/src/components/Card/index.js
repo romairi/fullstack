@@ -1,9 +1,8 @@
 import React from 'react';
 
-
-export function Card({children, size}) {
+export function Card({children}) {
     return (
-        <div className="card col-lg-5">
+        <div className="card">
             <div className="card-body">
                 {children}
             </div>
