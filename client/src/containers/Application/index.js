@@ -8,7 +8,7 @@ function App({history}) {
     return (
         <div className="app-container">
             <Header/>
-            <div className="content container">
+            <div className="content">
                 <ConnectedRouter history={history}>
                     {routes}
                 </ConnectedRouter>
