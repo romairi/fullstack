@@ -11,20 +11,5 @@
     justify-content: center;
     width: 100vw;
   }
-
-  a:link, a:visited {
-    display: inline-block;
-    padding: 5px 10px;
-    text-align: center;
-    text-decoration: none;
-    color: $color_black;
-    font-weight: 500;
-  }
-
-  a:hover, a:active {
-    color: $primary_color;
-  }
-
-
 }
 

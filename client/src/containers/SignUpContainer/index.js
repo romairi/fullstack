@@ -15,7 +15,7 @@ import {
 } from "../BaseContainer/constants";
 import '../BaseContainer/base_container.scss';
 import {LOGIN_ROUTE} from "../../routes/constants";
-import {schemaSign} from '../BaseContainer/validations';
+import {schemaSignIn} from './validations';
 
 class SignUpContainer extends React.PureComponent {
 
@@ -47,7 +47,7 @@ class SignUpContainer extends React.PureComponent {
             ...restState
         } = this.state;
 
-        const results = schemaSign.validate({
+        const results = schemaSignIn.validate({
             [USER_NAME_FIELD]: user_name,
             [EMAIL_FIELD]: email,
             [PASSWORD_FIELD]: password,

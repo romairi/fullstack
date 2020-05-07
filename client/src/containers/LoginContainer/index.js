@@ -8,7 +8,7 @@ import Button from "../../components/Button";
 import TextField from "../../components/TextField";
 import {EMAIL_FIELD, EMAIL_FIELD_ERROR, PASSWORD_FIELD, PASSWORD_FIELD_ERROR} from "../BaseContainer/constants";
 import {SIGNUP_ROUTE, TODO_LIST_ROUTE} from '../../routes/constants';
-import {schema} from '../BaseContainer/validations';
+import {schemaLogin} from './validations';
 import '../BaseContainer/base_container.scss';
 
 
@@ -29,7 +29,7 @@ class LoginContainer extends React.PureComponent {
         event.preventDefault();
         const {[EMAIL_FIELD]: email, [PASSWORD_FIELD]: password, ...restState} = this.state;
 
-        const results = schema.validate({[EMAIL_FIELD]: email, [PASSWORD_FIELD]: password}, {abortEarly: false});
+        const results = schemaLogin.validate({[EMAIL_FIELD]: email, [PASSWORD_FIELD]: password}, {abortEarly: false});
 
         if (results.error) {
             const errors = results.error.details.reduce((acc, cur) => {
