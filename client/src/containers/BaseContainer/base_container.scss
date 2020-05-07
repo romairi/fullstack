@@ -1,0 +1,30 @@
+@import "../../scss/variables";
+
+.base-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  width: 100%;
+  background-color: $color_gray;
+}
+
+
+.nav-another-page {
+  margin-top: 5px;
+  padding: 5px 0 0 2px;
+
+  a:link, a:visited {
+    display: inline-block;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    color: $color_black;
+    font-weight: 500;
+  }
+
+  a:hover, a:active {
+    color: $primary_color;
+  }
+}
+

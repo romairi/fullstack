@@ -6,9 +6,11 @@ import {Link} from 'react-router-dom';
 import {Card} from "../../components/Card/index"
 import Button from "../../components/Button";
 import TextField from "../../components/TextField";
-import {EMAIL_FIELD, EMAIL_FIELD_ERROR, PASSWORD_FIELD, PASSWORD_FIELD_ERROR} from "./constants";
-import {SIGNUP_ROUTE} from '../../routes/constants';
-import {schema} from './validations';
+import {EMAIL_FIELD, EMAIL_FIELD_ERROR, PASSWORD_FIELD, PASSWORD_FIELD_ERROR} from "../BaseContainer/constants";
+import {SIGNUP_ROUTE, TODO_LIST_ROUTE} from '../../routes/constants';
+import {schemaLogin} from './validations';
+import '../BaseContainer/base_container.scss';
+
 
 class LoginContainer extends React.PureComponent {
     state = {
@@ -27,7 +29,7 @@ class LoginContainer extends React.PureComponent {
         event.preventDefault();
         const {[EMAIL_FIELD]: email, [PASSWORD_FIELD]: password, ...restState} = this.state;
 
-        const results = schema.validate({[EMAIL_FIELD]: email, [PASSWORD_FIELD]: password}, {abortEarly: false});
+        const results = schemaLogin.validate({[EMAIL_FIELD]: email, [PASSWORD_FIELD]: password}, {abortEarly: false});
 
         if (results.error) {
             const errors = results.error.details.reduce((acc, cur) => {
@@ -51,7 +53,7 @@ class LoginContainer extends React.PureComponent {
 
     redirectToHome = () => {
         // props.updateTitle('Home')
-        this.props.history.push('/todos');
+        this.props.history.push(TODO_LIST_ROUTE);
     };
 
 
@@ -63,13 +65,10 @@ class LoginContainer extends React.PureComponent {
             [PASSWORD_FIELD_ERROR]: password_error
         } = this.state;
         return (
-            <div className="login_container">
+            <div className="base-container">
                 <Card>
-                    <h2 className="card-title text-center mb-4 mt-1">Login</h2>
-                    <hr/>
-                    <p className="text-success text-center">Some message error</p>
+                    <h2 >Login</h2>
                     <form>
-                        <div className="form-group">
                             <TextField
                                 error={!_.isEmpty(email_error)}
                                 helperText={email_error}
@@ -78,9 +77,8 @@ class LoginContainer extends React.PureComponent {
                                 label="Email"
                                 required="required"
                                 value={email}
-                                onChange={this.handleChanged}/>
-                        </div>
-                        <div className="form-group">
+                                onChange={this.handleChanged}
+                            />
                             <TextField
                                 error={!_.isEmpty(password_error)}
                                 helperText={password_error}
@@ -89,15 +87,15 @@ class LoginContainer extends React.PureComponent {
                                 label="Password"
                                 required="required"
                                 value={password}
-                                onChange={this.handleChanged}/>
-                        </div>
+                                onChange={this.handleChanged}
+                            />
                         <Button
                             type="submit"
                             onClick={this.handleSubmitClicked}>
                             Sign In
                         </Button>
                     </form>
-                    <div className="text-center">
+                    <div className="nav-another-page">
                         Don't have an account?
                         <Link to={SIGNUP_ROUTE}> Sign up</Link>
                     </div>
