@@ -1,0 +1,17 @@
+@import "../../scss/variables";
+
+.base-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  width: 100%;
+  background-color: #f1f1f1;
+}
+
+
+.nav-another-page{
+  margin-top: 5px;
+  padding: 5px 0 0 2px;
+}
+

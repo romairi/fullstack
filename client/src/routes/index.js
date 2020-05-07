@@ -3,13 +3,13 @@ import {Route, Switch} from 'react-router'
 import TodoListContainer from "../containers/TodoListContainer";
 import SignUpContainer from "../containers/SignUpContainer";
 import LoginContainer from "../containers/LoginContainer";
-import {SIGNUP_ROUTE} from './constants';
+import {BASE_ROUTE, LOGIN_ROUTE, SIGNUP_ROUTE, TODO_LIST_ROUTE} from './constants';
 
 const routes = (
         <Switch>
-            <Route exact path="/" component={LoginContainer}/>
-            <Route exact path="/login" component={LoginContainer}/>
-            <Route exact path="/todos" component={TodoListContainer}/>
+            <Route exact path={BASE_ROUTE} component={LoginContainer}/>
+            <Route exact path={LOGIN_ROUTE} component={LoginContainer}/>
+            <Route exact path={TODO_LIST_ROUTE} component={TodoListContainer}/>
             <Route exact path={SIGNUP_ROUTE} component={SignUpContainer}/>
         </Switch>
 
