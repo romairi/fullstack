@@ -1,7 +1,7 @@
 @import "../../scss/variables";
 
 .btn {
-  margin: 5px 15px;;
+  margin: 5px 5px;
   font-weight: 400;
   color: $color_white;
   text-align: center;
@@ -24,5 +24,24 @@
     color: $color_black;
     background-color: $color_white;
   }
+
+  &.typeBtn {
+    margin: 15px 4px 15px 4px;
+    transition: color .15s ease-in-out,
+    background-color .15s ease-in-out,
+    border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    background-color: $primary_color;
+    border-color: $primary_color;
+  }
+
+  &:hover {
+    background-color: $border_color;
+    border-color: $border_color;
+  }
+  &:focus, &:hover {
+    text-decoration: none;
+  }
 }
+
+
 

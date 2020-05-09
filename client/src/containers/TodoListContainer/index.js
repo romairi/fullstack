@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import './index.css';
+import './index.scss';
 import TodoListHeader from "../../components/TodoListHeader";
 import TodoList from "../../components/TodoList";
 import {createApiRequestAction} from "../../redux/middleware/ApiMiddleware/actions";

@@ -1,5 +1,7 @@
 import React from 'react';
-import './index.css';
+import './index.scss';
+import Button from "../Button";
+import TextField from "../TextField";
 
 export default class AddForm extends React.Component {
 
@@ -24,22 +26,17 @@ export default class AddForm extends React.Component {
     render() {
         return (
             <div className="add-form">
-                <form
-                    className="form-inline justify-content-sm-start mb-2 "
-                    onSubmit={this.onSubmit}>
-                    <div className="form-group mx-sm-1 mb-2 mt-2">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="new task"
-                            onChange={this.onTitleChange}
-                            value={this.state.title}
-                        />
-                    </div>
-                    <button
-                        className="btn btn-primary mb-2 mt-2">
+                <form className="form-items"
+                      onSubmit={this.onSubmit}>
+                    <TextField
+                        type="text"
+                        label="new task"
+                        onChange={this.onTitleChange}
+                        value={this.state.title}
+                    />
+                    <Button typeBtn>
                         add
-                    </button>
+                    </Button>
                 </form>
             </div>
         );

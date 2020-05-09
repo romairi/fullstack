@@ -1,16 +1,19 @@
-$todo_color: #e73e3ebd;
-$in_done: #42a56a;
-$in_progress: #df60df;
+@import "../../../scss/variables";
 
 $statuses: ("todo": $todo_color, "in_progress": $in_progress, "done": $in_done);
 
 .list-group-item {
-  border: 2px solid #0077d2;
+  border: 2px solid $border_color;
   display: flex;
   justify-content: space-between;
   position: relative;
-  padding: .75rem 1.25rem;
-  background-color: #fff;
+  padding: .50rem 1rem;
+  background-color: $color_white;
+  border-radius: 25px;
+
+  .item_title {
+    margin-top: 10px;
+  }
 
   @each $status, $color in $statuses {
     &.status_#{$status} .item_title{
@@ -18,3 +21,5 @@ $statuses: ("todo": $todo_color, "in_progress": $in_progress, "done": $in_done);
     }
   }
 }
+
+

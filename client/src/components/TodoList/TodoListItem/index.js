@@ -1,16 +1,17 @@
 import React from 'react';
 import './index.scss';
 import {AVAILABLE_STATUSES_BY_STATUS, NAME_BY_STATUS} from "../../../constants";
+import Button from "../../Button";
 
 export default class TodoListItem extends React.Component {
 
     renderChangeStatusButtons() {
         const {todoId, status, onChangeStatusClicked} = this.props;
         return AVAILABLE_STATUSES_BY_STATUS[status].map((status, idx) => (
-            <button key={`${idx}_${status}`} className="btn btn-outline-secondary btn-sm"
+            <Button  key={`${idx}_${status}`}
                     onClick={() => onChangeStatusClicked(todoId, status)}>
                 {NAME_BY_STATUS[status]}
-            </button>
+            </Button>
         ));
     }
 
@@ -25,10 +26,10 @@ export default class TodoListItem extends React.Component {
                 </div>
                 <div className="item_options">
                     {this.renderChangeStatusButtons()}
-                    <button className="btn btn-outline-danger btn-sm"
-                            onClick={() => onRemoveClicked(todoId)}>
+                    <Button
+                        onClick={() => onRemoveClicked(todoId)}>
                         <i className="fa fa-trash-o"/>
-                    </button>
+                    </Button>
                 </div>
             </li>
         );
