@@ -1,7 +1,8 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const todoItemRoutes = require('./server/todoItem/todoItem.route');
+const routes = require('./server/routes');
+const {auth} = require('./server/user/user.middleware');
 const serverConfig = require('./server/configs/serverConfig');
 const { logErrors, clientErrorHandler, errorHandler } = require('./server/services/errorHandling');
 
@@ -12,11 +13,8 @@ mongoose.connect(serverConfig.mongo.hostUri, { useNewUrlParser: true, useUnified
 app.use(express.json());
 app.use('/static', express.static(path.join(__dirname + '/client/build/static')));
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname + '/client/build/index.html'));
-});
+app.use('/', auth, routes);
 
-app.use('/api/todo_item', todoItemRoutes);
 app.use(logErrors);
 app.use(clientErrorHandler);
 app.use(errorHandler);
