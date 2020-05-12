@@ -6,107 +6,56 @@ import {Link} from 'react-router-dom';
 import {Card} from "../../components/Card/index"
 import Button from "../../components/Button";
 import TextField from "../../components/TextField";
-import {EMAIL_FIELD, EMAIL_FIELD_ERROR, PASSWORD_FIELD, PASSWORD_FIELD_ERROR} from "../BaseContainer/constants";
+import {EMAIL_FIELD,  PASSWORD_FIELD} from "../BaseContainer/constants";
 import {SIGNUP_ROUTE, TODO_LIST_ROUTE} from '../../routes/constants';
 import {schemaLogin} from './validations';
 import '../BaseContainer/base_container.scss';
+import useForm from "../../hooks/useForm";
 
-
-class LoginContainer extends React.PureComponent {
-    state = {
-        [EMAIL_FIELD]: '',
-        [PASSWORD_FIELD]: '',
-        [EMAIL_FIELD_ERROR]: '',
-        [PASSWORD_FIELD_ERROR]: '',
+function LoginContainer({}) {
+    const onSubmit = values => {
+        console.log(values);
     };
 
-    handleChanged = event => {
-        const {id, value} = event.target;
-        this.setState({[id]: value});
-    };
-
-    handleSubmitClicked = event => {
-        event.preventDefault();
-        const {[EMAIL_FIELD]: email, [PASSWORD_FIELD]: password, ...restState} = this.state;
-
-        const results = schemaLogin.validate({[EMAIL_FIELD]: email, [PASSWORD_FIELD]: password}, {abortEarly: false});
-
-        if (results.error) {
-            const errors = results.error.details.reduce((acc, cur) => {
-                acc[cur.context.key] = cur.message;
-                return acc;
-            }, {});
-
-            this.setState({
-                [EMAIL_FIELD_ERROR]: errors[EMAIL_FIELD],
-                [PASSWORD_FIELD_ERROR]: errors[PASSWORD_FIELD],
-            });
-            return;
-        }
-
-        this.setState({
-            [EMAIL_FIELD_ERROR]: '',
-            [PASSWORD_FIELD_ERROR]: '',
-        });
-        //TODO send request to the server
-    };
-
-    redirectToHome = () => {
-        // props.updateTitle('Home')
-        this.props.history.push(TODO_LIST_ROUTE);
-    };
-
-
-    render() {
-        const {
-            [EMAIL_FIELD]: email,
-            [PASSWORD_FIELD]: password,
-            [EMAIL_FIELD_ERROR]: email_error,
-            [PASSWORD_FIELD_ERROR]: password_error
-        } = this.state;
-        return (
-            <div className="base-container">
-                <Card>
-                    <h2 >Login</h2>
-                    <form>
-                            <TextField
-                                error={!_.isEmpty(email_error)}
-                                helperText={email_error}
-                                type="email"
-                                id={EMAIL_FIELD}
-                                label="Email"
-                                required="required"
-                                value={email}
-                                onChange={this.handleChanged}
-                            />
-                            <TextField
-                                error={!_.isEmpty(password_error)}
-                                helperText={password_error}
-                                type="password"
-                                id={PASSWORD_FIELD}
-                                label="Password"
-                                required="required"
-                                value={password}
-                                onChange={this.handleChanged}
-                            />
-                        <Button
-                            type="submit"
-                            onClick={this.handleSubmitClicked}>
-                            Sign In
-                        </Button>
-                    </form>
-                    <div className="nav-another-page">
-                        Don't have an account?
-                        <Link to={SIGNUP_ROUTE}> Sign up</Link>
-                    </div>
-                </Card>
-            </div>
-        );
-    }
+    const {values, errors, handleChange, handleSubmit} = useForm(schemaLogin, onSubmit);
+    return (
+        <div className="base-container">
+            <Card>
+                <h2>Login</h2>
+                <form>
+                    <TextField
+                        error={!_.isEmpty(errors[EMAIL_FIELD])}
+                        helperText={errors[EMAIL_FIELD]}
+                        type="email"
+                        id={EMAIL_FIELD}
+                        label="Email"
+                        required="required"
+                        value={values[EMAIL_FIELD]}
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        error={!_.isEmpty(errors[PASSWORD_FIELD])}
+                        helperText={errors[PASSWORD_FIELD]}
+                        type="password"
+                        id={PASSWORD_FIELD}
+                        label="Password"
+                        required="required"
+                        value={values[PASSWORD_FIELD]}
+                        onChange={handleChange}
+                    />
+                    <Button
+                        type="submit"
+                        onClick={handleSubmit}>
+                        Sign In
+                    </Button>
+                </form>
+                <div className="nav-another-page">
+                    Don't have an account?
+                    <Link to={SIGNUP_ROUTE}> Sign up</Link>
+                </div>
+            </Card>
+        </div>
+    );
 }
 
-const mapStateToProps = state => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
+export default LoginContainer;

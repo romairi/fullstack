@@ -1,9 +1,10 @@
 import React from 'react';
 import './index.scss';
+import _ from 'lodash';
 import {buildClassName} from "../../services/classNameService";
 
-export default function TextField({className, label, helperText, error, onChange, ...resProps}) {
-    const [onFocus, setOnFocus] = React.useState(false);
+export default function TextField({className, label, helperText, error, onChange = _.noop, onFocus = _.noop, onBlur = _.noop, ...resProps}) {
+    const [onFocusValue, setOnFocus] = React.useState(false);
     const [isEmptyField, setIsEmptyField] = React.useState(true);
 
     const onChangeCb = event => {
@@ -11,14 +12,25 @@ export default function TextField({className, label, helperText, error, onChange
         onChange(event);
     };
 
+    const onFocusCb = event => {
+        setOnFocus(true);
+        onFocus(event);
+    };
+
+    const onBlurCb = event => {
+        setOnFocus(false);
+        onBlur(event);
+    };
+
     return (
         <div className={buildClassName(['text_field', error && 'error', className])}>
-            <span className={buildClassName(['text_field_label', (onFocus || !isEmptyField) && 'focus'])}>{label}</span>
+            <span
+                className={buildClassName(['text_field_label', (onFocusValue || !isEmptyField) && 'focus'])}>{label}</span>
             <input
                 className='text_field_input'
-                placeholder={onFocus ? '' : label}
-                onFocus={() => setOnFocus(true)}
-                onBlur={() => setOnFocus(false)}
+                placeholder={onFocusValue ? '' : label}
+                onFocus={onFocusCb}
+                onBlur={onBlurCb}
                 onChange={onChangeCb}
                 {...resProps}
             />
