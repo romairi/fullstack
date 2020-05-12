@@ -1,9 +1,18 @@
 @import "../../scss/variables";
 
+//.header {
+//    height: 40px;
+//    width: 100%;
+//    background: $primary_color;
+//    color: $color_white;
+//}
 .header {
-    height: 40px;
     width: 100%;
-    background: $primary_color;
+    position: fixed;
+    top:0;
+    left:0;
+    background: $primary_color;;
     color: $color_white;
+    padding: 16px 16px;
 }
 

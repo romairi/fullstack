@@ -28,7 +28,7 @@ export default class TodoListItem extends React.Component {
                     {this.renderChangeStatusButtons()}
                     <Button
                         onClick={() => onRemoveClicked(todoId)}>
-                        <i className="fa fa-trash-o"/>
+                        <i className="fa fa-trash-o icon"/>
                     </Button>
                 </div>
             </li>

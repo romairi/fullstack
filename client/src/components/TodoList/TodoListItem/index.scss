@@ -7,18 +7,26 @@ $statuses: ("todo": $todo_color, "in_progress": $in_progress, "done": $in_done);
   display: flex;
   justify-content: space-between;
   position: relative;
-  padding: .50rem 1rem;
+  padding: 5px 8px 8px 12px;
   background-color: $color_white;
-  border-radius: 25px;
+  border-radius: 15px;
+  border-bottom: none;
 
   .item_title {
     margin-top: 10px;
   }
 
+  &:last-child {
+    border-bottom: 2px solid $border_color;
+  }
   @each $status, $color in $statuses {
     &.status_#{$status} .item_title{
       color: $color;
     }
+  }
+
+  .icon {
+    padding: 3px;
   }
 }
 
