@@ -12,7 +12,7 @@ import {schemaLogin} from './validations';
 import '../BaseContainer/base_container.scss';
 import useForm from "../../hooks/useForm";
 
-function LoginContainer({}) {
+export default function LoginContainer({}) {
     const onSubmit = values => {
         console.log(values);
     };
@@ -57,5 +57,3 @@ function LoginContainer({}) {
         </div>
     );
 }
-
-export default LoginContainer;
