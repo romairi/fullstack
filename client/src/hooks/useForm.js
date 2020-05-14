@@ -1,19 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-
-const validateValues = (values, schema) => {
-    const results = schema.validate(values, {abortEarly: false});
-    let errors = {};
-
-    if (results.error) {
-        errors = results.error.details.reduce((acc, cur) => {
-            acc[cur.context.key] = cur.message;
-            return acc;
-        }, {});
-    }
-    return errors;
-};
-
+import validateValues from '../services/validateValuesService';
 
 const useForm = (schema = _.noop, callback = _.noop) => {
     const [values, setValues] = React.useState({});
