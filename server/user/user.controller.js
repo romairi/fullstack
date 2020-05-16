@@ -1,16 +1,29 @@
+import validateValues from "../../client/src/services/validateValuesService";
+import _ from 'lodash';
 const UserModel = require('./user.model');
 const HttpStatus = require('http-status-codes');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const serverConfig = require('../configs/serverConfig');
+const {loginSchema, signupSchema} = require('./user.validation');
+
 
 async function signup(req, res, next) {
+
+    const {errors} = validateValues(req, signupSchema);
+
+    if (!(_.isEmpty(errors))) {
+        res.status(HttpStatus.BAD_REQUEST).json(errors);
+        return;
+    }
+
     const {name, email, password} = req.body;
 
     try {
+
         const foundUser = await UserModel.findOne({email});
-        if(foundUser) {
-            res.status(HttpStatus.BAD_REQUEST).json({type: 'error', message: 'email already in use'});
+        if (foundUser) {
+            res.status(HttpStatus.BAD_REQUEST).json({type: 'error', message: 'email already exists'});
             return;
         }
 
@@ -20,7 +33,13 @@ async function signup(req, res, next) {
         const newUser = new UserModel({name, email, password: hashedPassword});
         const user = await newUser.save();
 
-        const token = jwt.sign({_id: user._id}, serverConfig.jwt.secret, {expiresIn: '24h'});
+        const payload = {
+            user: {
+                id: user.id
+            }
+        };
+
+        const token = jwt.sign(payload, serverConfig.jwt.secret, {expiresIn: '24h'});
         const {password: userPass, ...userArgs} = user.toObject();
 
         res
@@ -37,10 +56,54 @@ async function signup(req, res, next) {
 
 }
 
-function login(req, res, next) {
-    //TODO
+
+async function login(req, res, next) {
+
+    const {errors} = validateValues(req, loginSchema);
+
+    if (!(_.isEmpty(errors))) {
+        res.status(HttpStatus.BAD_REQUEST).json(errors);
+        return;
+    }
+
+    const {email, password} = req.body;
+
+    try {
+        const user = await UserModel.findOne({email});
+        if (!user) {
+            res.status(HttpStatus.BAD_REQUEST).json({type: 'error', message: 'Invalid identity data'});
+            return;
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) {
+            return res.status(HttpStatus.BAD_REQUEST).json({type: 'error', message: 'Invalid identity data'});
+        }
+
+        const payload = {
+            user: {
+                id: user.id
+            }
+        };
+
+        const token = jwt.sign(payload, serverConfig.jwt.secret, {expiresIn: '24h'});
+        const {password: userPass, ...userArgs} = user.toObject();
+
+        res
+            .cookie('token', token, {
+                expires: new Date(Date.now() + 86400000), // 24 X 60 X 60 X 1000
+                secure: false, //TODO change it when we move to ssl
+                httpOnly: true,
+            })
+            .json(userArgs);
+
+    } catch (err) {
+        next(error);
+    }
 
 }
+
 
 function logout(req, res, next) {
     if (req.authenticated) {
