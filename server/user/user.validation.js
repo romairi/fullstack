@@ -1,4 +1,4 @@
-const {Joi} = require('joi');
+const {Joi} = require('express-validation');
 const  {CONFIRM_PASSWORD_FIELD, EMAIL_FIELD, PASSWORD_FIELD, USER_NAME_FIELD} = require('./constants');
 
 const loginSchema = Joi.object({

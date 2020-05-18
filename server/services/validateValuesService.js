@@ -1,4 +1,4 @@
-export default function validateValues(values, schema) {
+function validateValues(values, schema) {
     const results = schema.validate(values, {abortEarly: false});
     let errors = {};
 
@@ -10,3 +10,5 @@ export default function validateValues(values, schema) {
     }
     return errors;
 };
+
+module.exports = validateValues;

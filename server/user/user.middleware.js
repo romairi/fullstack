@@ -20,8 +20,7 @@ async function auth(req, res, next) {
           authenticated = true;
 
       } catch (err) {
-          //return res.status(HttpStatus.UNAUTHORIZED).json({msg: 'Token is not valid'});
-          return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({msg: 'Server error'});
+          console.log(err);
       }
     }
 

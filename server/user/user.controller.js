@@ -1,10 +1,11 @@
-import validateValues from "../../client/src/services/validateValuesService";
-import _ from 'lodash';
-const UserModel = require('./user.model');
+const _ = require('lodash');
 const HttpStatus = require('http-status-codes');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const UserModel = require('./user.model');
 const serverConfig = require('../configs/serverConfig');
+const {ERROR_EMAIL_MESSAGE, ERROR_PASSWORD_MESSAGE, ERROR_EMAIL_EXIST_MESSAGE, EXPIRATION_TIME} = require("./constants");
+const {validateValues} = require('../services/validateValuesService');
 const {loginSchema, signupSchema} = require('./user.validation');
 
 
@@ -23,7 +24,7 @@ async function signup(req, res, next) {
 
         const foundUser = await UserModel.findOne({email});
         if (foundUser) {
-            res.status(HttpStatus.BAD_REQUEST).json({type: 'error', message: 'email already exists'});
+            res.status(HttpStatus.BAD_REQUEST).json({type: 'error', message: ERROR_EMAIL_EXIST_MESSAGE});
             return;
         }
 
@@ -33,13 +34,7 @@ async function signup(req, res, next) {
         const newUser = new UserModel({name, email, password: hashedPassword});
         const user = await newUser.save();
 
-        const payload = {
-            user: {
-                id: user.id
-            }
-        };
-
-        const token = jwt.sign(payload, serverConfig.jwt.secret, {expiresIn: '24h'});
+        const token = jwt.sign({_id: user._id}, serverConfig.jwt.secret, {expiresIn: EXPIRATION_TIME});
         const {password: userPass, ...userArgs} = user.toObject();
 
         res
@@ -56,7 +51,6 @@ async function signup(req, res, next) {
 
 }
 
-
 async function login(req, res, next) {
 
     const {errors} = validateValues(req, loginSchema);
@@ -71,23 +65,17 @@ async function login(req, res, next) {
     try {
         const user = await UserModel.findOne({email});
         if (!user) {
-            res.status(HttpStatus.BAD_REQUEST).json({type: 'error', message: 'Invalid identity data'});
+            res.status(HttpStatus.BAD_REQUEST).json({type: 'error', message: ERROR_EMAIL_MESSAGE});
             return;
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (!isMatch) {
-            return res.status(HttpStatus.BAD_REQUEST).json({type: 'error', message: 'Invalid identity data'});
+            return res.status(HttpStatus.BAD_REQUEST).json({type: 'error', message: ERROR_PASSWORD_MESSAGE});
         }
 
-        const payload = {
-            user: {
-                id: user.id
-            }
-        };
-
-        const token = jwt.sign(payload, serverConfig.jwt.secret, {expiresIn: '24h'});
+        const token = jwt.sign({_id: user._id}, serverConfig.jwt.secret, {expiresIn: EXPIRATION_TIME});
         const {password: userPass, ...userArgs} = user.toObject();
 
         res
