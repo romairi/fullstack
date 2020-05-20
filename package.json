@@ -11,9 +11,11 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@material-ui/core": "^4.9.12",
         "bcryptjs": "^2.4.3",
+        "body-parser": "^1.19.0",
+        "cookie-parser": "^1.4.5",
         "express": "4.17.1",
+        "express-validation": "^3.0.2",
         "http-status-codes": "^1.4.0",
         "jsonwebtoken": "^8.5.1",
         "lodash": "^4.17.15",

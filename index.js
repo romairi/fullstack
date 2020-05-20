@@ -1,20 +1,23 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 const routes = require('./server/routes');
 const {auth} = require('./server/user/user.middleware');
 const serverConfig = require('./server/configs/serverConfig');
-const { logErrors, clientErrorHandler, errorHandler } = require('./server/services/errorHandling');
+const {validationError, logErrors, clientErrorHandler, errorHandler} = require('./server/services/errorHandling');
 
 const app = express();
 
-mongoose.connect(serverConfig.mongo.hostUri, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(serverConfig.mongo.hostUri, {useNewUrlParser: true, useUnifiedTopology: true});
 
+app.use(cookieParser());
 app.use(express.json());
 app.use('/static', express.static(path.join(__dirname + '/client/build/static')));
-
 app.use('/', auth, routes);
 
+
+app.use(validationError);
 app.use(logErrors);
 app.use(clientErrorHandler);
 app.use(errorHandler);

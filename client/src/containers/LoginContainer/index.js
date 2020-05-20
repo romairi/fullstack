@@ -7,12 +7,11 @@ import {Card} from "../../components/Card/index"
 import Button from "../../components/Button";
 import TextField from "../../components/TextField";
 import {EMAIL_FIELD,  PASSWORD_FIELD} from "../BaseContainer/constants";
-import {SIGNUP_ROUTE, TODO_LIST_ROUTE} from '../../routes/constants';
+import {SIGNUP_ROUTE} from '../../routes/constants';
 import {schemaLogin} from './validations';
-import '../BaseContainer/base_container.scss';
 import useForm from "../../hooks/useForm";
 
-function LoginContainer({}) {
+export default function LoginContainer({}) {
     const onSubmit = values => {
         console.log(values);
     };
@@ -29,7 +28,6 @@ function LoginContainer({}) {
                         type="email"
                         id={EMAIL_FIELD}
                         label="Email"
-                        required="required"
                         value={values[EMAIL_FIELD]}
                         onChange={handleChange}
                     />
@@ -39,7 +37,6 @@ function LoginContainer({}) {
                         type="password"
                         id={PASSWORD_FIELD}
                         label="Password"
-                        required="required"
                         value={values[PASSWORD_FIELD]}
                         onChange={handleChange}
                     />
@@ -57,5 +54,3 @@ function LoginContainer({}) {
         </div>
     );
 }
-
-export default LoginContainer;
