@@ -1,9 +1,10 @@
 import React from 'react';
 import './index.scss';
+import {buildClassName} from "../../services/classNameService";
 
-export function Card({children}) {
+export function Card({children, className}) {
     return (
-        <div className="card">
+        <div className={buildClassName(['card', className])}>
             <div className="card-body">
                 {children}
             </div>

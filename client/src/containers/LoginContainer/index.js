@@ -7,9 +7,8 @@ import {Card} from "../../components/Card/index"
 import Button from "../../components/Button";
 import TextField from "../../components/TextField";
 import {EMAIL_FIELD,  PASSWORD_FIELD} from "../BaseContainer/constants";
-import {SIGNUP_ROUTE, TODO_LIST_ROUTE} from '../../routes/constants';
+import {SIGNUP_ROUTE} from '../../routes/constants';
 import {schemaLogin} from './validations';
-import '../BaseContainer/base_container.scss';
 import useForm from "../../hooks/useForm";
 
 export default function LoginContainer({}) {

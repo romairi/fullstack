@@ -1,8 +1,9 @@
 import React from 'react';
 import './index.scss';
 import _ from 'lodash';
-import {connect} from "react-redux";
+import {useDispatch} from "react-redux";
 import {Link} from 'react-router-dom';
+import {replace} from "connected-react-router";
 import {Card} from "../../components/Card";
 import TextField from "../../components/TextField";
 import Button from "../../components/Button";
@@ -12,22 +13,38 @@ import {
     PASSWORD_FIELD,
     USER_NAME_FIELD,
 } from "../BaseContainer/constants";
-import '../BaseContainer/base_container.scss';
-import {LOGIN_ROUTE} from "../../routes/constants";
+import {BASE_ROUTE, LOGIN_ROUTE} from "../../routes/constants";
 import {schemaSignIn} from './validations';
 import useForm from "../../hooks/useForm";
+import {signupAction} from './actions';
+import {createSetUserAction} from "../../redux/reducers/UserReducer/actions";
+import {GENERAL_ERROR_FIELD} from "../../hooks/constants";
+
+const Error = ({message}) => (
+    message ?
+        <p className='server_error'>
+            {message}
+        </p> : null
+);
 
 export default function SignUpContainer({}) {
+    const dispatch = useDispatch();
 
-    const onSubmit = values => {
-        console.log(values);
+    const onSuccess = response => {
+        dispatch(createSetUserAction(response.data));
+        dispatch(replace(BASE_ROUTE));
+    };
+
+
+    const onSubmit = (values, handleServerError) => {
+        dispatch(signupAction({data: values, onSuccess, onError: handleServerError}));
     };
 
     const {values, errors, handleChange, handleSubmit} = useForm(schemaSignIn, onSubmit);
 
     return (
         <div className="base-container">
-            <Card>
+            <Card className='signup_container'>
                 <h2>Sign Up</h2>
                 <form>
                     <TextField
@@ -66,6 +83,7 @@ export default function SignUpContainer({}) {
                         value={values[CONFIRM_PASSWORD_FIELD]}
                         onChange={handleChange}
                     />
+                    <Error message={errors[GENERAL_ERROR_FIELD]} />
                     <Button
                         type="submit"
                         onClick={handleSubmit}>

@@ -26,7 +26,7 @@ function loadUser(res, user) {
 }
 
 async function signup(req, res, next) {
-    const {name, email, password} = req.body;
+    const {username, email, password} = req.body;
 
     try {
 
@@ -39,7 +39,7 @@ async function signup(req, res, next) {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        const newUser = new UserModel({name, email, password: hashedPassword});
+        const newUser = new UserModel({username, email, password: hashedPassword});
         const user = await newUser.save();
 
         return loadUser(res, user);

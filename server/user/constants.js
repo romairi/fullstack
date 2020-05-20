@@ -1,7 +1,7 @@
 const EMAIL_FIELD = 'email';
 const PASSWORD_FIELD = 'password';
-const CONFIRM_PASSWORD_FIELD = 'confirm password';
-const USER_NAME_FIELD = 'user name';
+const CONFIRM_PASSWORD_FIELD = 'confirm_password';
+const USER_NAME_FIELD = 'username';
 const ERROR_EMAIL_EXIST_MESSAGE = 'Email already exists';
 const ERROR_MESSAGE = 'Email or Password is invalid';
 const TOKEN_EXPIRATION_TIME = '24h';
