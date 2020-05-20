@@ -29,7 +29,6 @@ export default function LoginContainer({}) {
                         type="email"
                         id={EMAIL_FIELD}
                         label="Email"
-                        required="required"
                         value={values[EMAIL_FIELD]}
                         onChange={handleChange}
                     />
@@ -39,7 +38,6 @@ export default function LoginContainer({}) {
                         type="password"
                         id={PASSWORD_FIELD}
                         label="Password"
-                        required="required"
                         value={values[PASSWORD_FIELD]}
                         onChange={handleChange}
                     />

@@ -35,8 +35,7 @@ export default function SignUpContainer({}) {
                         helperText={errors[USER_NAME_FIELD]}
                         type="text"
                         id={USER_NAME_FIELD}
-                        label="UserName"
-                        required="required"
+                        label="Username"
                         value={values[USER_NAME_FIELD]}
                         onChange={handleChange}
                     />
@@ -46,7 +45,6 @@ export default function SignUpContainer({}) {
                         type="email"
                         id={EMAIL_FIELD}
                         label="Email"
-                        required="required"
                         value={values[EMAIL_FIELD]}
                         onChange={handleChange}
                     />
@@ -56,7 +54,6 @@ export default function SignUpContainer({}) {
                         type="password"
                         id={PASSWORD_FIELD}
                         label="Password"
-                        required="required"
                         value={values[PASSWORD_FIELD]}
                         onChange={handleChange}
                     />
@@ -66,7 +63,6 @@ export default function SignUpContainer({}) {
                         type="password"
                         id={CONFIRM_PASSWORD_FIELD}
                         label="Confirm Password"
-                        required="required"
                         value={values[CONFIRM_PASSWORD_FIELD]}
                         onChange={handleChange}
                     />

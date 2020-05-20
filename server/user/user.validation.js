@@ -1,25 +1,30 @@
-const {Joi} = require('express-validation');
-const  {CONFIRM_PASSWORD_FIELD, EMAIL_FIELD, PASSWORD_FIELD, USER_NAME_FIELD} = require('./constants');
+const {validate, ValidationError, Joi} = require('express-validation');
+const {CONFIRM_PASSWORD_FIELD, EMAIL_FIELD, PASSWORD_FIELD, USER_NAME_FIELD} = require('./constants');
 
 const loginSchema = Joi.object({
     [EMAIL_FIELD]: Joi.string()
-        .email()
+        .email({minDomainSegments: 2, tlds: {allow: ["com", "net", "ru", "co.il"]}})
         .required(),
     [PASSWORD_FIELD]: Joi.string()
-        .regex(/[a-zA-Z0-9]{7,200}/)
+        .min(7)
         .required(),
 });
 
 
 const signupSchema = Joi.object({
-    [USER_NAME_FIELD]: Joi.string().required(),
-    email: Joi.string()
-        .email()
+    [USER_NAME_FIELD]: Joi.string()
+        .alphanum()
+        .min(3)
+        .max(15)
         .required(),
-    password: Joi.string()
-        .regex(/[a-zA-Z0-9]{7,200}/)
+
+    [EMAIL_FIELD]: Joi.string()
+        .email({minDomainSegments: 2, tlds: {allow: ["com", "net", "ru", "co.il"]}})
         .required(),
-    [CONFIRM_PASSWORD_FIELD]: Joi.any().valid(Joi.ref([PASSWORD_FIELD])).required()
+    [PASSWORD_FIELD]: Joi.string()
+        .min(7)
+        .required(),
+    [CONFIRM_PASSWORD_FIELD]: Joi.ref(PASSWORD_FIELD),
 });
 
 
