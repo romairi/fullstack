@@ -5,7 +5,7 @@ const USER_NAME_FIELD = 'user name';
 const ERROR_EMAIL_EXIST_MESSAGE = 'Email already exists';
 const ERROR_MESSAGE = 'Email or Password is invalid';
 const TOKEN_EXPIRATION_TIME = '24h';
-const COOKIE_EXPIRATION_TIME = '24h';
+const COOKIE_EXPIRATION_TIME = 86400000;
 
 
 module.exports = {

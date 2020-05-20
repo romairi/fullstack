@@ -3,8 +3,6 @@ const UserModel = require('./user.model');
 const serverConfig = require('../configs/serverConfig');
 
 async function auth(req, res, next) {
-    //Get token from header
-    // const token = req.header('x-auth-header');
     const {token} = req.cookies;
     let authenticated = false;
     let user = null;

@@ -10,19 +10,22 @@ const {
     TOKEN_EXPIRATION_TIME,
     COOKIE_EXPIRATION_TIME
 } = require("./constants");
-const {validateValues} = require('../services/validateValuesService');
-const {loginSchema, signupSchema} = require('./user.validation');
 
+function loadUser(res, user) {
+    const token = jwt.sign({_id: user._id}, serverConfig.jwt.secret, {expiresIn: TOKEN_EXPIRATION_TIME});
+    const {password: userPass, ...userArgs} = user.toObject();
+
+    res
+        .cookie('token', token, {
+            expires: new Date(Date.now() + COOKIE_EXPIRATION_TIME), // 24 X 60 X 60 X 1000
+            secure: false, //TODO change it when we move to ssl
+            httpOnly: true,
+        })
+        .json(userArgs);
+    return res;
+}
 
 async function signup(req, res, next) {
-
-    const {errors} = validateValues(req, signupSchema);
-
-    if (!(_.isEmpty(errors))) {
-        res.status(HttpStatus.BAD_REQUEST).json(errors);
-        return;
-    }
-
     const {name, email, password} = req.body;
 
     try {
@@ -39,16 +42,7 @@ async function signup(req, res, next) {
         const newUser = new UserModel({name, email, password: hashedPassword});
         const user = await newUser.save();
 
-        const token = jwt.sign({_id: user._id}, serverConfig.jwt.secret, {expiresIn: TOKEN_EXPIRATION_TIME});
-        const {password: userPass, ...userArgs} = user.toObject();
-
-        res
-            .cookie('token', token, {
-                expires: new Date(Date.now() + COOKIE_EXPIRATION_TIME), // 24 X 60 X 60 X 1000
-                secure: false, //TODO change it when we move to ssl
-                httpOnly: true,
-            })
-            .json(userArgs);
+        return loadUser(res, user);
 
     } catch (error) {
         next(error);
@@ -57,14 +51,6 @@ async function signup(req, res, next) {
 }
 
 async function login(req, res, next) {
-
-    const {errors} = validateValues(req, loginSchema);
-
-    if (!(_.isEmpty(errors))) {
-        res.status(HttpStatus.BAD_REQUEST).json(errors);
-        return;
-    }
-
     const {email, password} = req.body;
 
     try {
@@ -80,16 +66,7 @@ async function login(req, res, next) {
             return res.status(HttpStatus.BAD_REQUEST).json({type: 'error', message: ERROR_MESSAGE});
         }
 
-        const token = jwt.sign({_id: user._id}, serverConfig.jwt.secret, {expiresIn: TOKEN_EXPIRATION_TIME});
-        const {password: userPass, ...userArgs} = user.toObject();
-
-        res
-            .cookie('token', token, {
-                expires: new Date(Date.now() + COOKIE_EXPIRATION_TIME), // 24 X 60 X 60 X 1000
-                secure: false, //TODO change it when we move to ssl
-                httpOnly: true,
-            })
-            .json(userArgs);
+        return loadUser(res, user);
 
     } catch (err) {
         next(error);
