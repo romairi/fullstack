@@ -3,13 +3,6 @@ const TodoItemModel = require('./todoItem.model');
 const {STATUSES} = require('../constants');
 const HttpStatus = require('http-status-codes');
 
-let todoList = _.range(5).map(idx => ({
-    id: `todo_id_${idx}`,
-    title: `todo_title_${idx}`,
-    status: Object.values(STATUSES)[_.random(0, 2)],
-    date: (new Date()),
-}));
-
 async function getItems(req, res, next) {
     const todoItems = await TodoItemModel.find({});
     res.json(todoItems);
@@ -36,7 +29,6 @@ async function remove(req, res, next) {
     let msg = 'Todo_Item not deleted';
     let status = HttpStatus.BAD_REQUEST;
     let deletedCount;
-
     try {
         const deletedResponse = await TodoItemModel.deleteOne({_id: todoId});
         deletedCount = deletedResponse.deletedCount;
@@ -72,7 +64,7 @@ async function changeStatus(req, res, next) {
         }
 
         res.status(resStatus).json(todoItem);
-    } catch(err) {
+    } catch (err) {
         next(err);
     }
 }

@@ -5,7 +5,7 @@ const appConfig = {
 };
 
 if (env !== 'production') {
-    appConfig.watch = '.';
+    appConfig.watch = '*';
 }
 
 const baseConfig = {

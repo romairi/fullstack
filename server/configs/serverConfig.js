@@ -11,7 +11,10 @@ mongoConfig.hostUri = `mongodb://${mongoConfig.username}:${mongoConfig.password}
 const config = {
     env: envVar.NODE_ENV,
     port: envVar.PORT || 3000,
-    mongo: mongoConfig
+    mongo: mongoConfig,
+    jwt: {
+        secret: envVar.JWT_SECRET || 'sdflaskdhglkashdglkasdhgfklasdfh',
+    }
 };
 
 module.exports = config;

@@ -1,0 +1,16 @@
+@import "../../scss/variables";
+
+.card {
+  position: fixed;
+  padding: 20px 50px;
+  background-color: $color_white;
+  box-shadow: 0 0 30px 0 rgba(15, 15, 15, 0.2);
+
+  h2 {
+    text-align: center;
+  }
+}
+
+.card-body {
+  margin: 0 auto;
+}

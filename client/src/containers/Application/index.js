@@ -1,22 +1,48 @@
 import React from 'react';
-import {ConnectedRouter} from 'connected-react-router'
-import './index.css';
+import {connect} from "react-redux";
+import {ConnectedRouter, replace} from 'connected-react-router'
+import _ from 'lodash';
+import './index.scss';
 import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 import routes from "../../routes";
+import {BASE_ROUTE, LOGIN_ROUTE, SIGNUP_ROUTE} from "../../routes/constants";
 
-function App({history}) {
-    return (
-        <div className="app-container">
-            <Header/>
-            <div className="content container">
-                <ConnectedRouter history={history}>
-                    {routes}
-                </ConnectedRouter>
+class App extends React.PureComponent {
+
+    componentDidMount() {
+        const {user, router} = this.props;
+
+        if (_.isEmpty(user) && !_.find([LOGIN_ROUTE, SIGNUP_ROUTE], path => path === router.location.pathname)) {
+            this.props.replace(LOGIN_ROUTE);
+        } else if (!_.isEmpty(user) && _.find([LOGIN_ROUTE, SIGNUP_ROUTE], path => path === router.location.pathname)) {
+            this.props.replace(BASE_ROUTE);
+        }
+
+    }
+
+    render({history}) {
+        return (
+            <div className="app-container">
+                <Header/>
+                <div className="content">
+                    <ConnectedRouter history={history}>
+                        {routes}
+                    </ConnectedRouter>
+                </div>
             </div>
-            <Footer/>
-        </div>
-    );
+        );
+    }
+
 }
 
-export default App;
+const mapStateToProps = state => ({
+    router: state.router,
+    user: state.user,
+});
+
+const mapDispatchToProps = {
+    replace,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
