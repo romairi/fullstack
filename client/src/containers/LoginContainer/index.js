@@ -8,7 +8,7 @@ import {Card} from "../../components/Card/index"
 import Button from "../../components/Button";
 import TextField from "../../components/TextField";
 import {EMAIL_FIELD, PASSWORD_FIELD} from "./constants";
-import {SIGNUP_ROUTE, TODO_LIST_ROUTE} from '../../routes/constants';
+import {BASE_ROUTE, SIGNUP_ROUTE} from '../../routes/constants';
 import {schemaLogin} from './validations';
 import useForm from "../../hooks/useForm";
 import {loginAction} from './actions';
@@ -30,7 +30,7 @@ export default function LoginContainer({}) {
 
     const onSuccess = response => {
         dispatch(createSetUserAction(response.data));
-        dispatch(replace(TODO_LIST_ROUTE));
+        dispatch(replace(BASE_ROUTE));
     };
 
     const onSubmit = (values, handleServerError) => {
