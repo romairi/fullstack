@@ -40,7 +40,7 @@ export default function LoginContainer({}) {
     const {values, errors, handleChange, handleSubmit} = useForm(schemaLogin, onSubmit);
     return (
         <div className="base-container">
-            <Card>
+            <Card className="login_container">
                 <h2>Login</h2>
                 <form>
                     <TextField

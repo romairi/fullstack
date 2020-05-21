@@ -20,7 +20,9 @@ class App extends React.PureComponent {
 
     }
 
-    render({history}) {
+    render() {
+        const {history} = this.props;
+
         return (
             <div className="app-container">
                 <Header/>

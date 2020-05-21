@@ -2,8 +2,9 @@
 
 .signup_container {
   .server_error {
-  //  TODO add color red and a little bit of padding
-    color: red;
-    padding: 5px;
+    color: $error_color;
+    padding: 1rem 0;
+    margin: 0;
+    text-align: center;
   }
 }
