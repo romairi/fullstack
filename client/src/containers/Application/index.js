@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {ConnectedRouter, replace} from 'connected-react-router'
+import {ConnectedRouter, replace} from 'connected-react-router';
 import _ from 'lodash';
 import './index.scss';
 import Header from "../../components/Header";

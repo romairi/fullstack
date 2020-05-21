@@ -1,5 +1,9 @@
+@import "../../scss/variables";
+
 .signup_container {
   .server_error {
   //  TODO add color red and a little bit of padding
+    color: red;
+    padding: 5px;
   }
 }
