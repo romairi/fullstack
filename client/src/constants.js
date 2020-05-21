@@ -28,7 +28,7 @@ const BASE_API_PATH = '/api';
 const AUTH_PATH = `${BASE_API_PATH}/auth`;
 export const LOGIN_PATH = `${AUTH_PATH}/login`;
 export const SIGNUP_PATH = `${AUTH_PATH}/signup`;
-export const logout_PATH = `${AUTH_PATH}/logout`;
+export const LOGOUT_PATH = `${AUTH_PATH}/logout`;
 
 // TODO_ITEM API
 const TODO_ITEM_API_PATH = `${BASE_API_PATH}/todo_item`;

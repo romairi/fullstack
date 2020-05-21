@@ -12,7 +12,7 @@ import {
     CONFIRM_PASSWORD_FIELD,
     PASSWORD_FIELD,
     USER_NAME_FIELD,
-} from "../BaseContainer/constants";
+} from "./constants";
 import {BASE_ROUTE, LOGIN_ROUTE} from "../../routes/constants";
 import {schemaSignIn} from './validations';
 import useForm from "../../hooks/useForm";
