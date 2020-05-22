@@ -9,6 +9,6 @@ function validateValues(values, schema) {
         }, {});
     }
     return errors;
-};
+}
 
 module.exports = validateValues;
