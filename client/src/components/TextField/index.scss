@@ -5,7 +5,7 @@
 
   .text_field_input {
     display: block;
-    margin: 5px 5px;
+    margin: 5px 15px;
     padding: 5px 14px 2px;
     height: 2.5rem;
     border: 1px solid #9c9c9c;
@@ -26,8 +26,8 @@
     transform: translate(15px, 7px);
     font-size: $base_font_size;
     transition: transform 0.35s ease,
-                font-size 0.35s ease,
-                opacity 0.35s ease;
+    font-size 0.35s ease,
+    opacity 0.35s ease;
     pointer-events: none;
 
     &.focus {
@@ -37,8 +37,8 @@
       font-size: 10px;
       background-color: $color_white;
       transition: transform 0.35s ease,
-                  font-size 0.35s ease,
-                  opacity 0.35s ease;
+      font-size 0.35s ease,
+      opacity 0.35s ease;
     }
   }
 
@@ -46,15 +46,18 @@
     .text_field_input {
       border-color: $error_color;
     }
+
     .text_field_label {
       color: $error_color;
     }
+
     .text_field_helper_text {
-      color: $error_color;
-      word-wrap: break-word;
+      display: block;
       width: 215px;
-      margin: 0 auto;
+      word-wrap: break-word;
       text-align: center;
+      margin: 0 auto;
+      color: $error_color;
     }
   }
 }

@@ -5,13 +5,13 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 100%;
+  height: 100vh;
 
   .content {
     display: flex;
     justify-content: center;
     width: 100vw;
-    height: 100%;
+    height: 100vh;
   }
 
   .base-container {
@@ -19,9 +19,9 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    height: 100vh;
     background-color: $color_gray;
   }
-
 
   .nav-another-page {
     margin-top: 5px;
@@ -41,4 +41,26 @@
     }
   }
 
+}
+
+
+@media (min-width: 40rem) {
+  .base-container h2{
+    font-size: 2rem;
+  }
+
+  .base-container {
+    height: 100vh;
+  }
+}
+
+
+@media (min-width: 60rem) {
+  .base-container h2{
+    font-size: 3rem;
+  }
+
+  .base-container {
+    height: 100vh;
+  }
 }
