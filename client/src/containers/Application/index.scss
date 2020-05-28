@@ -55,12 +55,28 @@
 }
 
 
-@media (min-width: 60rem) {
-  .base-container h2{
-    font-size: 3rem;
-  }
+//@media (min-width: 60rem) {
+//  .base-container h2{
+//    font-size: 3rem;
+//  }
+//
+//  .base-container {
+//    height: 100vh;
+//  }
+//}
 
-  .base-container {
-    height: 100vh;
+@media (min-width: 450px) and (max-width: 736px) {
+  .app-container .nav-another-page {
+    margin-top: 2px;
+    padding: 0 0 0 2px;
+
+    a:link, a:visited {
+      display: inline-block;
+      padding: 3px 6px;
+      text-align: center;
+      text-decoration: none;
+      color: $color_black;
+      font-weight: 500;
+    }
   }
 }

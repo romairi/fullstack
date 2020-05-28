@@ -45,3 +45,27 @@
     background: white;
     border: none;
 }
+
+@media (min-width: 450px) and (max-width: 736px){
+    .header {
+        height: 20px;
+    }
+
+    .main-nav-item {
+        display: inline-block;
+        right: 10px;
+        top: 5px;
+        position: fixed;
+        text-decoration: none;
+    }
+
+    .main-nav-item a {
+        text-decoration: none;
+        font-weight: bold;
+        color: white;
+        background: $logout_color;
+        padding: 0.1rem 0.2rem;
+        border-radius: 5px;
+        text-align: center;
+    }
+}
