@@ -25,9 +25,9 @@ class App extends React.PureComponent {
 
         return (
             <div className="app-container">
-                <Header/>
                 <div className="content">
                     <ConnectedRouter history={history}>
+                        <Header/>
                         {routes}
                     </ConnectedRouter>
                 </div>

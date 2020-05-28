@@ -1,6 +1,7 @@
 import React from 'react';
 import './index.scss'
 import {LOGIN_ROUTE} from '../../routes/constants';
+import {Link} from "react-router-dom";
 
 
 export default function Header() {
@@ -9,7 +10,7 @@ export default function Header() {
             <nav className="main-nav">
                 <ul className="main-nav-items">
                     <li className="main-nav-item">
-                        <a href='/'>Logout</a>
+                        <Link to={LOGIN_ROUTE}>Logout</Link>
                     </li>
                 </ul>
             </nav>
