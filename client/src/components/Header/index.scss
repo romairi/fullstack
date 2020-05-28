@@ -1,11 +1,5 @@
 @import "../../scss/variables";
 
-//.header {
-//    height: 40px;
-//    width: 100%;
-//    background: $primary_color;
-//    color: $color_white;
-//}
 .header {
     width: 100%;
     position: fixed;
@@ -16,3 +10,38 @@
     padding: 16px 16px;
 }
 
+.main-nav {
+    display: inline-block;
+    text-align: right;
+    width: calc(100% - 30px);
+    vertical-align: middle;
+
+}
+
+.main-nav-items {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.main-nav-item {
+    display: inline-block;
+    margin: 0 3px;
+    text-decoration: none;
+}
+
+.main-nav-item a {
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    background: $logout_color;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+}
+
+.main-nav-item a:hover,
+.main-nav-item a:active {
+    color: $logout_color;
+    background: white;
+    border: none;
+}
