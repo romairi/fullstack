@@ -9,4 +9,10 @@
     width: 215px;
     word-wrap: break-word;
   }
+
+  .form-login {
+    display: flex;
+    flex-direction: column;
+    margin: 3px;
+  }
 }
