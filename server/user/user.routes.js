@@ -9,3 +9,4 @@ router.post('/login', validate(paramValidation.login), login);
 router.get('/logout', logout);
 
 module.exports = router;
+

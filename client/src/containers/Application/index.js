@@ -1,9 +1,9 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {ConnectedRouter, replace} from 'connected-react-router'
+import {ConnectedRouter, replace} from 'connected-react-router';
 import _ from 'lodash';
 import './index.scss';
-import Header from "../../components/Header";
+import Header from "../../containers/Header";
 import routes from "../../routes";
 import {BASE_ROUTE, LOGIN_ROUTE, SIGNUP_ROUTE} from "../../routes/constants";
 
@@ -20,12 +20,14 @@ class App extends React.PureComponent {
 
     }
 
-    render({history}) {
+    render() {
+        const {history} = this.props;
+
         return (
             <div className="app-container">
-                <Header/>
                 <div className="content">
                     <ConnectedRouter history={history}>
+                        <Header/>
                         {routes}
                     </ConnectedRouter>
                 </div>

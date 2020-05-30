@@ -34,7 +34,7 @@ export default function TextField({className, label, helperText, error, onChange
                 onChange={onChangeCb}
                 {...resProps}
             />
-            <span className='text_field_helper_text'>{helperText}</span>
+            <div className='text_field_helper_text'>{helperText}</div>
         </div>
     );
 }

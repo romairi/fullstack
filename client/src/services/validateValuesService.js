@@ -14,4 +14,3 @@ export function validateValues(values, schema) {
     }
     return errors;
 }
-

@@ -1,0 +1,12 @@
+@import "../../scss/variables";
+
+.login_container {
+  .server_error {
+    color: $error_color;
+    padding: 1rem 0;
+    margin: 0 auto;
+    text-align: center;
+    width: 215px;
+    word-wrap: break-word;
+  }
+}

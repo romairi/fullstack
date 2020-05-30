@@ -1,5 +1,5 @@
 import Joi from "@hapi/joi";
-import {CONFIRM_PASSWORD_FIELD, EMAIL_FIELD, PASSWORD_FIELD, USER_NAME_FIELD} from "../BaseContainer/constants";
+import {CONFIRM_PASSWORD_FIELD, EMAIL_FIELD, PASSWORD_FIELD, USER_NAME_FIELD} from "./constants";
 
 export const schemaSignIn = Joi.object({
     [USER_NAME_FIELD]: Joi.string()

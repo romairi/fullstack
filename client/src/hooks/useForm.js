@@ -10,10 +10,10 @@ const useForm = (schema = _.noop, callback = _.noop) => {
     const [isSubmitting, setIsSubmitting] = React.useState(false);
 
     const handleServerError = React.useCallback(err => {
-        debugger
+
         const errorData = err.response.data;
         if (_.isString(errorData)) {
-            setErrors({[GENERAL_ERROR_FIELD]: 'we have a temp error, please try again later'}); // TODO fix the message
+            setErrors({[GENERAL_ERROR_FIELD]: 'Oops! Something went wrong!'});
             return;
         }
         switch (errorData.name) {
