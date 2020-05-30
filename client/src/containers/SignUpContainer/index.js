@@ -46,7 +46,7 @@ export default function SignUpContainer({}) {
         <div className="base-container">
             <Card className='signup_container'>
                 <h2>Sign Up</h2>
-                <form>
+                <form className="form-signup">
                     <TextField
                         error={!_.isEmpty(errors[USER_NAME_FIELD])}
                         helperText={errors[USER_NAME_FIELD]}

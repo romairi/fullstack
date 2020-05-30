@@ -33,7 +33,7 @@
   }
 
   &.typeBtn {
-    margin: 15px 4px 15px 4px;
+    margin: 10px 4px 10px 4px;
     transition: color .15s ease-in-out,
     background-color .15s ease-in-out,
     border-color .15s ease-in-out, box-shadow .15s ease-in-out;
@@ -42,18 +42,26 @@
   }
 
   &.secondary {
-    background-color: $secondary_color;
+    text-decoration: none;
+    font-weight: bold;
+    color: $color_white;
+    background: $secondary_color;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    right: 10px;
+    top: 1px;
+    position: fixed;
 
     &:hover {
-      background-color: $secondary_color;
-      border-color: $secondary_color;
+      color: $secondary_color;
+      background: $color_white ;
+      border: none;
     }
 
     &.inverse {
       border: 1px solid $secondary_color;
     }
   }
-
 }
 
 

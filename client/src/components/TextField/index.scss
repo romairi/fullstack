@@ -1,10 +1,11 @@
 @import "../../scss/variables";
 
 .text_field {
-  margin: 10px 0;
+  margin: 5px 0;
 
   .text_field_input {
     display: block;
+    width: 96%;
     margin: 5px 5px;
     padding: 5px 14px 2px;
     height: 2.5rem;

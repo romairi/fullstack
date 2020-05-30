@@ -10,8 +10,7 @@ $statuses: ("todo": $todo_color, "in_progress": $in_progress, "done": $in_done);
   padding: 5px 8px 8px 12px;
   background-color: $color_white;
   border-radius: 15px;
-  border-bottom: none;
-
+  margin-bottom: 5px;
   .item_title {
     margin-top: 10px;
   }
