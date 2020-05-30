@@ -10,7 +10,11 @@ const middleware = app => {
     app.set('view engine', 'ejs');
     app.set('views', path.join(__dirname, './views'));
 
-    app.use(Fingerprint());
+    app.use(Fingerprint({
+        parameters: [
+            Fingerprint.useragent,
+        ],
+    }));
     app.use(cookieParser());
     app.use(express.json());
     console.log(path.join(__dirname + '/../client/build/static'));
