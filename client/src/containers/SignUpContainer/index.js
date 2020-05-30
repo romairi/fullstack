@@ -5,8 +5,8 @@ import {useDispatch} from "react-redux";
 import {Link} from 'react-router-dom';
 import {replace} from "connected-react-router";
 import {Card} from "../../components/Card";
-import TextField from "../../components/TextField";
-import Button from "../../components/Button";
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import {
     EMAIL_FIELD,
     CONFIRM_PASSWORD_FIELD,
@@ -86,6 +86,8 @@ export default function SignUpContainer({}) {
                     <Error message={errors[GENERAL_ERROR_FIELD]} />
                     <Button
                         type="submit"
+                        variant="contained"
+                        color="primary"
                         onClick={handleSubmit}>
                         Sign Up
                     </Button>

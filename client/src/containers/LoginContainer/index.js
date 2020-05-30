@@ -5,8 +5,8 @@ import {useDispatch} from "react-redux";
 import {Link} from 'react-router-dom';
 import {replace} from "connected-react-router";
 import {Card} from "../../components/Card/index"
-import Button from "../../components/Button";
-import TextField from "../../components/TextField";
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import {EMAIL_FIELD, PASSWORD_FIELD} from "./constants";
 import {BASE_ROUTE, SIGNUP_ROUTE} from '../../routes/constants';
 import {schemaLogin} from './validations';
@@ -63,10 +63,12 @@ export default function LoginContainer({}) {
                     />
                     <Error message={errors[GENERAL_ERROR_FIELD]} />
                     <Button
+                        variant="contained" color="primary"
                         type="submit"
                         onClick={handleSubmit}>
                         Sign In
                     </Button>
+
                 </form>
                 <div className="nav-another-page">
                     Don't have an account?
