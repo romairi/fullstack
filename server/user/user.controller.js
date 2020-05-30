@@ -11,8 +11,8 @@ const {
     COOKIE_EXPIRATION_TIME
 } = require("./constants");
 
-function loadUser(res, user) {
-    const token = jwt.sign({_id: user._id}, serverConfig.jwt.secret, {expiresIn: TOKEN_EXPIRATION_TIME});
+function loadUser(req, res, user) {
+    const token = jwt.sign({_id: user._id, hash: req.fingerprint.hash}, serverConfig.jwt.secret, {expiresIn: TOKEN_EXPIRATION_TIME});
     const {password: userPass, ...userArgs} = user.toObject();
 
     res
@@ -42,7 +42,7 @@ async function signup(req, res, next) {
         const newUser = new UserModel({username, email, password: hashedPassword});
         const user = await newUser.save();
 
-        return loadUser(res, user);
+        return loadUser(req, res, user);
 
     } catch (error) {
         next(error);
@@ -66,7 +66,7 @@ async function login(req, res, next) {
             return res.status(HttpStatus.BAD_REQUEST).json({type: 'error', message: ERROR_MESSAGE});
         }
 
-        return loadUser(res, user);
+        return loadUser(req, res, user);
 
     } catch (err) {
         next(error);

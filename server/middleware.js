@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const Fingerprint = require('express-fingerprint')
 const routes = require('./routes');
 const {auth} = require('./user/user.middleware');
 const {validationError, logErrors, clientErrorHandler, errorHandler} = require('./services/errorHandling');
@@ -9,6 +10,7 @@ const middleware = app => {
     app.set('view engine', 'ejs');
     app.set('views', path.join(__dirname, './views'));
 
+    app.use(Fingerprint());
     app.use(cookieParser());
     app.use(express.json());
     console.log(path.join(__dirname + '/../client/build/static'));

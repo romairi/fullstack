@@ -8,17 +8,21 @@ async function auth(req, res, next) {
     let user = null;
 
     if (token) {
-      try {
-          const decodedToken = jwt.verify(token, serverConfig.jwt.secret);
-          const userId = decodedToken._id;
-          const userObj = await UserModel.findById(userId);
-          const {password: userPass, ...useArgs} = userObj.toObject();
-          user = useArgs;
-          authenticated = true;
+        try {
+            const {_id: userId, hash} = jwt.verify(token, serverConfig.jwt.secret);
 
-      } catch (err) {
-          console.log(err);
-      }
+            if (hash === req.fingerprint.hash) {
+                const userObj = await UserModel.findById(userId);
+                const {password: userPass, ...useArgs} = userObj.toObject();
+                user = useArgs;
+                authenticated = true;
+            } else {
+                res.clearCookie('token');
+                // TODO add log about attempt to login with different fingerprint
+            }
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     req.authenticated = authenticated;
