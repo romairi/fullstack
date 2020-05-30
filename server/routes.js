@@ -1,5 +1,4 @@
 const express = require('express');
-const path = require('path');
 const todoItemRoutes = require('./todoItem/todoItem.route');
 const userRoutes = require('./user/user.routes');
 
@@ -10,7 +9,8 @@ router.use('/api/auth', userRoutes);
 router.use('/api/todo_item', todoItemRoutes);
 
 router.use('/', (req, res) => {
-    res.sendFile(path.join(__dirname + '/../client/build/index.html'));
+    const clientData = JSON.stringify({user: req.user});
+    res.render('index.ejs', {clientData, debug: false})
 });
 
 module.exports = router;

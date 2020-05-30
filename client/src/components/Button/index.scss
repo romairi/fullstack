@@ -17,6 +17,13 @@
   &:focus {
     outline: none;
     box-shadow: none;
+    text-decoration: none;
+  }
+
+  &:hover {
+    background-color: $border_color;
+    border-color: $border_color;
+    text-decoration: none;
   }
 
   &.inverse {
@@ -34,13 +41,19 @@
     border-color: $primary_color;
   }
 
-  &:hover {
-    background-color: $border_color;
-    border-color: $border_color;
+  &.secondary {
+    background-color: $secondary_color;
+
+    &:hover {
+      background-color: $secondary_color;
+      border-color: $secondary_color;
+    }
+
+    &.inverse {
+      border: 1px solid $secondary_color;
+    }
   }
-  &:focus, &:hover {
-    text-decoration: none;
-  }
+
 }
 
 
