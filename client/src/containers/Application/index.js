@@ -12,9 +12,11 @@ class App extends React.PureComponent {
     componentDidMount() {
         const {user, router} = this.props;
 
-        if (_.isEmpty(user) && !_.find([LOGIN_ROUTE, SIGNUP_ROUTE], path => path === router.location.pathname)) {
+        if (_.isEmpty(user) && !_.find([LOGIN_ROUTE, SIGNUP_ROUTE],
+            path => path === router.location.pathname)) {
             this.props.replace(LOGIN_ROUTE);
-        } else if (!_.isEmpty(user) && _.find([LOGIN_ROUTE, SIGNUP_ROUTE], path => path === router.location.pathname)) {
+        } else if (!_.isEmpty(user) && _.find([LOGIN_ROUTE, SIGNUP_ROUTE],
+            path => path === router.location.pathname)) {
             this.props.replace(BASE_ROUTE);
         }
 
@@ -25,10 +27,10 @@ class App extends React.PureComponent {
 
         return (
             <div className="app-container">
-                    <ConnectedRouter history={history}>
-                        <Header/>
-                        {routes}
-                    </ConnectedRouter>
+                <ConnectedRouter history={history}>
+                    <Header/>
+                    {routes}
+                </ConnectedRouter>
             </div>
         );
     }

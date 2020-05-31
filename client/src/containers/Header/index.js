@@ -3,7 +3,6 @@ import {useSelector, useDispatch} from "react-redux";
 import _ from 'lodash';
 import './index.scss'
 import {LOGIN_ROUTE} from '../../routes/constants';
-import {Link} from "react-router-dom";
 import {push} from "connected-react-router";
 import {logoutAction} from "./actions";
 import Button from '@material-ui/core/Button';
@@ -42,8 +41,8 @@ export default function Header() {
                             variant="contained"
                             size="medium"
                             color="secondary"
-                            onClick={handleButtonClick}
-                            >{buttonTitle}</Button>
+                            onClick={handleButtonClick}>{buttonTitle}
+                        </Button>
                     </li>
                 </ul>
             </nav>
