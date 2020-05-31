@@ -34,7 +34,11 @@ export default class AddForm extends React.Component {
                         onChange={this.onTitleChange}
                         value={this.state.title}
                     />
-                    <Button variant="contained" size="medium"  color="primary">
+                    <Button
+                        variant="contained"
+                        size="medium"
+                        color="primary"
+                        type="submit">
                         add
                     </Button>
                 </form>
