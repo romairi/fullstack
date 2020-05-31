@@ -38,6 +38,7 @@ export default function Header() {
                 <ul className="main-nav-items">
                     <li className="main-nav-item">
                         <Button
+                            className="header-btn"
                             variant="contained"
                             size="medium"
                             color="secondary"

@@ -9,12 +9,17 @@
     background: $primary_color;;
     color: $color_white;
     padding: 16px 16px;
+
+    .header-btn {
+        margin-top: -10px;
+    }
 }
 
 .main-nav {
     display: inline-block;
     text-align: right;
-    width: calc(100% - 30px);
+    //width: calc(100% - 10px);
+    width: 100%;
     vertical-align: middle;
 
 }
@@ -27,6 +32,6 @@
 
 .main-nav-item {
     display: inline-block;
-    margin: 0 3px;
+    //margin: 0 1px;
     text-decoration: none;
 }

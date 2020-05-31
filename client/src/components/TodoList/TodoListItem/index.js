@@ -8,7 +8,7 @@ export default class TodoListItem extends React.Component {
     renderChangeStatusButtons() {
         const {todoId, status, onChangeStatusClicked} = this.props;
         return AVAILABLE_STATUSES_BY_STATUS[status].map((status, idx) => (
-            <Button  variant="contained" size="small" color="secondary" key={`${idx}_${status}`}
+            <Button  className="todo-list-item-btn" size="small" variant="contained" color="inherit" key={`${idx}_${status}`}
                     onClick={() => onChangeStatusClicked(todoId, status)}>
                 {NAME_BY_STATUS[status]}
             </Button>
@@ -27,6 +27,8 @@ export default class TodoListItem extends React.Component {
                 <div className="item_options">
                     {this.renderChangeStatusButtons()}
                     <Button
+                        className="todo-list-item-btn"
+                        variant="contained" color="inherit"
                         onClick={() => onRemoveClicked(todoId)}>
                         <i className="fa fa-trash-o icon"/>
                     </Button>

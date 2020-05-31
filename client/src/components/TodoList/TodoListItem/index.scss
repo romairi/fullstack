@@ -18,6 +18,11 @@ $statuses: ("todo": $todo_color, "in_progress": $in_progress, "done": $in_done);
   &:last-child {
     border-bottom: 2px solid $border_color;
   }
+
+  .todo-list-item-btn {
+    margin: 2px;
+  }
+
   @each $status, $color in $statuses {
     &.status_#{$status} .item_title{
       color: $color;

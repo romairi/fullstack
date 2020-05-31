@@ -44,6 +44,7 @@ export default function LoginContainer({}) {
                 <h2>Login</h2>
                 <form className="form-login">
                     <TextField
+                        margin="dense"
                         error={!_.isEmpty(errors[EMAIL_FIELD])}
                         helperText={errors[EMAIL_FIELD]}
                         type="email"
@@ -53,6 +54,7 @@ export default function LoginContainer({}) {
                         onChange={handleChange}
                     />
                     <TextField
+                        margin="dense"
                         error={!_.isEmpty(errors[PASSWORD_FIELD])}
                         helperText={errors[PASSWORD_FIELD]}
                         type="password"
@@ -63,6 +65,7 @@ export default function LoginContainer({}) {
                     />
                     <Error message={errors[GENERAL_ERROR_FIELD]} />
                     <Button
+                        className="base-container-btn"
                         variant="contained" color="primary"
                         type="submit"
                         onClick={handleSubmit}>
