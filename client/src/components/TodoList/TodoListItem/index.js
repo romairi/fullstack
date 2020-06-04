@@ -10,7 +10,7 @@ export default class TodoListItem extends React.Component {
         return AVAILABLE_STATUSES_BY_STATUS[status].map((status, idx) => (
             <Button
                 className="todo-list-item-btn"
-                size="small" variant="contained"
+                variant="contained"
                 color="inherit"
                 key={`${idx}_${status}`}
                 onClick={() => onChangeStatusClicked(todoId, status)}>
@@ -32,7 +32,8 @@ export default class TodoListItem extends React.Component {
                     {this.renderChangeStatusButtons()}
                     <Button
                         className="todo-list-item-btn"
-                        variant="contained" color="inherit"
+                        variant="contained"
+                        color="inherit"
                         onClick={() => onRemoveClicked(todoId)}>
                         <i className="fa fa-trash-o icon"/>
                     </Button>
