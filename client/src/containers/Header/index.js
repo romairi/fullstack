@@ -6,6 +6,8 @@ import {LOGIN_ROUTE} from '../../routes/constants';
 import {push} from "connected-react-router";
 import {logoutAction} from "./actions";
 import Button from '@material-ui/core/Button';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 
 import {createSetUserAction} from "../../redux/reducers/UserReducer/actions";
 
@@ -32,20 +34,18 @@ export default function Header() {
     const buttonTitle = _.isEmpty(user) ? 'Login' : 'Logout';
 
     return (
-        <header className="header">
-            <nav className="main-nav">
-                <ul className="main-nav-items">
-                    <li className="main-nav-item">
-                        <Button
-                            className="header-btn"
-                            variant="contained"
-                            size="medium"
-                            color="secondary"
-                            onClick={handleButtonClick}>{buttonTitle}
-                        </Button>
-                    </li>
-                </ul>
-            </nav>
-        </header>
+    <div className="header">
+        <AppBar position="static">
+            <Toolbar>
+                <Button
+                    className="header-btn"
+                    variant="contained"
+                    size="medium"
+                    color="secondary"
+                    onClick={handleButtonClick}>{buttonTitle}
+                </Button>
+            </Toolbar>
+        </AppBar>
+    </div>
     )
 }

@@ -1,36 +1,7 @@
 @import "../../scss/variables";
 
 .header {
-    width: 100%;
-    height: 50px;
-    position: fixed;
-    top:0;
-    left:0;
-    background: $primary_color;;
-    color: $color_white;
-    padding: 16px 16px;
-
-    .header-btn {
-        margin-top: -10px;
+    .MuiToolbar-root {
+        justify-content: flex-end;
     }
-}
-
-.main-nav {
-    display: inline-block;
-    text-align: right;
-    width: 100%;
-    vertical-align: middle;
-
-}
-
-.main-nav-items {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.main-nav-item {
-    display: inline-block;
-    //margin: 0 1px;
-    text-decoration: none;
 }
