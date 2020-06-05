@@ -3,7 +3,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {getPapersAction} from "./actions";
 import {setPapersAction} from "../../redux/reducers/PapersReducer/actions";
 import PaperItem from "../../components/PaperItem";
-
+import {LINK_TYPE} from "./constants";
+import './index.scss';
 
 function PaperListContainer(props) {
     const papers = useSelector(state => state.papers);
@@ -21,7 +22,7 @@ function PaperListContainer(props) {
     }, []);
 
     const paperElements = papers.map(paper => {
-        const pdfLinkObject = paper.links.find(link => link.title === 'pdf');
+        const pdfLinkObject = paper.links.find(link => link.title === LINK_TYPE);
         const pdfLink = pdfLinkObject ? pdfLinkObject.href : null;
         return <PaperItem
             key={paper.id}

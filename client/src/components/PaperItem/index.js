@@ -1,6 +1,10 @@
 import React from 'react';
 import {buildClassName} from "../../services/classNameService";
 import Link from "@material-ui/core/Link";
+import Card from '@material-ui/core/Card';
+import './index.scss';
+import Button from "@material-ui/core/Button";
+
 
 function PaperItem(props) {
     const {className, title, summary, authors, pdfLink, publishedDate, updatedDate} = props;
@@ -9,28 +13,45 @@ function PaperItem(props) {
 
     return (
         <div className={buildClassName(['paper_item_container', className])}>
-            <div className='paper_item_header'>
-                <h3 className='paper_item_title'>{title}</h3>
-                <span className='paper_item_published_date'>{publishedDate}</span>
-                <span className='paper_item_updated_date'>{updatedDate}</span>
-            </div>
-            <p className='paper_item_summary'>
-                {summary}
-            </p>
-            <div className='paper_item_footer'>
-                <Link
-                    component="a"
-                    target='_blank'
-                    href={pdfLink}
-                    onClick={e => e.preventDefault}
-                    color="inherit"
-                    rel="noreferrer">
-                    PDF link
-                </Link>
-                <span className='paper_item_published_authors'>Authors: {authorsNames}</span>
-            </div>
+            <Card className="paper_item_card">
+                <div className='paper_item_header'>
+                    <h3 className='paper_item_title'>{title}</h3>
+
+                </div>
+                <p className='paper_item_summary'>
+                    {summary}
+                </p>
+                <span className='paper_item_published_authors'>
+                    <strong>Authors:</strong> {authorsNames}
+                </span>
+
+                <div className='paper_item_footer'>
+                    <Button
+                        component="a"
+                        target='_blank'
+                        href={pdfLink}
+                        onClick={e => e.preventDefault}
+                        color="secondary"
+                        variant="contained"
+                        rel="noreferrer">
+                        PDF link
+                    </Button>
+                    <div className="paper_item_meta">
+                        <span className='paper_item_published_date'>
+                            <strong>Published Date:</strong> {publishedDate}
+                        </span>
+                        <span className='paper_item_updated_date'>
+                           <strong>Updated Date:</strong> {updatedDate}
+                        </span>
+                    </div>
+
+
+                </div>
+            </Card>
         </div>
     );
+
+
 }
 
 export default PaperItem;
