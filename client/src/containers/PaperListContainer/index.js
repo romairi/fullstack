@@ -5,6 +5,7 @@ import {setPapersAction} from "../../redux/reducers/PapersReducer/actions";
 import PaperItem from "../../components/PaperItem";
 import {LINK_TYPE} from "./constants";
 import './index.scss';
+import SearchBox from "../../components/SearchBox";
 
 function PaperListContainer(props) {
     const papers = useSelector(state => state.papers);
@@ -37,10 +38,7 @@ function PaperListContainer(props) {
 
     return (
         <div className="papers_container">
-            <div>
-                PAPERS SEARCH BOX
-            </div>
-
+           <SearchBox/>
             {paperElements}
         </div>
     )
