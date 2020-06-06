@@ -1,6 +1,5 @@
 import React from 'react';
 import {buildClassName} from "../../services/classNameService";
-import Link from "@material-ui/core/Link";
 import Card from '@material-ui/core/Card';
 import './index.scss';
 import Button from "@material-ui/core/Button";
@@ -44,8 +43,6 @@ function PaperItem(props) {
                            <strong>Updated Date:</strong> {updatedDate}
                         </span>
                     </div>
-
-
                 </div>
             </Card>
         </div>

@@ -3,7 +3,7 @@
 .app-container {
   height: 100%;
 
-  .base-container {
+  .base_container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,27 +11,26 @@
     width: 100%;
     background-color: $color_gray;
 
-    .base-container-btn {
-      margin-top: 8px;
-    }
-  }
-
-
-  .nav-another-page {
-    margin-top: 5px;
-    padding: 5px 0 0 2px;
-
-    a:link, a:visited {
-      display: inline-block;
-      padding: 5px 10px;
-      text-align: center;
-      text-decoration: none;
-      color: $color_black;
-      font-weight: 500;
+    .base_container_btn {
+      margin-top: 20px;
     }
 
-    a:hover, a:active {
-      color: $primary_color;
+    .nav_another_page {
+      margin-top: 5px;
+      padding: 5px 0 0 2px;
+
+      a:link, a:visited {
+        display: inline-block;
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: none;
+        color: $color_black;
+        font-weight: 500;
+      }
+
+      a:hover, a:active {
+        color: $primary_color;
+      }
     }
   }
 }
