@@ -3,14 +3,16 @@ import {useSelector, useDispatch} from "react-redux";
 import _ from 'lodash';
 import './index.scss'
 import {LOGIN_ROUTE} from '../../routes/constants';
-import {Link} from "react-router-dom";
 import {push} from "connected-react-router";
 import {logoutAction} from "./actions";
-import Button from "../../components/Button";
+import Button from '@material-ui/core/Button';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+
 import {createSetUserAction} from "../../redux/reducers/UserReducer/actions";
 
 export default function Header() {
-    const user  = useSelector(state => state.user);
+    const user = useSelector(state => state.user);
     const dispatch = useDispatch();
 
     function onLogoutSuccess() {
@@ -19,7 +21,7 @@ export default function Header() {
     }
 
     function handleButtonClick() {
-        if(_.isEmpty(user)) {
+        if (_.isEmpty(user)) {
             dispatch(push(LOGIN_ROUTE));
         } else {
             dispatch(logoutAction({
@@ -32,14 +34,18 @@ export default function Header() {
     const buttonTitle = _.isEmpty(user) ? 'Login' : 'Logout';
 
     return (
-        <header className="header">
-            <nav className="main-nav">
-                <ul className="main-nav-items">
-                    <li className="main-nav-item">
-                        <Button onClick={handleButtonClick} secondary>{buttonTitle}</Button>
-                    </li>
-                </ul>
-            </nav>
-        </header>
+    <div className="header">
+        <AppBar position="static">
+            <Toolbar>
+                <Button
+                    className="header-btn"
+                    variant="contained"
+                    size="medium"
+                    color="secondary"
+                    onClick={handleButtonClick}>{buttonTitle}
+                </Button>
+            </Toolbar>
+        </AppBar>
+    </div>
     )
 }

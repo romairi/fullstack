@@ -5,8 +5,8 @@ import {useDispatch} from "react-redux";
 import {Link} from 'react-router-dom';
 import {replace} from "connected-react-router";
 import {Card} from "../../components/Card";
-import TextField from "../../components/TextField";
-import Button from "../../components/Button";
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import {
     EMAIL_FIELD,
     CONFIRM_PASSWORD_FIELD,
@@ -46,8 +46,9 @@ export default function SignUpContainer({}) {
         <div className="base-container">
             <Card className='signup_container'>
                 <h2>Sign Up</h2>
-                <form>
+                <form className="form-signup">
                     <TextField
+                        margin="dense"
                         error={!_.isEmpty(errors[USER_NAME_FIELD])}
                         helperText={errors[USER_NAME_FIELD]}
                         type="text"
@@ -57,6 +58,7 @@ export default function SignUpContainer({}) {
                         onChange={handleChange}
                     />
                     <TextField
+                        margin="dense"
                         error={!_.isEmpty(errors[EMAIL_FIELD])}
                         helperText={errors[EMAIL_FIELD]}
                         type="email"
@@ -66,6 +68,7 @@ export default function SignUpContainer({}) {
                         onChange={handleChange}
                     />
                     <TextField
+                        margin="dense"
                         error={!_.isEmpty(errors[PASSWORD_FIELD])}
                         helperText={errors[PASSWORD_FIELD]}
                         type="password"
@@ -75,6 +78,7 @@ export default function SignUpContainer({}) {
                         onChange={handleChange}
                     />
                     <TextField
+                        margin="dense"
                         error={!_.isEmpty(errors[CONFIRM_PASSWORD_FIELD])}
                         helperText={errors[CONFIRM_PASSWORD_FIELD]}
                         type="password"
@@ -85,7 +89,10 @@ export default function SignUpContainer({}) {
                     />
                     <Error message={errors[GENERAL_ERROR_FIELD]} />
                     <Button
+                        className="base-container-btn"
                         type="submit"
+                        variant="contained"
+                        color="primary"
                         onClick={handleSubmit}>
                         Sign Up
                     </Button>

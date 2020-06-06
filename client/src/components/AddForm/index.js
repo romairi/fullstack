@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.scss';
-import Button from "../Button";
-import TextField from "../TextField";
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 export default class AddForm extends React.Component {
 
@@ -34,7 +34,11 @@ export default class AddForm extends React.Component {
                         onChange={this.onTitleChange}
                         value={this.state.title}
                     />
-                    <Button typeBtn>
+                    <Button
+                        variant="contained"
+                        size="medium"
+                        color="primary"
+                        type="submit">
                         add
                     </Button>
                 </form>

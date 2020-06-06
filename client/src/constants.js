@@ -36,3 +36,7 @@ export const GET_TODO_ITEMS_PATH = `${TODO_ITEM_API_PATH}/get_items`;
 export const CREATE_TODO_ITEM_PATH = `${TODO_ITEM_API_PATH}/create`;
 export const REMOVE_TODO_ITEM_PATH = `${TODO_ITEM_API_PATH}/remove`;
 export const CHANGE_STATUS_TODO_ITEM_PATH = `${TODO_ITEM_API_PATH}/change_status`;
+
+// PAPERS API
+const PAPERS_API_PATH = `${BASE_API_PATH}/papers`;
+export const GET_PAPERS_PATH = `${PAPERS_API_PATH}/get_papers`;
