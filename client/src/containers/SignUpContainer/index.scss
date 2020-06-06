@@ -1,18 +1,33 @@
 @import "../../scss/variables";
 
-.signup_container {
-  .server_error {
-    color: $error_color;
-    padding: 1rem 0;
-    margin: 0 auto;
-    text-align: center;
-    width: 215px;
-    word-wrap: break-word;
-  }
+.base_container {
+  .signup_container {
+    padding: 10px 30px;
 
-  .form-signup {
-    display: flex;
-    flex-direction: column;
-    margin: 3px;
+    .title_signup {
+      text-align: center;
+    }
+
+    .server_error {
+      color: $error_color;
+      padding: 1rem 0;
+      margin: 0 auto;
+      text-align: center;
+      width: 215px;
+      word-wrap: break-word;
+    }
+
+    .form_signup {
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+    }
+
+    @media (max-width: $max-xs) {
+      width: 95%;
+    }
+    @media (max-width: $max-sm) {
+      width: 85%;
+    }
   }
 }
