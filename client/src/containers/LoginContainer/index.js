@@ -4,7 +4,7 @@ import _ from 'lodash';
 import {useDispatch} from "react-redux";
 import {Link} from 'react-router-dom';
 import {replace} from "connected-react-router";
-import {Card} from "../../components/Card/index"
+import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import {EMAIL_FIELD, PASSWORD_FIELD} from "./constants";
@@ -39,10 +39,10 @@ export default function LoginContainer({}) {
 
     const {values, errors, handleChange, handleSubmit} = useForm(schemaLogin, onSubmit);
     return (
-        <div className="base-container">
+        <div className="base_container">
             <Card className="login_container">
-                <h2>Login</h2>
-                <form className="form-login">
+                <h2 className="title_login">Login</h2>
+                <form className="form_login">
                     <TextField
                         margin="dense"
                         error={!_.isEmpty(errors[EMAIL_FIELD])}
@@ -65,7 +65,7 @@ export default function LoginContainer({}) {
                     />
                     <Error message={errors[GENERAL_ERROR_FIELD]} />
                     <Button
-                        className="base-container-btn"
+                        className="base_container_btn"
                         variant="contained" color="primary"
                         type="submit"
                         onClick={handleSubmit}>
@@ -73,9 +73,11 @@ export default function LoginContainer({}) {
                     </Button>
 
                 </form>
-                <div className="nav-another-page">
+                <div className="nav_another_page">
                     Don't have an account?
-                    <Link to={SIGNUP_ROUTE}> Sign up</Link>
+                    <Link to={SIGNUP_ROUTE}>
+                        <strong>Sign up</strong>
+                    </Link>
                 </div>
             </Card>
         </div>

@@ -4,7 +4,7 @@ import _ from 'lodash';
 import {useDispatch} from "react-redux";
 import {Link} from 'react-router-dom';
 import {replace} from "connected-react-router";
-import {Card} from "../../components/Card";
+import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import {
@@ -43,10 +43,10 @@ export default function SignUpContainer({}) {
     const {values, errors, handleChange, handleSubmit} = useForm(schemaSignIn, onSubmit);
 
     return (
-        <div className="base-container">
+        <div className="base_container">
             <Card className='signup_container'>
-                <h2>Sign Up</h2>
-                <form className="form-signup">
+                <h2 className="title_signup">Sign Up</h2>
+                <form className="form_signup">
                     <TextField
                         margin="dense"
                         error={!_.isEmpty(errors[USER_NAME_FIELD])}
@@ -87,9 +87,9 @@ export default function SignUpContainer({}) {
                         value={values[CONFIRM_PASSWORD_FIELD]}
                         onChange={handleChange}
                     />
-                    <Error message={errors[GENERAL_ERROR_FIELD]} />
+                    <Error message={errors[GENERAL_ERROR_FIELD]}/>
                     <Button
-                        className="base-container-btn"
+                        className="base_container_btn"
                         type="submit"
                         variant="contained"
                         color="primary"
@@ -97,9 +97,11 @@ export default function SignUpContainer({}) {
                         Sign Up
                     </Button>
                 </form>
-                <div className="nav-another-page">
+                <div className="nav_another_page">
                     Already have an account?
-                    <Link to={LOGIN_ROUTE}> Login here</Link>
+                    <Link to={LOGIN_ROUTE}>
+                        <strong>Login here</strong>
+                    </Link>
                 </div>
             </Card>
         </div>
