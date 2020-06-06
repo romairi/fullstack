@@ -1,3 +1,18 @@
-.search_box {
+@import "../../scss/variables";
 
+.search_box_container {
+  margin-top: 30px;
+
+  .search_box_card {
+    padding: 20px 45px;
+
+    .search_box_title {
+      text-align: center;
+    }
+
+    .search_box {
+
+    }
+  }
 }
+

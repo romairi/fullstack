@@ -3,6 +3,7 @@ import TextField from "@material-ui/core/TextField/TextField";
 import Button from "@material-ui/core/Button";
 import {Card} from "@material-ui/core";
 import Tag from "../Tag";
+import './index.scss';
 
 function SearchBox(props) {
     const [searchParam, setSearchParam] = React.useState('');
@@ -28,8 +29,8 @@ function SearchBox(props) {
 
     return (
         <div className="search_box_container">
-            <Card>
-                <h3>Search for a paper</h3>
+            <Card className="search_box_card">
+                <h3 className="search_box_title">Search for a article</h3>
                 <div className="search_box">
                     <TextField
                         type="text"

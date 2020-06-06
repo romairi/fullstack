@@ -25,13 +25,17 @@ function PaperListContainer(props) {
     const paperElements = papers.map(paper => {
         const pdfLinkObject = paper.links.find(link => link.title === LINK_TYPE);
         const pdfLink = pdfLinkObject ? pdfLinkObject.href : null;
+
+        const publishedDate =  new Date(paper.published).toDateString();
+        const updatedDate =  new Date(paper.updated).toDateString();
+
         return <PaperItem
             key={paper.id}
             title={paper.title}
             summary={paper.summary}
             authors={paper.authors}
-            publishedDate={paper.published}
-            updatedDate={paper.updated}
+            publishedDate={publishedDate}
+            updatedDate={updatedDate}
             pdfLink={pdfLink}
         />
     });
