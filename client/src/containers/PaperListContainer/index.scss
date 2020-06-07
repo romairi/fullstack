@@ -1,13 +1,24 @@
+@import "../../scss/variables";
+
 .papers_container {
   margin: 0 auto;
   width: 65%;
 
-  @media(max-width: 1000px) {
+  @media(max-width: $max-lg) {
     width: 80%;
   }
 
-  @media(max-width: 750px) {
-    width: 98%;
+  @media(max-width: $max-md) {
+    width: 80%;
   }
 
+  @media(max-width: $max-sm) {
+    width: 98%;
+  }
+  @media(max-width: $max-xs) {
+    width: 98%;
+  }
+  @media(max-width: $max-xxs) {
+    width: 98%;
+  }
 }

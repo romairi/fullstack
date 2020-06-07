@@ -4,7 +4,7 @@ import {push} from "connected-react-router";
 import {createSetUserAction} from "../../redux/reducers/UserReducer/actions";
 import {logoutAction} from "./actions";
 import {useSelector, useDispatch} from "react-redux";
-import {LOGIN_ROUTE} from '../../routes/constants';
+import {LOGIN_ROUTE, MY_PAPER_LIST_ROUTE, SEARCH_PAPER_LIST_ROUTE} from '../../routes/constants';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -31,8 +31,6 @@ function SimpleMenu() {
         }
     }
 
-    const buttonTitle = _.isEmpty(user) ? 'Login' : 'Logout';
-
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -40,8 +38,17 @@ function SimpleMenu() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const buttonTitle = _.isEmpty(user) ? 'Login' : 'Logout';
 
-    return (
+    const butUserStatus = <Button
+        className="header-btn"
+        variant="contained"
+        size="medium"
+        color="secondary"
+        onClick={handleButtonClick}>{buttonTitle}
+    </Button>;
+
+    const menu =
         <div>
             <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
                 Open Menu
@@ -53,20 +60,38 @@ function SimpleMenu() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleClose}>MyPapers</MenuItem>
-                <MenuItem onClick={handleClose}>Search</MenuItem>
+                <MenuItem onClick={handleClose}>
+                    <Button
+                        className="header-btn"
+                        variant="contained"
+                        size="small"
+                        color="default"
+                        href={MY_PAPER_LIST_ROUTE}
+                    >My Papers
+                    </Button>
+                </MenuItem>
                 <MenuItem onClick={handleClose}>
                     <Button
                         className="header-btn"
                         variant="contained"
                         size="medium"
-                        color="secondary"
-                        onClick={handleButtonClick}>{buttonTitle}
+                        color="default"
+                        href={SEARCH_PAPER_LIST_ROUTE}
+                    >Search
                     </Button>
                 </MenuItem>
+                <MenuItem onClick={handleClose}>
+                    {butUserStatus}
+                </MenuItem>
             </Menu>
-        </div>
-    );
+        </div>;
+
+
+    const menuTitle = _.isEmpty(user) ? butUserStatus : menu;
+
+    return (
+        menuTitle
+    )
 }
 
 export default SimpleMenu;
