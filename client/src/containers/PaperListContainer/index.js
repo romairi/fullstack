@@ -29,7 +29,10 @@ function PaperListContainer(props) {
         const publishedDate =  new Date(paper.published).toDateString();
         const updatedDate =  new Date(paper.updated).toDateString();
 
+
+
         return <PaperItem
+            id={paper.id}
             key={paper.id}
             title={paper.title}
             summary={paper.summary}

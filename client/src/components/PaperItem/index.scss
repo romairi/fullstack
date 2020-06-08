@@ -38,6 +38,16 @@
         }
       }
     }
+
+    .paper_item_save {
+      display: flex;
+      justify-content: center;
+
+      .btn_save {
+        margin-top: 22px;
+        width: 60%
+      }
+    }
   }
 }
 
