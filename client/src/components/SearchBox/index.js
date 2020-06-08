@@ -2,6 +2,7 @@ import React from 'react';
 import TextField from "@material-ui/core/TextField/TextField";
 import Button from "@material-ui/core/Button";
 import {Card} from "@material-ui/core";
+import DeleteIcon from '@material-ui/icons/Delete';
 import Tag from "../Tag";
 import './index.scss';
 
@@ -42,6 +43,10 @@ function SearchBox(props) {
         searchExcTags.map((tag, idx) =>
             <Tag key={idx} id={idx} onDeleteClicked={onDeleteTagExc}>{tag}</Tag>);
 
+    const onClickDeleteAllTags = () => {
+        setSearchIncTags([...searchParam]);
+        setSearchExcTags([...searchParam]);
+    };
 
     return (
         <div className="search_box_container">
@@ -94,7 +99,9 @@ function SearchBox(props) {
                         variant="contained"
                         size="medium"
                         color="secondary"
-                        type="submit">
+                        type="submit"
+                        startIcon={<DeleteIcon />}
+                        onClick={onClickDeleteAllTags}>
                         Clear
                     </Button>
                 </div>
