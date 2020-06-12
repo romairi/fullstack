@@ -4,7 +4,7 @@ import {push} from "connected-react-router";
 import {createSetUserAction} from "../../redux/reducers/UserReducer/actions";
 import {logoutAction} from "./actions";
 import {useSelector, useDispatch} from "react-redux";
-import {LOGIN_ROUTE, MY_PAPER_LIST_ROUTE, SEARCH_PAPER_LIST_ROUTE} from '../../routes/constants';
+import {BASE_ROUTE, LOGIN_ROUTE, SEARCH_PAPER_LIST_ROUTE} from '../../routes/constants';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -66,7 +66,7 @@ function SimpleMenu() {
                         variant="contained"
                         size="small"
                         color="default"
-                        href={MY_PAPER_LIST_ROUTE}
+                        href={BASE_ROUTE}
                     >My Papers
                     </Button>
                 </MenuItem>
