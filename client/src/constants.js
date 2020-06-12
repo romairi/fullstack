@@ -41,3 +41,4 @@ export const CHANGE_STATUS_TODO_ITEM_PATH = `${TODO_ITEM_API_PATH}/change_status
 const PAPERS_API_PATH = `${BASE_API_PATH}/papers`;
 export const GET_PAPERS_PATH = `${PAPERS_API_PATH}/get_papers`;
 export const SEARCH_PAPERS_PATH = `${PAPERS_API_PATH}/search_papers`;
+export const SAVE_PAPER_PATH = `${PAPERS_API_PATH}/save_paper`;

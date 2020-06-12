@@ -35,6 +35,17 @@ function PaperListContainer(props) {
         }
     };
 
+    const onSaveButtonClicked = (itemId) => {
+        // debugger
+        itemId = props.id;
+        dispatch(searchPapersAction({
+            data: {paper: itemId},
+            // onSuccess: onSearchPapersSuccess,
+            // onError: onSearchPapersFailed
+        }));
+    };
+
+
     const paperElements = papers.map(paper => {
         const pdfLinkObject = paper.links.find(link => link.title === LINK_TYPE);
         const pdfLink = pdfLinkObject ? pdfLinkObject.href : null;
@@ -52,6 +63,7 @@ function PaperListContainer(props) {
             publishedDate={publishedDate}
             updatedDate={updatedDate}
             pdfLink={pdfLink}
+            onSaveButtonClicked={onSaveButtonClicked}
         />
     });
 

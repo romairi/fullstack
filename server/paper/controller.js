@@ -2,6 +2,7 @@ const _ = require('lodash');
 const HttpStatus = require('http-status-codes');
 const arxiv = require('arxiv-api');
 const {papers} = require('./mocks');
+const UserModel = require('../user/user.model');
 
 async function searchPapers(req, res, next) {
     const {includeList, excludeList} = req.body;
@@ -24,5 +25,19 @@ async function getPapers(req, res, next) {
     res.json(papers);
 }
 
+async function savePaper(req, res, next) {
+    const {paper} = req.body;
+    const userId = req.user._id;
 
-module.exports = {getPapers, searchPapers};
+    try {
+        const user = await UserModel.findById(userId).populate('paperItems');
+        console.log(user);
+        user.addPaper();
+
+    } catch (err) {
+
+    }
+}
+
+
+module.exports = {getPapers, searchPapers, savePaper};

@@ -6,15 +6,9 @@ import Button from "@material-ui/core/Button";
 import SaveIcon from '@material-ui/icons/Save';
 
 function PaperItem(props) {
-    const {className, title, summary, authors, pdfLink, publishedDate, updatedDate} = props;
+    const {className, title, summary, authors, pdfLink, publishedDate, updatedDate, onClickButtonSave} = props;
 
     const authorsNames = authors.join(', ');
-
-    const onClickButtonSave = (itemId) => {
-        // debugger
-        itemId = props.id;
-        console.log('Save item' + itemId)
-    };
 
     return (
         <div className={buildClassName(['paper_item_container', className])}>

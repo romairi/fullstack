@@ -26,4 +26,9 @@ const UserSchema = new mongoose.Schema({
     }],
 });
 
+UserSchema.methods.addPaper = function () {
+    console.log(this)
+    console.log(this.paperItems);
+};
+
 module.exports = mongoose.model('User', UserSchema);
