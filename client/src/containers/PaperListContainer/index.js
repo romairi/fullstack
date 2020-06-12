@@ -6,6 +6,7 @@ import PaperItem from "../../components/PaperItem";
 import {LINK_TYPE} from "./constants";
 import './index.scss';
 import SearchBox from "../../components/SearchBox";
+import Spinner from "../../components/Spinner";
 
 function PaperListContainer(props) {
     const papers = useSelector(state => state.papers);
@@ -47,6 +48,7 @@ function PaperListContainer(props) {
         <div className="papers_container">
            <SearchBox/>
             {paperElements}
+            <Spinner/>
         </div>
     )
 }
