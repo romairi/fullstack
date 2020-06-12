@@ -3,6 +3,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import './index.scss';
 
 
-export default function Spinner() {
-    return <CircularProgress className="spinner" disableShrink />;
+export default function SpinnerContainer({children, isLoading}) {
+    return (
+        <>
+            {isLoading ? <CircularProgress className="spinner" disableShrink/> : children}
+        </>
+    );
 }
