@@ -1,7 +1,6 @@
 const _ = require('lodash');
 const HttpStatus = require('http-status-codes');
 const arxiv = require('arxiv-api');
-const {papers} = require('./mocks');
 const UserModel = require('../user/user.model');
 
 async function searchPapers(req, res, next) {
@@ -22,7 +21,14 @@ async function searchPapers(req, res, next) {
 }
 
 async function getPapers(req, res, next) {
-    res.json(papers);
+    const userId = req.user._id;
+
+    try {
+        const userPapers = await UserModel.getPapers(userId);
+        return res.json(userPapers);
+    } catch (err) {
+        next(err);
+    }
 }
 
 async function savePaper(req, res, next) {
@@ -30,12 +36,10 @@ async function savePaper(req, res, next) {
     const userId = req.user._id;
 
     try {
-        const user = await UserModel.findById(userId).populate('paperItems');
-        console.log(user);
-        user.addPaper();
-
+        const {newPaper} = UserModel.addPaper(userId, paper);
+        return res.status(HttpStatus.CREATED).json(newPaper);
     } catch (err) {
-
+        next(err);
     }
 }
 

@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const PaperItemSchema = new mongoose.Schema({
+    paperId: {
+      type: String,
+        required: true,
+    },
     title: {
         type: String,
         required: true,
@@ -33,5 +37,10 @@ const PaperItemSchema = new mongoose.Schema({
         default: Date.now,
     },
 });
+
+PaperItemSchema.statics.findByPaperIdOrCreate = async function (paperId, args) {
+    const paper = await this.findOne({paperId});
+    return paper || this.create(args);
+};
 
 module.exports = mongoose.model('PaperItem', PaperItemSchema);
