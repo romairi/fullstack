@@ -1,11 +1,12 @@
 .tag_item {
-  display: inline;
+  display: inline-flex;
   position: relative;
   background: #e9e8e8;
   border: 1px solid #beb5b5;
   padding-left: 5px;
   padding-right: 10px;
   margin-right: 5px;
+  margin-bottom: 10px;
 
   &:last-child {
     margin-right: 0;
