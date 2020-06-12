@@ -44,8 +44,9 @@ function SearchBox(props) {
             <Tag key={idx} id={idx} onDeleteClicked={onDeleteTagExc}>{tag}</Tag>);
 
     const onClickDeleteAllTags = () => {
-        setSearchIncTags([...searchParam]);
-        setSearchExcTags([...searchParam]);
+        setSearchIncTags([]);
+        setSearchExcTags([]);
+        setSearchParam('');
     };
 
     return (
