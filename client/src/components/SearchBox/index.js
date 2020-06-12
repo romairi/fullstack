@@ -15,7 +15,7 @@ function SearchTags({searchList, onDeleteTag}) {
     );
 }
 
-function SearchBox(props) {
+function SearchBox({onSearchButtonClicked}) {
     const [searchParam, setSearchParam] = React.useState('');
     const [searchIncTags, setSearchIncTags] = React.useState([]);
     const [searchExcTags, setSearchExcTags] = React.useState([]);
@@ -91,7 +91,8 @@ function SearchBox(props) {
                         variant="contained"
                         size="medium"
                         color="primary"
-                        type="submit">
+                        type="submit"
+                        onClick={() => onSearchButtonClicked(searchIncTags, searchExcTags)}>
                         Search
                     </Button>
                     <Button

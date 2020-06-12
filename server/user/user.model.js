@@ -19,7 +19,11 @@ const UserSchema = new mongoose.Schema({
     creation_time: {
         type: Date,
         default: Date.now,
-    }
+    },
+    paperItems: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'PaperItem'
+    }],
 });
 
 module.exports = mongoose.model('User', UserSchema);

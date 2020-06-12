@@ -1,42 +1,39 @@
 import React from 'react';
+import _ from 'lodash';
 import {useDispatch, useSelector} from "react-redux";
-import {getPapersAction} from "./actions";
-import {setPapersAction} from "../../redux/reducers/PapersReducer/actions";
 import PaperItem from "../../components/PaperItem";
 import {LINK_TYPE} from "./constants";
 import './index.scss';
 import SearchBox from "../../components/SearchBox";
 import SpinnerContainer from "../../components/Spinner";
+import {searchPapersAction, setSearchPapersAction} from "../../redux/reducers/SearchPapersReducer/actions";
 
 function PaperListContainer(props) {
-    const papers = useSelector(state => state.papers);
+    const papers = useSelector(state => state.searchPapers);
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = React.useState(false);
 
-    const onGetPapersSuccess = (response) => {
+    const onSearchPapersSuccess = (response) => {
         setIsLoading(false);
         console.log(response.data);
-        dispatch(setPapersAction(response.data));
+        dispatch(setSearchPapersAction(response.data));
     };
 
-    const onGetPapersFailed = (err) => {
+    const onSearchPapersFailed = (err) => {
         setIsLoading(false);
         console.log(err);
     };
 
-    const getItems = () => {
-        setIsLoading(true);
-        dispatch(getPapersAction({
-            onSuccess: onGetPapersSuccess,
-            onError: onGetPapersFailed
-        }));
+    const onSearchButtonClicked = (searchIncTags, searchExcTags) => {
+        if(!_.isEmpty(searchIncTags) || !_.isEmpty(searchExcTags)) {
+            setIsLoading(true);
+            dispatch(searchPapersAction({
+                data: {includeList: searchIncTags, excludeList: searchExcTags},
+                onSuccess: onSearchPapersSuccess,
+                onError: onSearchPapersFailed
+            }));
+        }
     };
-
-    React.useEffect(() => {
-        //TODO remove timeout - need to add loading indication
-        setTimeout(getItems, 1500);
-        // dispatch(getPapersAction({onSuccess: onGetPapersSuccess, onError: err => console.log(err)}));
-    }, []);
 
     const paperElements = papers.map(paper => {
         const pdfLinkObject = paper.links.find(link => link.title === LINK_TYPE);
@@ -60,7 +57,7 @@ function PaperListContainer(props) {
 
     return (
         <div className="papers_container">
-            <SearchBox/>
+            <SearchBox onSearchButtonClicked={onSearchButtonClicked} />
             <SpinnerContainer isLoading={isLoading}>
                 {paperElements}
             </SpinnerContainer>

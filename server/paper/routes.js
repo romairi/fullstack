@@ -1,8 +1,8 @@
 const express = require('express');
-const {getPapers, fetchPapers} = require('./controller');
+const {getPapers, searchPapers} = require('./controller');
 const router = express.Router();
 
 router.get('/get_papers', getPapers);
-router.post('/fetch_papers', fetchPapers);
+router.post('/search_papers', searchPapers);
 
 module.exports = router;
