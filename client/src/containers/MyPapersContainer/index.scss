@@ -1,6 +1,6 @@
 @import "../../scss/variables";
 
-.papers_container {
+.my_papers_container {
   margin: 0 auto;
   width: 65%;
 
@@ -21,4 +21,5 @@
   @media(max-width: $max-xxs) {
     width: 98%;
   }
+
 }

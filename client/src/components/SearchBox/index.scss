@@ -1,3 +1,45 @@
-.search_box {
+@import "../../scss/variables";
 
+.search_box_container {
+  width: 60%;
+  margin: 40px auto;
+
+  .search_box_card {
+    padding: 20px 30px;
+
+    .search_box_title {
+      text-align: center;
+    }
+
+    .search_box {
+      display: flex;
+      padding: 5px;
+
+      .MuiFormControl-root {
+        margin-right: 10px;
+      }
+
+      .MuiButton-containedPrimary {
+        margin-right: 10px;
+        margin-left: 10px;
+      }
+    }
+
+    .search_box_result {
+      .title_tag {
+        margin: 10px 0 10px 0;
+      }
+    }
+
+    .search_box_submit {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 15px;
+
+      button {
+        margin-left: 15px;
+      }
+    }
+  }
 }
+

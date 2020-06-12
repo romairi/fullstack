@@ -1,15 +1,20 @@
 import React from 'react';
 import {buildClassName} from "../../services/classNameService";
-import Link from "@material-ui/core/Link";
 import Card from '@material-ui/core/Card';
 import './index.scss';
 import Button from "@material-ui/core/Button";
-
+import SaveIcon from '@material-ui/icons/Save';
 
 function PaperItem(props) {
     const {className, title, summary, authors, pdfLink, publishedDate, updatedDate} = props;
 
     const authorsNames = authors.join(', ');
+
+    const onClickButtonSave = (itemId) => {
+        // debugger
+        itemId = props.id;
+        console.log('Save item' + itemId)
+    };
 
     return (
         <div className={buildClassName(['paper_item_container', className])}>
@@ -45,7 +50,18 @@ function PaperItem(props) {
                         </span>
                     </div>
 
-
+                </div>
+                <div className="paper_item_save">
+                    <Button
+                        className="btn_save"
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        startIcon={<SaveIcon/>}
+                        onClick={onClickButtonSave}
+                    >
+                        Save
+                    </Button>
                 </div>
             </Card>
         </div>
