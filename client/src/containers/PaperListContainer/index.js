@@ -1,35 +1,62 @@
 import React from 'react';
+import _ from 'lodash';
 import {useDispatch, useSelector} from "react-redux";
-import {getPapersAction} from "./actions";
-import {setPapersAction} from "../../redux/reducers/PapersReducer/actions";
 import PaperItem from "../../components/PaperItem";
 import {LINK_TYPE} from "./constants";
 import './index.scss';
 import SearchBox from "../../components/SearchBox";
-import Spinner from "../../components/Spinner";
+import SpinnerContainer from "../../components/Spinner";
+import {
+    savePaperAction,
+    searchPapersAction,
+    setSearchPapersAction
+} from "../../redux/reducers/SearchPapersReducer/actions";
 
 function PaperListContainer(props) {
-    const papers = useSelector(state => state.papers);
+    const papers = useSelector(state => state.searchPapers);
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = React.useState(false);
 
-    const onGetPapersSuccess = (response) => {
+    const onSearchPapersSuccess = (response) => {
+        setIsLoading(false);
         console.log(response.data);
-        dispatch(setPapersAction(response.data));
+        dispatch(setSearchPapersAction(response.data));
     };
 
-    React.useEffect(() => {
-        //TODO remove timeout - need to add loading indication
-        setTimeout(() => dispatch(getPapersAction({onSuccess: onGetPapersSuccess, onError: err => console.log(err)})), 1500);
-        // dispatch(getPapersAction({onSuccess: onGetPapersSuccess, onError: err => console.log(err)}));
-    }, []);
+    const onSearchPapersFailed = (err) => {
+        setIsLoading(false);
+        console.log(err);
+    };
+
+    const onSearchButtonClicked = (searchIncTags, searchExcTags) => {
+        if (!_.isEmpty(searchIncTags) || !_.isEmpty(searchExcTags)) {
+            setIsLoading(true);
+            dispatch(searchPapersAction({
+                data: {includeList: searchIncTags, excludeList: searchExcTags},
+                onSuccess: onSearchPapersSuccess,
+                onError: onSearchPapersFailed
+            }));
+        }
+    };
+
+    const onSaveButtonClicked = (itemId) => {
+        const item = papers.find(paper => paper.id === itemId);
+        if (item) {
+            dispatch(savePaperAction({
+                data: {paper: item},
+                // onSuccess: onSearchPapersSuccess, //TODO implement
+                // onError: onSearchPapersFailed
+            }));
+        }
+    };
+
 
     const paperElements = papers.map(paper => {
         const pdfLinkObject = paper.links.find(link => link.title === LINK_TYPE);
         const pdfLink = pdfLinkObject ? pdfLinkObject.href : null;
 
-        const publishedDate =  new Date(paper.published).toDateString();
-        const updatedDate =  new Date(paper.updated).toDateString();
-
+        const publishedDate = new Date(paper.published).toDateString();
+        const updatedDate = new Date(paper.updated).toDateString();
 
 
         return <PaperItem
@@ -41,14 +68,16 @@ function PaperListContainer(props) {
             publishedDate={publishedDate}
             updatedDate={updatedDate}
             pdfLink={pdfLink}
+            onSaveButtonClicked={onSaveButtonClicked}
         />
     });
 
     return (
         <div className="papers_container">
-           <SearchBox/>
-            {paperElements}
-            <Spinner/>
+            <SearchBox onSearchButtonClicked={onSearchButtonClicked}/>
+            <SpinnerContainer isLoading={isLoading}>
+                {paperElements}
+            </SpinnerContainer>
         </div>
     )
 }

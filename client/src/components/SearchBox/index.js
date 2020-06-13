@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import TextField from "@material-ui/core/TextField/TextField";
 import Button from "@material-ui/core/Button";
 import {Card} from "@material-ui/core";
@@ -6,7 +7,15 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Tag from "../Tag";
 import './index.scss';
 
-function SearchBox(props) {
+function SearchTags({searchList, onDeleteTag}) {
+    return (
+        <>
+            {searchList.map((tag, idx) => <Tag key={idx} id={idx} onDeleteClicked={onDeleteTag}>{tag}</Tag>)}
+        </>
+    );
+}
+
+function SearchBox({onSearchButtonClicked}) {
     const [searchParam, setSearchParam] = React.useState('');
     const [searchIncTags, setSearchIncTags] = React.useState([]);
     const [searchExcTags, setSearchExcTags] = React.useState([]);
@@ -15,35 +24,24 @@ function SearchBox(props) {
         setSearchParam(event.target.value);
     };
 
-    const onIncludeButtonClicked = () => {
-        setSearchIncTags([...searchIncTags, searchParam]);
-        setSearchParam('');
-
+    const onAddButtonClicked = (cb, tags) => {
+        if (!_.isEmpty(searchParam)) {
+            cb([...tags, searchParam]);
+            setSearchParam('');
+        }
     };
 
-    const onExcludeButtonClicked = () => {
-        setSearchExcTags([...searchExcTags, searchParam]);
-        setSearchParam('');
+    const onIncludeButtonClicked = _.partial(onAddButtonClicked, setSearchIncTags, searchIncTags);
+    const onExcludeButtonClicked = _.partial(onAddButtonClicked, setSearchExcTags, searchExcTags);
+
+    const onDeleteTagClicked = (cb, list, tagId) => {
+        cb(list.filter((tag, idx) => idx !== tagId));
     };
 
-    const onDeleteTag = (tagId) => {
-        setSearchIncTags(searchIncTags.filter((tag, idx) => idx !== tagId));
-    };
+    const onDeleteIncTagClicked = _.partial(onDeleteTagClicked, setSearchIncTags, searchIncTags);
+    const onDeleteExcTagClicked = _.partial(onDeleteTagClicked, setSearchExcTags, searchExcTags);
 
-    const onDeleteTagExc = (tagId) => {
-        setSearchExcTags(searchExcTags.filter((tag, idx) => idx !== tagId));
-    };
-
-
-    const includeTagsElements =
-        searchIncTags.map((tag, idx) =>
-            <Tag key={idx} id={idx} onDeleteClicked={onDeleteTag}>{tag}</Tag>);
-
-    const excludeTagsElements =
-        searchExcTags.map((tag, idx) =>
-            <Tag key={idx} id={idx} onDeleteClicked={onDeleteTagExc}>{tag}</Tag>);
-
-    const onClickDeleteAllTags = () => {
+    const onClearButtonClicked = () => {
         setSearchIncTags([]);
         setSearchExcTags([]);
         setSearchParam('');
@@ -81,11 +79,11 @@ function SearchBox(props) {
                     <h4 className="title_tag">
                         <strong>Include tags:</strong>
                     </h4>
-                    {includeTagsElements}
+                    <SearchTags searchList={searchIncTags} onDeleteTag={onDeleteIncTagClicked}/>
                     <h4 className="title_tag">
                         <strong>Exclude tags:</strong>
                     </h4>
-                    {excludeTagsElements}
+                    <SearchTags searchList={searchExcTags} onDeleteTag={onDeleteExcTagClicked}/>
                 </div>
 
                 <div className="search_box_submit">
@@ -93,7 +91,8 @@ function SearchBox(props) {
                         variant="contained"
                         size="medium"
                         color="primary"
-                        type="submit">
+                        type="submit"
+                        onClick={() => onSearchButtonClicked(searchIncTags, searchExcTags)}>
                         Search
                     </Button>
                     <Button
@@ -101,8 +100,8 @@ function SearchBox(props) {
                         size="medium"
                         color="secondary"
                         type="submit"
-                        startIcon={<DeleteIcon />}
-                        onClick={onClickDeleteAllTags}>
+                        startIcon={<DeleteIcon/>}
+                        onClick={onClearButtonClicked}>
                         Clear
                     </Button>
                 </div>
