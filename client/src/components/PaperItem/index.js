@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import SaveIcon from '@material-ui/icons/Save';
 
 function PaperItem(props) {
-    const {className, title, summary, authors, pdfLink, publishedDate, updatedDate, onClickButtonSave} = props;
+    const {className, title, summary, authors, pdfLink, publishedDate, updatedDate, onSaveButtonClicked, id} = props;
 
     const authorsNames = authors.join(', ');
 
@@ -52,7 +52,7 @@ function PaperItem(props) {
                         color="primary"
                         size="large"
                         startIcon={<SaveIcon/>}
-                        onClick={onClickButtonSave}
+                        onClick={() => onSaveButtonClicked(id)}
                     >
                         Save
                     </Button>

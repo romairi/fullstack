@@ -6,7 +6,11 @@ import {LINK_TYPE} from "./constants";
 import './index.scss';
 import SearchBox from "../../components/SearchBox";
 import SpinnerContainer from "../../components/Spinner";
-import {searchPapersAction, setSearchPapersAction} from "../../redux/reducers/SearchPapersReducer/actions";
+import {
+    savePaperAction,
+    searchPapersAction,
+    setSearchPapersAction
+} from "../../redux/reducers/SearchPapersReducer/actions";
 
 function PaperListContainer(props) {
     const papers = useSelector(state => state.searchPapers);
@@ -25,7 +29,7 @@ function PaperListContainer(props) {
     };
 
     const onSearchButtonClicked = (searchIncTags, searchExcTags) => {
-        if(!_.isEmpty(searchIncTags) || !_.isEmpty(searchExcTags)) {
+        if (!_.isEmpty(searchIncTags) || !_.isEmpty(searchExcTags)) {
             setIsLoading(true);
             dispatch(searchPapersAction({
                 data: {includeList: searchIncTags, excludeList: searchExcTags},
@@ -36,13 +40,14 @@ function PaperListContainer(props) {
     };
 
     const onSaveButtonClicked = (itemId) => {
-        // debugger
-        itemId = props.id;
-        dispatch(searchPapersAction({
-            data: {paper: itemId},
-            // onSuccess: onSearchPapersSuccess,
-            // onError: onSearchPapersFailed
-        }));
+        const item = papers.find(paper => paper.id === itemId);
+        if (item) {
+            dispatch(savePaperAction({
+                data: {paper: item},
+                // onSuccess: onSearchPapersSuccess, //TODO implement
+                // onError: onSearchPapersFailed
+            }));
+        }
     };
 
 
@@ -69,7 +74,7 @@ function PaperListContainer(props) {
 
     return (
         <div className="papers_container">
-            <SearchBox onSearchButtonClicked={onSearchButtonClicked} />
+            <SearchBox onSearchButtonClicked={onSearchButtonClicked}/>
             <SpinnerContainer isLoading={isLoading}>
                 {paperElements}
             </SpinnerContainer>
