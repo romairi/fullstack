@@ -1,6 +1,6 @@
 import {SET_PAPERS_ACTION_TYPE} from "./constants";
 
-export default function papersReducer(state = [], action) {
+export default function myPapersReducer(state = [], action) {
     let newState;
     switch (action.type) {
         case SET_PAPERS_ACTION_TYPE:

@@ -1,8 +1,8 @@
 import React from 'react';
 import './index.scss';
 import {useDispatch, useSelector} from "react-redux";
-import {getPapersAction, setPapersAction} from "../../redux/reducers/PapersReducer/actions";
-import {LINK_TYPE} from "../PaperListContainer/constants";
+import {getPapersAction, setPapersAction} from "../../redux/reducers/MyPapersReducer/actions";
+import {LINK_TYPE} from "../SearchPaperListContainer/constants";
 import PaperItem from "../../components/PaperItem";
 
 

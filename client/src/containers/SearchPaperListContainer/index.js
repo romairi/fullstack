@@ -12,7 +12,7 @@ import {
     setSearchPapersAction
 } from "../../redux/reducers/SearchPapersReducer/actions";
 
-function PaperListContainer(props) {
+function SearchPaperListContainer(props) {
     const papers = useSelector(state => state.searchPapers);
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = React.useState(false);
@@ -82,4 +82,4 @@ function PaperListContainer(props) {
     )
 }
 
-export default PaperListContainer;
+export default SearchPaperListContainer;
