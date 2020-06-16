@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import {API_ACTION_TYPE, API_METHOD_POST} from "../../middleware/ApiMiddleware/constants";
 import {SAVE_PAPER_PATH, SEARCH_PAPERS_PATH} from "../../../constants";
-import {SET_SEARCH_PAPERS_ACTION_TYPE} from "./constants";
+import {ADD_PAPER_ACTION_TYPE, SET_SEARCH_PAPERS_ACTION_TYPE} from "./constants";
+
 
 export function setSearchPapersAction(papers) {
     return {
@@ -34,4 +35,12 @@ export function savePaperAction({data, onSuccess = _.noop, onError = _.noop}) {
             onError
         }
     };
+}
+
+export function addPaperAction(paper) {
+    debugger
+    return {
+        type: ADD_PAPER_ACTION_TYPE,
+        payload: paper,
+    }
 }

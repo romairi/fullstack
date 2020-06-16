@@ -7,6 +7,7 @@ import './index.scss';
 import SearchBox from "../../components/SearchBox";
 import SpinnerContainer from "../../components/Spinner";
 import {
+    addPaperAction,
     savePaperAction,
     searchPapersAction,
     setSearchPapersAction
@@ -39,13 +40,26 @@ function SearchPaperListContainer(props) {
         }
     };
 
+    const onSavePapersSuccess = (response) => {
+        setIsLoading(false);
+        debugger
+        console.log(response.data);
+        dispatch(addPaperAction(response));
+    };
+
+    const onSavePapersFailed = (err) => {
+        setIsLoading(false);
+        console.log(err);
+    };
+
     const onSaveButtonClicked = (itemId) => {
         const item = papers.find(paper => paper.id === itemId);
         if (item) {
+            debugger
             dispatch(savePaperAction({
                 data: {paper: item},
-                // onSuccess: onSearchPapersSuccess, //TODO implement
-                // onError: onSearchPapersFailed
+                onSuccess: onSavePapersSuccess(item),
+                onError: onSavePapersFailed
             }));
         }
     };
