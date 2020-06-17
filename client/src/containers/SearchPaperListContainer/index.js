@@ -11,8 +11,9 @@ import {
     searchPapersAction,
     setSearchPapersAction
 } from "../../redux/reducers/SearchPapersReducer/actions";
+import {addPaperAction} from "../../redux/reducers/MyPapersReducer/actions";
 
-function PaperListContainer(props) {
+function SearchPaperListContainer(props) {
     const papers = useSelector(state => state.searchPapers);
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = React.useState(false);
@@ -39,35 +40,42 @@ function PaperListContainer(props) {
         }
     };
 
+    const onSavePapersSuccess = response => {
+        setIsLoading(false);
+        dispatch(addPaperAction(response.data));
+    };
+
+    const onSavePapersFailed = (err) => {
+        setIsLoading(false);
+        console.log(err);
+    };
+
     const onSaveButtonClicked = (itemId) => {
-        const item = papers.find(paper => paper.id === itemId);
+        const item = papers.find(paper => paper.paperId === itemId);
         if (item) {
             dispatch(savePaperAction({
                 data: {paper: item},
-                // onSuccess: onSearchPapersSuccess, //TODO implement
-                // onError: onSearchPapersFailed
+                onSuccess: onSavePapersSuccess,
+                onError: onSavePapersFailed
             }));
         }
     };
 
 
     const paperElements = papers.map(paper => {
-        const pdfLinkObject = paper.links.find(link => link.title === LINK_TYPE);
-        const pdfLink = pdfLinkObject ? pdfLinkObject.href : null;
-
         const publishedDate = new Date(paper.published).toDateString();
         const updatedDate = new Date(paper.updated).toDateString();
 
 
         return <PaperItem
-            id={paper.id}
-            key={paper.id}
+            id={paper.paperId}
+            key={paper.paperId}
             title={paper.title}
             summary={paper.summary}
             authors={paper.authors}
             publishedDate={publishedDate}
             updatedDate={updatedDate}
-            pdfLink={pdfLink}
+            pdfLink={paper.pdfLink}
             onSaveButtonClicked={onSaveButtonClicked}
         />
     });
@@ -82,4 +90,4 @@ function PaperListContainer(props) {
     )
 }
 
-export default PaperListContainer;
+export default SearchPaperListContainer;

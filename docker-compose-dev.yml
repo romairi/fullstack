@@ -6,6 +6,7 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "${EXTERNAL_PORT}:${PORT}"
+      - "${DEBUG_PORT}:${DEBUG_PORT}"
     environment:
       - NODE_ENV="dev"
       - PORT=${PORT}

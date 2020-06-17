@@ -2,7 +2,7 @@ import {combineReducers} from 'redux';
 import {connectRouter} from 'connected-react-router'
 import todos from './TodoItemReducer';
 import user from './UserReducer';
-import papers from './PapersReducer';
+import papers from './MyPapersReducer';
 import searchPapers from './SearchPapersReducer';
 
 const createRootReducer = history => combineReducers({

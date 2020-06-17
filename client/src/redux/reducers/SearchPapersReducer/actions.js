@@ -3,6 +3,7 @@ import {API_ACTION_TYPE, API_METHOD_POST} from "../../middleware/ApiMiddleware/c
 import {SAVE_PAPER_PATH, SEARCH_PAPERS_PATH} from "../../../constants";
 import {SET_SEARCH_PAPERS_ACTION_TYPE} from "./constants";
 
+
 export function setSearchPapersAction(papers) {
     return {
         type: SET_SEARCH_PAPERS_ACTION_TYPE,
