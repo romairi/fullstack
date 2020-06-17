@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {SET_PAPERS_ACTION_TYPE} from "./constants";
+import {ADD_PAPER_ACTION_TYPE, SET_PAPERS_ACTION_TYPE} from "./constants";
 import {API_ACTION_TYPE} from "../../middleware/ApiMiddleware/constants";
 import {GET_PAPERS_PATH} from "../../../constants";
 
@@ -19,4 +19,11 @@ export function getPapersAction({onSuccess = _.noop, onError = _.noop}) {
             onError
         }
     };
+}
+
+export function addPaperAction(paper) {
+    return {
+        type: ADD_PAPER_ACTION_TYPE,
+        payload: paper,
+    }
 }

@@ -6,7 +6,10 @@ import Button from "@material-ui/core/Button";
 import SaveIcon from '@material-ui/icons/Save';
 
 function PaperItem(props) {
-    const {className, title, summary, authors, pdfLink, publishedDate, updatedDate, onSaveButtonClicked, id} = props;
+    const {
+        className, title, summary, authors, pdfLink, publishedDate,
+        updatedDate, onSaveButtonClicked, onRemoveButtonClicked, id
+    } = props;
 
     const authorsNames = authors.join(', ');
 

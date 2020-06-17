@@ -27,18 +27,14 @@ const UserSchema = new mongoose.Schema({
     }],
 });
 
-UserSchema.statics.addPaper = async function (id, args) {
+UserSchema.statics.addPaper = async function (id, paper) {
     const user = await this.findById(id).populate('paperItems');
-    const foundPaper = user.paperItems.find(item => item.paperId === args.id);
+    const foundPaper = user.paperItems.find(item => item.paperId === paper.paperId);
     if (!foundPaper) {
-        const paper = await PaperItem.findByPaperIdOrCreate(args.id, {
-            paperId: args.id,
-            title: args.title,
-            summary: args.summary
-        }); // TODO use all args ( by using ...args)
-        await this.findByIdAndUpdate(id, {$push: {paperItems: paper.id}}, {});
+        const paperObj = await PaperItem.findByPaperIdOrCreate(paper.paperId, paper);
+        await this.findByIdAndUpdate(id, {$push: {paperItems: paperObj.id}}, {});
         return {
-            paper: await paper.save(),
+            paper: await paperObj.save(),
         };
     }
     return {

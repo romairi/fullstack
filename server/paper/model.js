@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const PaperItemSchema = new mongoose.Schema({
     paperId: {
-      type: String,
+        type: String,
         required: true,
     },
     title: {
@@ -13,19 +13,10 @@ const PaperItemSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    authors: [
-        {
-            name: String
-        }
-    ],
-    links: [
-        {
-            title: String,
-            href: String,
-            type: String,
-            rel: String
-        }
-    ],
+    authors: [{}],
+    pdfLink: {
+        type: String,
+    },
     published: {
         type: String,
     },

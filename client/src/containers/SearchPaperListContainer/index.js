@@ -7,11 +7,11 @@ import './index.scss';
 import SearchBox from "../../components/SearchBox";
 import SpinnerContainer from "../../components/Spinner";
 import {
-    addPaperAction,
     savePaperAction,
     searchPapersAction,
     setSearchPapersAction
 } from "../../redux/reducers/SearchPapersReducer/actions";
+import {addPaperAction} from "../../redux/reducers/MyPapersReducer/actions";
 
 function SearchPaperListContainer(props) {
     const papers = useSelector(state => state.searchPapers);
@@ -40,11 +40,9 @@ function SearchPaperListContainer(props) {
         }
     };
 
-    const onSavePapersSuccess = (response) => {
+    const onSavePapersSuccess = response => {
         setIsLoading(false);
-        debugger
-        console.log(response.data);
-        dispatch(addPaperAction(response));
+        dispatch(addPaperAction(response.data));
     };
 
     const onSavePapersFailed = (err) => {
@@ -53,12 +51,11 @@ function SearchPaperListContainer(props) {
     };
 
     const onSaveButtonClicked = (itemId) => {
-        const item = papers.find(paper => paper.id === itemId);
+        const item = papers.find(paper => paper.paperId === itemId);
         if (item) {
-            debugger
             dispatch(savePaperAction({
                 data: {paper: item},
-                onSuccess: onSavePapersSuccess(item),
+                onSuccess: onSavePapersSuccess,
                 onError: onSavePapersFailed
             }));
         }
@@ -66,22 +63,19 @@ function SearchPaperListContainer(props) {
 
 
     const paperElements = papers.map(paper => {
-        const pdfLinkObject = paper.links.find(link => link.title === LINK_TYPE);
-        const pdfLink = pdfLinkObject ? pdfLinkObject.href : null;
-
         const publishedDate = new Date(paper.published).toDateString();
         const updatedDate = new Date(paper.updated).toDateString();
 
 
         return <PaperItem
-            id={paper.id}
-            key={paper.id}
+            id={paper.paperId}
+            key={paper.paperId}
             title={paper.title}
             summary={paper.summary}
             authors={paper.authors}
             publishedDate={publishedDate}
             updatedDate={updatedDate}
-            pdfLink={pdfLink}
+            pdfLink={paper.pdfLink}
             onSaveButtonClicked={onSaveButtonClicked}
         />
     });
