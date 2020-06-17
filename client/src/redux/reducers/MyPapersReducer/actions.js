@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import {ADD_PAPER_ACTION_TYPE, SET_PAPERS_ACTION_TYPE} from "./constants";
-import {API_ACTION_TYPE} from "../../middleware/ApiMiddleware/constants";
-import {GET_PAPERS_PATH} from "../../../constants";
+import {ADD_PAPER_ACTION_TYPE, FILTER_PAPER_ACTION_TYPE, SET_PAPERS_ACTION_TYPE} from "./constants";
+import {API_ACTION_TYPE, API_METHOD_POST} from "../../middleware/ApiMiddleware/constants";
+import {GET_PAPERS_PATH, REMOVE_PAPER_PATH} from "../../../constants";
 
 export function setPapersAction(papers) {
     return {
@@ -26,4 +26,24 @@ export function addPaperAction(paper) {
         type: ADD_PAPER_ACTION_TYPE,
         payload: paper,
     }
+}
+
+export function filterPaperAction(paperId) {
+    return {
+        type: FILTER_PAPER_ACTION_TYPE,
+        payload: paperId,
+    }
+}
+
+export function removePaperAction({data, onSuccess = _.noop, onError = _.noop}) {
+    return {
+        type: API_ACTION_TYPE,
+        payload: {
+            method: API_METHOD_POST,
+            url: REMOVE_PAPER_PATH,
+            data,
+            onSuccess,
+            onError
+        }
+    };
 }

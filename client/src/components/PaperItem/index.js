@@ -4,14 +4,33 @@ import Card from '@material-ui/core/Card';
 import './index.scss';
 import Button from "@material-ui/core/Button";
 import SaveIcon from '@material-ui/icons/Save';
+import DeleteIcon from '@material-ui/icons/Delete';
+
+
+function ActionButton({id, startIcon, children, onClick}) {
+    return (<Button
+        className="btn_save"
+        variant="contained"
+        color="primary"
+        size="large"
+        startIcon={startIcon}
+        onClick={() => onClick(id)}
+    >
+        {children}
+    </Button>);
+}
 
 function PaperItem(props) {
     const {
         className, title, summary, authors, pdfLink, publishedDate,
-        updatedDate, onSaveButtonClicked, onRemoveButtonClicked, id
+        updatedDate, onSaveButtonClicked, onRemoveButtonClicked, id, paperExist,
     } = props;
 
     const authorsNames = authors.join(', ');
+
+    const buttonIcon = paperExist ? <DeleteIcon /> : <SaveIcon />;
+    const buttonOnClick = paperExist ? onRemoveButtonClicked : onSaveButtonClicked;
+    const buttonText = paperExist ? 'Remove' : 'Save';
 
     return (
         <div className={buildClassName(['paper_item_container', className])}>
@@ -49,16 +68,9 @@ function PaperItem(props) {
 
                 </div>
                 <div className="paper_item_save">
-                    <Button
-                        className="btn_save"
-                        variant="contained"
-                        color="primary"
-                        size="large"
-                        startIcon={<SaveIcon/>}
-                        onClick={() => onSaveButtonClicked(id)}
-                    >
-                        Save
-                    </Button>
+                    <ActionButton id={id} startIcon={buttonIcon} onClick={buttonOnClick}>
+                        {buttonText}
+                    </ActionButton>
                 </div>
             </Card>
         </div>

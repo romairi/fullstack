@@ -11,12 +11,27 @@ import {
     searchPapersAction,
     setSearchPapersAction
 } from "../../redux/reducers/SearchPapersReducer/actions";
-import {addPaperAction} from "../../redux/reducers/MyPapersReducer/actions";
+import {
+    addPaperAction, filterPaperAction,
+    getPapersAction,
+    removePaperAction,
+    setPapersAction
+} from "../../redux/reducers/MyPapersReducer/actions";
 
 function SearchPaperListContainer(props) {
+    const myPapers = useSelector(state => state.papers);
     const papers = useSelector(state => state.searchPapers);
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = React.useState(false);
+
+    const onGetPapersSuccess = (response) => {
+        console.log(response.data);
+        dispatch(setPapersAction(response.data));
+    };
+
+    React.useEffect(() => {
+        dispatch(getPapersAction({onSuccess: onGetPapersSuccess, onError: err => console.log(err)}));
+    }, []);
 
     const onSearchPapersSuccess = (response) => {
         setIsLoading(false);
@@ -61,11 +76,29 @@ function SearchPaperListContainer(props) {
         }
     };
 
+    const onRemovePapersSuccess = response => {
+        setIsLoading(false);
+        dispatch(filterPaperAction(response.data));
+    };
+
+    const onRemovePapersFailed = (err) => {
+        setIsLoading(false);
+        console.log(err);
+    };
+
+    const onRemoveButtonClicked = (itemId) => {
+        dispatch(removePaperAction({
+            data: {paperId: itemId},
+            onSuccess: onRemovePapersSuccess,
+            onError: onRemovePapersFailed
+        }));
+    };
+
 
     const paperElements = papers.map(paper => {
         const publishedDate = new Date(paper.published).toDateString();
         const updatedDate = new Date(paper.updated).toDateString();
-
+        const paperExist = myPapers.find(p => p.paperId === paper.paperId);
 
         return <PaperItem
             id={paper.paperId}
@@ -77,6 +110,8 @@ function SearchPaperListContainer(props) {
             updatedDate={updatedDate}
             pdfLink={paper.pdfLink}
             onSaveButtonClicked={onSaveButtonClicked}
+            onRemoveButtonClicked={onRemoveButtonClicked}
+            paperExist={!!paperExist}
         />
     });
 
