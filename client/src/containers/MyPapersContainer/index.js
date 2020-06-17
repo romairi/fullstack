@@ -1,8 +1,8 @@
 import React from 'react';
 import './index.scss';
 import {useDispatch, useSelector} from "react-redux";
-import {getPapersAction, setPapersAction} from "../../redux/reducers/PapersReducer/actions";
-import {LINK_TYPE} from "../PaperListContainer/constants";
+import {getPapersAction, setPapersAction} from "../../redux/reducers/MyPapersReducer/actions";
+import {LINK_TYPE} from "../SearchPaperListContainer/constants";
 import PaperItem from "../../components/PaperItem";
 
 
@@ -17,26 +17,27 @@ function MyPapersContainer(props) {
     };
 
     React.useEffect(() => {
-        //TODO remove timeout - need to add loading indication
-        setTimeout(() => dispatch(getPapersAction({onSuccess: onGetPapersSuccess, onError: err => console.log(err)})), 1500);
+        dispatch(getPapersAction({onSuccess: onGetPapersSuccess, onError: err => console.log(err)}));
     }, []);
 
 
-    const paperElements = papers.map(paper => {
-        const pdfLinkObject = paper.links.find(link => link.title === LINK_TYPE);
-        const pdfLink = pdfLinkObject ? pdfLinkObject.href : null;
+    const onRemoveButtonClicked = (idItem, typeBtn) => {
+        console.log(idItem);
+    };
 
+    const paperElements = papers.map(paper => {
         const publishedDate =  new Date(paper.published).toDateString();
         const updatedDate =  new Date(paper.updated).toDateString();
 
         return <PaperItem
-            key={paper.id}
+            key={paper.paperId}
             title={paper.title}
             summary={paper.summary}
             authors={paper.authors}
             publishedDate={publishedDate}
             updatedDate={updatedDate}
-            pdfLink={pdfLink}
+            pdfLink={paper.pdfLink}
+            onRemoveButtonClicked={onRemoveButtonClicked}
         />
     });
 
