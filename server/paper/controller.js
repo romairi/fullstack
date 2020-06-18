@@ -44,5 +44,17 @@ async function savePaper(req, res, next) {
     }
 }
 
+async function removePaper(req, res, next) {
+    const {paperId} = req.body;
+    const userId = req.user._id;
 
-module.exports = {getPapers, searchPapers, savePaper};
+    try {
+        const data = await UserModel.removePaper(userId, paperId);
+        return res.status(HttpStatus.CREATED).json(data.paperId);
+    } catch (err) {
+        next(err);
+    }
+}
+
+
+module.exports = {getPapers, searchPapers, savePaper, removePaper};

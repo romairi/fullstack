@@ -38,6 +38,7 @@ function MyPapersContainer(props) {
             updatedDate={updatedDate}
             pdfLink={paper.pdfLink}
             onRemoveButtonClicked={onRemoveButtonClicked}
+            paperExist
         />
     });
 

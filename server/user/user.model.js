@@ -43,6 +43,15 @@ UserSchema.statics.addPaper = async function (id, paper) {
 
 };
 
+UserSchema.statics.removePaper = async function (id, paperId) {
+    const user = await this.findById(id).populate('paperItems');
+    user.paperItems = user.paperItems.filter(item => item.paperId !== paperId);
+    await user.save();
+    return {
+        paperId
+    };
+};
+
 UserSchema.statics.getPapers = async function (id) {
     const user = await this.findById(id).populate('paperItems');
     return user.paperItems;
