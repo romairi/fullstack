@@ -2,7 +2,6 @@ import React from 'react';
 import _ from 'lodash';
 import {useDispatch, useSelector} from "react-redux";
 import PaperItem from "../../components/PaperItem";
-import {LINK_TYPE} from "./constants";
 import './index.scss';
 import SearchBox from "../../components/SearchBox";
 import SpinnerContainer from "../../components/Spinner";
