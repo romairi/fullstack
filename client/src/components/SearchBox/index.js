@@ -58,22 +58,25 @@ function SearchBox({onSearchButtonClicked}) {
                         onChange={onSearchFieldChange}
                         value={searchParam}
                     />
-                    <Button
-                        variant="contained"
-                        size="medium"
-                        color="primary"
-                        onClick={onIncludeButtonClicked}
-                    >
-                        include
-                    </Button>
-                    <Button
-                        variant="contained"
-                        size="medium"
-                        color="primary"
-                        type="submit"
-                        onClick={onExcludeButtonClicked}>
-                        exclude
-                    </Button>
+                    <div className="search_box_buttons">
+                        <Button
+                            variant="contained"
+                            size="medium"
+                            color="primary"
+                            onClick={onIncludeButtonClicked}
+                        >
+                            include
+                        </Button>
+                        <Button
+                            variant="contained"
+                            size="medium"
+                            color="primary"
+                            type="submit"
+                            onClick={onExcludeButtonClicked}>
+                            exclude
+                        </Button>
+                    </div>
+
                 </div>
                 <div className="search_box_result">
                     <h4 className="title_tag">
@@ -88,6 +91,7 @@ function SearchBox({onSearchButtonClicked}) {
 
                 <div className="search_box_submit">
                     <Button
+                        className="search_box_submit_btn"
                         variant="contained"
                         size="medium"
                         color="primary"
@@ -96,6 +100,7 @@ function SearchBox({onSearchButtonClicked}) {
                         Search
                     </Button>
                     <Button
+                        className="search_box_submit_btn"
                         variant="contained"
                         size="medium"
                         color="secondary"
