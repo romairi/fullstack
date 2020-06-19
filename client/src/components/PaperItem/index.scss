@@ -10,6 +10,12 @@
 
   .paper_item_card {
     padding: 20px 45px;
+    transition: background-color 0.25s, color 0.25s, box-shadow 0.25s;
+    box-shadow: 0 8px 42px -8px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      box-shadow: 0 8px 42px -8px rgba(0, 0, 0, 0.4);
+    }
 
     .paper_item_summary {
       text-align: left;
