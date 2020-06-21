@@ -11,20 +11,34 @@ import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import SearchIcon from '@material-ui/icons/Search';
 
-function ActionButton({id, children, onClick}) {
-    return (<Button
-        className="header_btn"
-        variant="contained"
-        color="primary"
-        size="medium"
-        onClick={() => onClick(id)}
-    >
-        {children}
-    </Button>);
+
+function MenuLinks() {
+    return (
+        <>
+            <Button
+                className="header_btn"
+                variant="contained"
+                size="medium"
+                color="default"
+                href={BASE_ROUTE}
+            >My Papers
+            </Button>
+            <Button
+                className="header_btn"
+                variant="contained"
+                size="medium"
+                color="default"
+                startIcon={<SearchIcon color="primary" fontSize="large" />}
+                href={SEARCH_PAPER_LIST_ROUTE}
+            >
+                Search
+            </Button>
+        </>
+    )
 }
 
+export default function Header(props) {
 
-export default function Header() {
     const user = useSelector(state => state.user);
     const dispatch = useDispatch();
     const buttonTitle = _.isEmpty(user) ? 'Login' : 'Logout';
@@ -45,29 +59,13 @@ export default function Header() {
         }
     }
 
+    const showMenu = _.isEmpty(user) ? null : MenuLinks();
 
     return (
         <div className="header">
             <AppBar position="static">
                 <Toolbar className="header_toolbar">
-                    <Button
-                        className="header_btn"
-                        variant="contained"
-                        size="medium"
-                        color="default"
-                        href={BASE_ROUTE}
-                    >My Papers
-                    </Button>
-                    <Button
-                        className="header_btn"
-                        variant="contained"
-                        size="medium"
-                        color="default"
-                        startIcon={<SearchIcon color="primary" fontSize="large" />}
-                        href={SEARCH_PAPER_LIST_ROUTE}
-                    >
-                        Search
-                    </Button>
+                    {showMenu}
                     <Button
                         className="header_btn"
                         variant="contained"
@@ -75,7 +73,6 @@ export default function Header() {
                         color="secondary"
                         onClick={handleButtonClick}>{buttonTitle}
                     </Button>
-
                 </Toolbar>
             </AppBar>
         </div>

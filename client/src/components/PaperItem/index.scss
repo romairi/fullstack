@@ -47,11 +47,10 @@
 
     .paper_item_save {
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
 
       .btn_save {
         margin-top: 22px;
-        width: 60%
       }
     }
   }

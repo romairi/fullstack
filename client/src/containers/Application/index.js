@@ -29,11 +29,12 @@ class App extends React.PureComponent {
 
     render() {
         const {history} = this.props;
+        const search = false;
 
         return (
             <div className="app-container">
                 <ConnectedRouter history={history}>
-                    <Header/>
+                    <Header search/>
                     {routes}
                 </ConnectedRouter>
             </div>
