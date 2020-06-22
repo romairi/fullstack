@@ -1,11 +1,10 @@
 @import "../../scss/variables";
 
 .search_box_container {
-  width: 60%;
   margin: 40px auto;
 
   .search_box_card {
-    padding: 20px 30px;
+    padding: 35px 45px;
     box-shadow: 0 8px 42px -8px rgba(0, 0, 0, 0.2);
 
     &:hover {
@@ -30,10 +29,22 @@
         margin-right: 10px;
         margin-left: 10px;
       }
+
       .search_box_buttons {
         margin-top: 7px;
         padding: 5px;
+
+        @media(max-width: $max-sm) {
+          display: inline-flex;
+        }
+
+        @media(max-width: $max-xxs) {
+          display: flex;
+          flex-direction: column;
+        }
       }
+
+
     }
 
     .search_box_result {
