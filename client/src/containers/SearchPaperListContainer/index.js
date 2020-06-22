@@ -14,16 +14,25 @@ import {
     addPaperAction, extractPaperAction,
     removePaperAction,
 } from "../../redux/reducers/MyPapersReducer/actions";
+import Pagination from "../../components/Pagination";
+
+const RESULTS_PER_PAGE = 10;
 
 function SearchPaperListContainer(props) {
     const myPapers = useSelector(state => state.papers);
     const papers = useSelector(state => state.searchPapers);
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = React.useState(false);
+    const [currentPage, setCurrentPage] = React.useState(0);
+    const [isLastPage, setIsLastPage] = React.useState(false);
+    const [currentSearchIncTags, setCurrentSearchIncTags] = React.useState([]);
+    const [currentSearchExcTags, setCurrentSearchExcTags] = React.useState([]);
 
     const onSearchPapersSuccess = (response) => {
         setIsLoading(false);
-        console.log(response.data);
+        if (response.data.length < RESULTS_PER_PAGE) {
+            setIsLastPage(true);
+        }
         dispatch(setSearchPapersAction(response.data));
     };
 
@@ -35,8 +44,17 @@ function SearchPaperListContainer(props) {
     const onSearchButtonClicked = (searchIncTags, searchExcTags) => {
         if (!_.isEmpty(searchIncTags) || !_.isEmpty(searchExcTags)) {
             setIsLoading(true);
+            setCurrentPage(0);
+            setCurrentSearchIncTags(searchIncTags);
+            setCurrentSearchExcTags(searchExcTags);
+            setIsLastPage(false);
             dispatch(searchPapersAction({
-                data: {includeList: searchIncTags, excludeList: searchExcTags},
+                data: {
+                    includeList: searchIncTags,
+                    excludeList: searchExcTags,
+                    start: 0,
+                    maxResults: RESULTS_PER_PAGE
+                },
                 onSuccess: onSearchPapersSuccess,
                 onError: onSearchPapersFailed
             }));
@@ -82,6 +100,26 @@ function SearchPaperListContainer(props) {
         }));
     };
 
+    const onChangePage = (nextPage) => {
+        if (!_.isEmpty(currentSearchIncTags) || !_.isEmpty(currentSearchExcTags)) {
+            setIsLoading(true);
+            setCurrentPage(nextPage);
+            setIsLastPage(false);
+
+            const startPage = nextPage * RESULTS_PER_PAGE;
+            dispatch(searchPapersAction({
+                data: {
+                    includeList: currentSearchIncTags,
+                    excludeList: currentSearchExcTags,
+                    start: startPage,
+                    maxResults: RESULTS_PER_PAGE
+                },
+                onSuccess: onSearchPapersSuccess,
+                onError: onSearchPapersFailed
+            }));
+        }
+    };
+
 
     const paperElements = papers.map(paper => {
         const publishedDate = new Date(paper.published).toDateString();
@@ -103,11 +141,15 @@ function SearchPaperListContainer(props) {
         />
     });
 
+    const pagination = (!isLoading && papers.length > 0) ?
+        <Pagination page={currentPage} onChangePage={onChangePage} isLastPage={isLastPage}/> : null;
+
     return (
         <div className="papers_container">
             <SearchBox onSearchButtonClicked={onSearchButtonClicked}/>
             <SpinnerContainer isLoading={isLoading}>
                 {paperElements}
+                {pagination}
             </SpinnerContainer>
         </div>
     )

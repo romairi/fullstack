@@ -5,7 +5,7 @@ const UserModel = require('../user/user.model');
 const {formatPaper} = require("../services/formatPaper");
 
 async function searchPapers(req, res, next) {
-    const {includeList, excludeList} = req.body;
+    const {includeList, excludeList, start, maxResults} = req.body;
 
     const resultPapers = await arxiv.search({
         searchQueryParams: [
@@ -14,8 +14,8 @@ async function searchPapers(req, res, next) {
                 exclude: excludeList.map(s => ({name: s})),
             }
         ],
-        start: 0,
-        maxResults: 10,
+        start,
+        maxResults: Math.min(maxResults, 30),
     });
 
     res.json(resultPapers.map(formatPaper));
