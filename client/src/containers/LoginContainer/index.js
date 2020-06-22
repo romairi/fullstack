@@ -7,6 +7,8 @@ import {replace} from "connected-react-router";
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import LockIcon from '@material-ui/icons/Lock';
+import EmailIcon from '@material-ui/icons/Email';
 import {EMAIL_FIELD, PASSWORD_FIELD} from "./constants";
 import {BASE_ROUTE, SIGNUP_ROUTE} from '../../routes/constants';
 import {schemaLogin} from './validations';
@@ -43,27 +45,33 @@ export default function LoginContainer({}) {
             <Card className="login_container">
                 <h2 className="title_login">Login</h2>
                 <form className="form_login">
-                    <TextField
-                        margin="dense"
-                        error={!_.isEmpty(errors[EMAIL_FIELD])}
-                        helperText={errors[EMAIL_FIELD]}
-                        type="email"
-                        id={EMAIL_FIELD}
-                        label="Email"
-                        value={values[EMAIL_FIELD]}
-                        onChange={handleChange}
-                    />
-                    <TextField
-                        margin="dense"
-                        error={!_.isEmpty(errors[PASSWORD_FIELD])}
-                        helperText={errors[PASSWORD_FIELD]}
-                        type="password"
-                        id={PASSWORD_FIELD}
-                        label="Password"
-                        value={values[PASSWORD_FIELD]}
-                        onChange={handleChange}
-                    />
-                    <Error message={errors[GENERAL_ERROR_FIELD]} />
+                    <div className="textField_email">
+                        <EmailIcon className="icon_email"/>
+                        <TextField
+                            margin="dense"
+                            error={!_.isEmpty(errors[EMAIL_FIELD])}
+                            helperText={errors[EMAIL_FIELD]}
+                            type="email"
+                            id={EMAIL_FIELD}
+                            label="Email"
+                            value={values[EMAIL_FIELD]}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="textField_password">
+                        <LockIcon className="icon_password"/>
+                        <TextField
+                            margin="dense"
+                            error={!_.isEmpty(errors[PASSWORD_FIELD])}
+                            helperText={errors[PASSWORD_FIELD]}
+                            type="password"
+                            id={PASSWORD_FIELD}
+                            label="Password"
+                            value={values[PASSWORD_FIELD]}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <Error message={errors[GENERAL_ERROR_FIELD]}/>
                     <Button
                         className="base_container_btn"
                         variant="contained" color="primary"

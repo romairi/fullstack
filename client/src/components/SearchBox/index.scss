@@ -6,6 +6,11 @@
 
   .search_box_card {
     padding: 20px 30px;
+    box-shadow: 0 8px 42px -8px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      box-shadow: 0 8px 42px -8px rgba(0, 0, 0, 0.4);
+    }
 
     .search_box_title {
       text-align: center;
@@ -14,14 +19,20 @@
     .search_box {
       display: flex;
       padding: 5px;
+      justify-content: space-between;
 
       .MuiFormControl-root {
         margin-right: 10px;
+        flex-grow: 2;
       }
 
       .MuiButton-containedPrimary {
         margin-right: 10px;
         margin-left: 10px;
+      }
+      .search_box_buttons {
+        margin-top: 7px;
+        padding: 5px;
       }
     }
 
@@ -36,7 +47,7 @@
       justify-content: flex-end;
       margin-top: 15px;
 
-      button {
+      .search_box_submit_btn {
         margin-left: 15px;
       }
     }

@@ -50,7 +50,7 @@ function SearchBox({onSearchButtonClicked}) {
     return (
         <div className="search_box_container">
             <Card className="search_box_card">
-                <h3 className="search_box_title">Search for a article</h3>
+                <h3 className="search_box_title">Search for an article</h3>
                 <div className="search_box">
                     <TextField
                         type="text"
@@ -58,22 +58,25 @@ function SearchBox({onSearchButtonClicked}) {
                         onChange={onSearchFieldChange}
                         value={searchParam}
                     />
-                    <Button
-                        variant="contained"
-                        size="medium"
-                        color="primary"
-                        onClick={onIncludeButtonClicked}
-                    >
-                        include
-                    </Button>
-                    <Button
-                        variant="contained"
-                        size="medium"
-                        color="primary"
-                        type="submit"
-                        onClick={onExcludeButtonClicked}>
-                        exclude
-                    </Button>
+                    <div className="search_box_buttons">
+                        <Button
+                            variant="contained"
+                            size="medium"
+                            color="primary"
+                            onClick={onIncludeButtonClicked}
+                        >
+                            include
+                        </Button>
+                        <Button
+                            variant="contained"
+                            size="medium"
+                            color="primary"
+                            type="submit"
+                            onClick={onExcludeButtonClicked}>
+                            exclude
+                        </Button>
+                    </div>
+
                 </div>
                 <div className="search_box_result">
                     <h4 className="title_tag">
@@ -88,6 +91,7 @@ function SearchBox({onSearchButtonClicked}) {
 
                 <div className="search_box_submit">
                     <Button
+                        className="search_box_submit_btn"
                         variant="contained"
                         size="medium"
                         color="primary"
@@ -96,6 +100,7 @@ function SearchBox({onSearchButtonClicked}) {
                         Search
                     </Button>
                     <Button
+                        className="search_box_submit_btn"
                         variant="contained"
                         size="medium"
                         color="secondary"

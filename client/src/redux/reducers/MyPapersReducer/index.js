@@ -1,4 +1,4 @@
-import {ADD_PAPER_ACTION_TYPE, FILTER_PAPER_ACTION_TYPE, SET_PAPERS_ACTION_TYPE} from "./constants";
+import {ADD_PAPER_ACTION_TYPE, EXTRACT_PAPER_ACTION_TYPE, SET_PAPERS_ACTION_TYPE} from "./constants";
 
 export default function myPapersReducer(state = [], action) {
     let newState;
@@ -8,8 +8,11 @@ export default function myPapersReducer(state = [], action) {
             break;
         case ADD_PAPER_ACTION_TYPE:
             newState = [...state, action.payload];
-        case FILTER_PAPER_ACTION_TYPE:
-            newState = state.filter(paper => paper.id !== action.payload);
+            break;
+        case EXTRACT_PAPER_ACTION_TYPE:
+            debugger
+            newState = state.filter(paper => paper.paperId !== action.payload);
+            break;
         default:
             newState = state;
     }

@@ -10,8 +10,6 @@ async function auth(req, res, next) {
     if (token) {
         try {
             const {_id: userId, hash} = jwt.verify(token, serverConfig.jwt.secret);
-
-            console.log(hash, req.fingerprint.hash);
             if (hash === req.fingerprint.hash) {
                 const userObj = await UserModel.findById(userId);
                 const {password: userPass, ...useArgs} = userObj.toObject();

@@ -3,6 +3,7 @@
 .papers_container {
   margin: 0 auto;
   width: 65%;
+  padding-bottom: 100px;
 
   @media(max-width: $max-lg) {
     width: 80%;

@@ -4,4 +4,16 @@
     .MuiToolbar-root {
         justify-content: flex-end;
     }
+
+    .header_toolbar {
+        padding-right: 5px;
+    }
+
+    .header_btn {
+        margin: 4px;
+
+        &.selected {
+            background-color: red;
+        }
+    }
 }
