@@ -11,7 +11,7 @@ import {
     setSearchPapersAction
 } from "../../redux/reducers/SearchPapersReducer/actions";
 import {
-    addPaperAction, filterPaperAction,
+    addPaperAction, extractPaperAction,
     getPapersAction,
     removePaperAction,
     setPapersAction
@@ -77,7 +77,7 @@ function SearchPaperListContainer(props) {
 
     const onRemovePapersSuccess = response => {
         setIsLoading(false);
-        dispatch(filterPaperAction(response.data));
+        dispatch(extractPaperAction(response.data));
     };
 
     const onRemovePapersFailed = (err) => {
