@@ -11,5 +11,9 @@
 
     .header_btn {
         margin: 4px;
+
+        &.selected {
+            background-color: red;
+        }
     }
 }

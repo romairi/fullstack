@@ -10,26 +10,27 @@ import AppBar from '@material-ui/core/AppBar';
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import SearchIcon from '@material-ui/icons/Search';
+import { Link } from 'react-router-dom'
+import {buildClassName} from "../../services/classNameService";
 
-
-function MenuLinks() {
+function MenuLinks({currentLocation}) {
     return (
         <>
             <Button
-                className="header_btn"
+                component={Link}
+                className={buildClassName(["header_btn", (currentLocation === BASE_ROUTE) && "selected"])}
                 variant="contained"
                 size="medium"
-                color="default"
-                href={BASE_ROUTE}
+                to={BASE_ROUTE}
             >My Papers
             </Button>
             <Button
-                className="header_btn"
+                component={Link}
+                className={buildClassName(["header_btn", (currentLocation === SEARCH_PAPER_LIST_ROUTE) && "selected"])}
                 variant="contained"
                 size="medium"
-                color="default"
                 startIcon={<SearchIcon color="primary" fontSize="large" />}
-                href={SEARCH_PAPER_LIST_ROUTE}
+                to={SEARCH_PAPER_LIST_ROUTE}
             >
                 Search
             </Button>
@@ -40,8 +41,10 @@ function MenuLinks() {
 export default function Header(props) {
 
     const user = useSelector(state => state.user);
+    const router = useSelector(state => state.router);
     const dispatch = useDispatch();
     const buttonTitle = _.isEmpty(user) ? 'Login' : 'Logout';
+    const currentLocation = router.location.pathname;
 
     function onLogoutSuccess() {
         dispatch(createSetUserAction(null));
@@ -59,7 +62,7 @@ export default function Header(props) {
         }
     }
 
-    const showMenu = _.isEmpty(user) ? null : MenuLinks();
+    const showMenu = _.isEmpty(user) ? null : <MenuLinks currentLocation={currentLocation} />;
 
     return (
         <div className="header">
