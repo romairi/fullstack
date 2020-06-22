@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {ADD_PAPER_ACTION_TYPE, FILTER_PAPER_ACTION_TYPE, SET_PAPERS_ACTION_TYPE} from "./constants";
+import {ADD_PAPER_ACTION_TYPE, EXTRACT_PAPER_ACTION_TYPE, SET_PAPERS_ACTION_TYPE} from "./constants";
 import {API_ACTION_TYPE, API_METHOD_POST} from "../../middleware/ApiMiddleware/constants";
 import {GET_PAPERS_PATH, REMOVE_PAPER_PATH} from "../../../constants";
 
@@ -28,9 +28,9 @@ export function addPaperAction(paper) {
     }
 }
 
-export function filterPaperAction(paperId) {
+export function extractPaperAction(paperId) {
     return {
-        type: FILTER_PAPER_ACTION_TYPE,
+        type: EXTRACT_PAPER_ACTION_TYPE,
         payload: paperId,
     }
 }
