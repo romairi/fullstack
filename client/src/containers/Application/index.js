@@ -20,21 +20,20 @@ class App extends React.PureComponent {
             path => path === router.location.pathname)) {
             this.props.replace(BASE_ROUTE);
         }
-        // this.props.getPapersAction({onSuccess: this.onGetPapersSuccess, onError: err => console.log(err)})
+        this.props.getPapersAction({onSuccess: this.onGetPapersSuccess, onError: err => console.log(err)})
     }
 
-    // onGetPapersSuccess(response) {
-    //     this.props.setPapersAction(response.data);
-    // }
+    onGetPapersSuccess = (response) =>  {
+        this.props.setPapersAction(response.data);
+    };
 
     render() {
         const {history} = this.props;
-        const search = false;
 
         return (
             <div className="app-container">
                 <ConnectedRouter history={history}>
-                    <Header search/>
+                    <Header />
                     {routes}
                 </ConnectedRouter>
             </div>

@@ -12,9 +12,7 @@ import {
 } from "../../redux/reducers/SearchPapersReducer/actions";
 import {
     addPaperAction, extractPaperAction,
-    getPapersAction,
     removePaperAction,
-    setPapersAction
 } from "../../redux/reducers/MyPapersReducer/actions";
 
 function SearchPaperListContainer(props) {
@@ -22,15 +20,6 @@ function SearchPaperListContainer(props) {
     const papers = useSelector(state => state.searchPapers);
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = React.useState(false);
-
-    const onGetPapersSuccess = (response) => {
-        console.log(response.data);
-        dispatch(setPapersAction(response.data));
-    };
-
-    React.useEffect(() => {
-        dispatch(getPapersAction({onSuccess: onGetPapersSuccess, onError: err => console.log(err)}));
-    }, []);
 
     const onSearchPapersSuccess = (response) => {
         setIsLoading(false);

@@ -3,9 +3,7 @@ import './index.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {
     extractPaperAction,
-    getPapersAction,
     removePaperAction,
-    setPapersAction
 } from "../../redux/reducers/MyPapersReducer/actions";
 import PaperItem from "../../components/PaperItem";
 
@@ -14,18 +12,7 @@ function MyPapersContainer(props) {
     const papers = useSelector(state => state.papers);
     const dispatch = useDispatch();
 
-    const onGetPapersSuccess = (response) => {
-        console.log(response.data);
-        dispatch(setPapersAction(response.data));
-    };
-
-    React.useEffect(() => {
-        dispatch(getPapersAction({onSuccess: onGetPapersSuccess, onError: err => console.log(err)}));
-    }, []);
-
-
     const onRemovePapersSuccess = (response) => {
-        debugger
         dispatch(extractPaperAction(response.data));
     };
 
