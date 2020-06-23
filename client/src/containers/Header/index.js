@@ -20,7 +20,7 @@ function MenuLinks({currentLocation}) {
                 component={Link}
                 className={buildClassName(["header_btn", (currentLocation === BASE_ROUTE) && "selected"])}
                 variant="contained"
-                size="medium"
+                size="small"
                 to={BASE_ROUTE}
             >My Papers
             </Button>
@@ -28,7 +28,7 @@ function MenuLinks({currentLocation}) {
                 component={Link}
                 className={buildClassName(["header_btn", (currentLocation === SEARCH_PAPER_LIST_ROUTE) && "selected"])}
                 variant="contained"
-                size="medium"
+                size="small"
                 startIcon={<SearchIcon color="primary" fontSize="large" />}
                 to={SEARCH_PAPER_LIST_ROUTE}
             >
@@ -68,12 +68,13 @@ export default function Header(props) {
         <div className="header">
             <AppBar position="static">
                 <Toolbar className="header_toolbar">
-                    {showMenu}
+                    <div>
+                        {showMenu}
+                    </div>
                     <Button
                         className="header_btn"
                         variant="contained"
-                        size="medium"
-                        color="secondary"
+                        size="small"
                         onClick={handleButtonClick}>{buttonTitle}
                     </Button>
                 </Toolbar>

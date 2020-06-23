@@ -1,19 +1,20 @@
 @import "../../scss/variables";
 
 .header {
-    .MuiToolbar-root {
-        justify-content: flex-end;
-    }
+  .MuiToolbar-root {
+    justify-content: space-between;
+  }
 
-    .header_toolbar {
-        padding-right: 5px;
-    }
+  .header_toolbar {
+    padding-right: 5px;
+  }
 
-    .header_btn {
-        margin: 4px;
+  .header_btn {
+    margin: 4px;
+    background-color: $color_white;
 
-        &.selected {
-            background-color: red;
-        }
+    &.selected {
+      background-color: yellow;
     }
+  }
 }
