@@ -3,25 +3,23 @@
 .header {
 
   .header_toolbar {
+    color: blue;
+    background-color: white;
+
     padding-right: 5px;
     justify-content: space-between;
 
     .header_menu_links {
 
     }
-
-    .header_title {
-      font-size: xx-large;
-      font-weight: bold;
-    }
   }
 
   .header_btn {
     margin: 4px;
-    background-color: $color_white;
+    //background-color: $color_white;
 
     &.selected {
-      background-color: yellow;
+      //background-color: yellow;
     }
   }
 }
