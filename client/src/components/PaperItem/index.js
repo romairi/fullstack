@@ -43,7 +43,7 @@ function PaperItem(props) {
                     {summary}
                 </p>
                 <span className='paper_item_published_authors'>
-                    <strong>Authors:</strong> {authorsNames}
+                    <strong className="authors_title">Authors:</strong> {authorsNames}
                 </span>
 
                 <div className='paper_item_footer'>
@@ -59,10 +59,10 @@ function PaperItem(props) {
                     </Button>
                     <div className="paper_item_meta">
                         <span className='paper_item_published_date'>
-                            <strong>Published Date:</strong> {publishedDate}
+                            <strong className="data_title">Published Date:</strong> {publishedDate}
                         </span>
                         <span className='paper_item_updated_date'>
-                           <strong>Updated Date:</strong> {updatedDate}
+                           <strong className="data_title">Updated Date:</strong> {updatedDate}
                         </span>
                     </div>
 
