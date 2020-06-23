@@ -3,23 +3,49 @@
 .header {
 
   .header_toolbar {
-    color: blue;
-    background-color: white;
-
     padding-right: 5px;
     justify-content: space-between;
+    background-color: $primary_color;
 
-    .header_menu_links {
+    .navigation_bar {
+      .navigation_bar_list {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
 
+        .navigation_bar_item {
+          margin-left: 35px;
+
+          a {
+            font-size: 14px;
+            font-weight: 500;
+              color: $color_white;
+            text-decoration: none;
+
+          }
+
+          a:hover, a:active {
+            color: $color_black;
+          }
+
+          &.selected a {
+            //background: yellow;
+            cursor: none;
+            border-bottom: 3px solid black;
+          }
+
+          &:first-child {
+            margin: 0;
+          }
+        }
+      }
     }
+
+
   }
 
   .header_btn {
     margin: 4px;
-    //background-color: $color_white;
-
-    &.selected {
-      //background-color: yellow;
-    }
   }
 }
