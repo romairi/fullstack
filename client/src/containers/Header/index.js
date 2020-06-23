@@ -10,7 +10,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import SearchIcon from '@material-ui/icons/Search';
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {buildClassName} from "../../services/classNameService";
 
 function MenuLinks({currentLocation}) {
@@ -29,7 +29,7 @@ function MenuLinks({currentLocation}) {
                 className={buildClassName(["header_btn", (currentLocation === SEARCH_PAPER_LIST_ROUTE) && "selected"])}
                 variant="contained"
                 size="small"
-                startIcon={<SearchIcon color="primary" fontSize="large" />}
+                startIcon={<SearchIcon color="primary" fontSize="large"/>}
                 to={SEARCH_PAPER_LIST_ROUTE}
             >
                 Search
@@ -62,14 +62,18 @@ export default function Header(props) {
         }
     }
 
-    const showMenu = _.isEmpty(user) ? null : <MenuLinks currentLocation={currentLocation} />;
+    const showMenu = _.isEmpty(user) ? null : <MenuLinks currentLocation={currentLocation}/>;
+    const titlePage = currentLocation === BASE_ROUTE ? 'My Papers' : 'Search';
 
     return (
         <div className="header">
             <AppBar position="static">
                 <Toolbar className="header_toolbar">
-                    <div>
+                    <div className="header_menu_links">
                         {showMenu}
+                    </div>
+                    <div className="header_title">
+                        {titlePage}
                     </div>
                     <Button
                         className="header_btn"

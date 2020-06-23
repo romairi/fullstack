@@ -1,12 +1,19 @@
 @import "../../scss/variables";
 
 .header {
-  .MuiToolbar-root {
-    justify-content: space-between;
-  }
 
   .header_toolbar {
     padding-right: 5px;
+    justify-content: space-between;
+
+    .header_menu_links {
+
+    }
+
+    .header_title {
+      font-size: xx-large;
+      font-weight: bold;
+    }
   }
 
   .header_btn {
