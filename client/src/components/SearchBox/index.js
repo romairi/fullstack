@@ -50,7 +50,7 @@ function SearchBox({onSearchButtonClicked}) {
     return (
         <div className="search_box_container">
             <Card className="search_box_card">
-                <h3 className="search_box_title">Search for an article</h3>
+                <h3 className="search_box_title">Search Bar</h3>
                 <div className="search_box">
                     <TextField
                         type="text"

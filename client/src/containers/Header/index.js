@@ -13,6 +13,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import {Link} from 'react-router-dom'
 import {buildClassName} from "../../services/classNameService";
 
+
 function MenuLinks({currentLocation}) {
     return (
         <>
