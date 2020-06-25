@@ -14,12 +14,13 @@
     .base_container_btn {
       margin-top: 20px;
       margin-left: 5px;
+      font-family: 'Dancing Script', cursive;
     }
 
     .nav_another_page {
       margin-top: 5px;
       padding: 5px 0 0 2px;
-
+      font-family: 'Dancing Script', cursive;
       a:link, a:visited {
         display: inline-block;
         padding: 5px 10px;
@@ -27,6 +28,7 @@
         text-decoration: none;
         color: $color_black;
         font-weight: 500;
+        font-family: 'Dancing Script', cursive;
       }
 
       a:hover, a:active {

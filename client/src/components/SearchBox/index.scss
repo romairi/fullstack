@@ -1,11 +1,10 @@
 @import "../../scss/variables";
 
 .search_box_container {
-  width: 60%;
   margin: 40px auto;
 
   .search_box_card {
-    padding: 20px 30px;
+    padding: 35px 45px;
     box-shadow: 0 8px 42px -8px rgba(0, 0, 0, 0.2);
 
     &:hover {
@@ -14,6 +13,8 @@
 
     .search_box_title {
       text-align: center;
+      color: $primary_color;
+      font-family: 'Dancing Script', cursive;
     }
 
     .search_box {
@@ -21,24 +22,40 @@
       padding: 5px;
       justify-content: space-between;
 
-      .MuiFormControl-root {
+      .search_box_textField {
         margin-right: 10px;
         flex-grow: 2;
+
+        .MuiInputLabel-formControl {
+          font-family: 'Dancing Script', cursive;
+        }
       }
 
-      .MuiButton-containedPrimary {
+      .search_box_btn {
         margin-right: 10px;
         margin-left: 10px;
+        font-family: 'Dancing Script', cursive;
       }
+
       .search_box_buttons {
         margin-top: 7px;
         padding: 5px;
+
+        @media(max-width: $max-sm) {
+          display: inline-flex;
+        }
+
+        @media(max-width: $max-xxs) {
+          display: flex;
+          flex-direction: column;
+        }
       }
     }
 
     .search_box_result {
       .title_tag {
         margin: 10px 0 10px 0;
+        font-family: 'Dancing Script', cursive;
       }
     }
 
@@ -49,6 +66,7 @@
 
       .search_box_submit_btn {
         margin-left: 15px;
+        font-family: 'Dancing Script', cursive;
       }
     }
   }
