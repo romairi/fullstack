@@ -14,6 +14,7 @@
     .search_box_title {
       text-align: center;
       color: $primary_color;
+      font-family: 'Dancing Script', cursive;
     }
 
     .search_box {
@@ -21,14 +22,19 @@
       padding: 5px;
       justify-content: space-between;
 
-      .MuiFormControl-root {
+      .search_box_textField {
         margin-right: 10px;
         flex-grow: 2;
+
+        .MuiInputLabel-formControl {
+          font-family: 'Dancing Script', cursive;
+        }
       }
 
-      .MuiButton-containedPrimary {
+      .search_box_btn {
         margin-right: 10px;
         margin-left: 10px;
+        font-family: 'Dancing Script', cursive;
       }
 
       .search_box_buttons {
@@ -44,13 +50,12 @@
           flex-direction: column;
         }
       }
-
-
     }
 
     .search_box_result {
       .title_tag {
         margin: 10px 0 10px 0;
+        font-family: 'Dancing Script', cursive;
       }
     }
 
@@ -61,6 +66,7 @@
 
       .search_box_submit_btn {
         margin-left: 15px;
+        font-family: 'Dancing Script', cursive;
       }
     }
   }

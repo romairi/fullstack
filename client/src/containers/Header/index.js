@@ -6,7 +6,6 @@ import {createSetUserAction} from "../../redux/reducers/UserReducer/actions";
 import {push} from "connected-react-router";
 import {BASE_ROUTE, LOGIN_ROUTE, SEARCH_PAPER_LIST_ROUTE} from "../../routes/constants";
 import {logoutAction} from "./actions";
-import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import {Link} from 'react-router-dom'
 import {buildClassName} from "../../services/classNameService";
@@ -17,11 +16,11 @@ function NavigationBar({currentLocation}) {
         <ul className="navigation_bar_list">
             <li className={buildClassName(["navigation_bar_item",
                 (currentLocation === BASE_ROUTE) && "selected"])}>
-                <Link to={BASE_ROUTE}>My Papers</Link>
+                <Link className="header_btn" to={BASE_ROUTE}>My Papers</Link>
             </li>
             <li className={buildClassName(["navigation_bar_item",
                 (currentLocation === SEARCH_PAPER_LIST_ROUTE) && "selected"])}>
-                <Link to={SEARCH_PAPER_LIST_ROUTE}>Search Papers</Link>
+                <Link className="header_btn" to={SEARCH_PAPER_LIST_ROUTE}>Search Papers</Link>
             </li>
         </ul>
     )
@@ -59,13 +58,12 @@ export default function Header(props) {
                 <div className="navigation_bar">
                     {showMenu}
                 </div>
-                <Button
+                <Link
                     className="header_btn"
-                    variant="contained"
-                    color="secondary"
-                    size="small"
-                    onClick={handleButtonClick}>{buttonTitle}
-                </Button>
+                    onClick={handleButtonClick}
+                    to={LOGIN_ROUTE}
+                >{buttonTitle}
+                </Link>
             </Toolbar>
         </div>
     )

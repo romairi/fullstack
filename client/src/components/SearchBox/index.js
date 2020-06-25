@@ -52,7 +52,7 @@ function SearchBox({onSearchButtonClicked}) {
             <Card className="search_box_card">
                 <h3 className="search_box_title">Search Bar</h3>
                 <div className="search_box">
-                    <TextField
+                    <TextField className="search_box_textField"
                         type="text"
                         label="search article"
                         onChange={onSearchFieldChange}
@@ -60,6 +60,7 @@ function SearchBox({onSearchButtonClicked}) {
                     />
                     <div className="search_box_buttons">
                         <Button
+                            className="search_box_btn"
                             variant="contained"
                             size="medium"
                             color="primary"
@@ -68,6 +69,7 @@ function SearchBox({onSearchButtonClicked}) {
                             include
                         </Button>
                         <Button
+                            className="search_box_btn"
                             variant="contained"
                             size="medium"
                             color="primary"

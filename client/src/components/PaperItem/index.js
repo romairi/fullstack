@@ -48,6 +48,7 @@ function PaperItem(props) {
 
                 <div className='paper_item_footer'>
                     <Button
+                        className="paper_item_footer_btn"
                         component="a"
                         target='_blank'
                         href={pdfLink}

@@ -46,6 +46,10 @@
         flex-direction: column-reverse;
       }
 
+      .paper_item_footer_btn {
+        font-family: 'Dancing Script', cursive;
+      }
+
       .paper_item_meta {
         display: flex;
         flex-direction: column;
@@ -67,6 +71,7 @@
 
       .btn_save {
         margin-top: 22px;
+        font-family: 'Dancing Script', cursive;
       }
     }
   }

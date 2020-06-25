@@ -8,6 +8,7 @@
     background-color: $primary_color;
 
     .navigation_bar {
+
       .navigation_bar_list {
         display: flex;
         list-style: none;
@@ -17,22 +18,8 @@
         .navigation_bar_item {
           margin-left: 35px;
 
-          a {
-            font-size: 14px;
-            font-weight: 500;
-              color: $color_white;
-            text-decoration: none;
-
-          }
-
-          a:hover, a:active {
-            color: $color_black;
-          }
-
           &.selected a {
-            //background: yellow;
             cursor: none;
-            border-bottom: 3px solid black;
           }
 
           &:first-child {
@@ -41,11 +28,16 @@
         }
       }
     }
-
-
   }
 
   .header_btn {
-    margin: 4px;
+    margin-right: 20px;
+    text-decoration: none;
+    color: $color_white;
+    font-family: 'Dancing Script', cursive;
+
+    &:hover {
+      color: $color_black;
+    }
   }
 }
