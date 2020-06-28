@@ -6,6 +6,7 @@ import {
     removePaperAction,
 } from "../../redux/reducers/MyPapersReducer/actions";
 import PaperItem from "../../components/PaperItem";
+import CategoryPaperBox from "../../components/CategoryPaperBox";
 
 
 function MyPapersContainer(props) {
@@ -50,10 +51,10 @@ function MyPapersContainer(props) {
 
     return (
         <div className="my_papers_container">
+            <CategoryPaperBox></CategoryPaperBox>
             {paperElements}
         </div>
     )
 }
-
 
 export default MyPapersContainer;

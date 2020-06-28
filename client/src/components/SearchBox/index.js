@@ -1,11 +1,12 @@
 import React from 'react';
+import './index.scss';
 import _ from 'lodash';
 import TextField from "@material-ui/core/TextField/TextField";
 import Button from "@material-ui/core/Button";
 import {Card} from "@material-ui/core";
 import DeleteIcon from '@material-ui/icons/Delete';
 import Tag from "../Tag";
-import './index.scss';
+
 
 function SearchTags({searchList, onDeleteTag}) {
     return (
@@ -53,10 +54,10 @@ function SearchBox({onSearchButtonClicked}) {
                 <h3 className="search_box_title">Search Bar</h3>
                 <div className="search_box">
                     <TextField className="search_box_textField"
-                        type="text"
-                        label="search article"
-                        onChange={onSearchFieldChange}
-                        value={searchParam}
+                               type="text"
+                               label="search article"
+                               onChange={onSearchFieldChange}
+                               value={searchParam}
                     />
                     <div className="search_box_buttons">
                         <Button

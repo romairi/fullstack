@@ -16,6 +16,8 @@ import useForm from "../../hooks/useForm";
 import {loginAction} from './actions';
 import {createSetUserAction} from "../../redux/reducers/UserReducer/actions";
 import {GENERAL_ERROR_FIELD} from "../../hooks/constants";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import {AccountCircle} from "@material-ui/icons";
 
 
 const Error = ({message}) => (
@@ -69,6 +71,13 @@ export default function LoginContainer({}) {
                             label="Password"
                             value={values[PASSWORD_FIELD]}
                             onChange={handleChange}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <LockIcon />
+                                    </InputAdornment>
+                                ),
+                            }}
                         />
                     </div>
                     <Error message={errors[GENERAL_ERROR_FIELD]}/>
