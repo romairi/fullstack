@@ -1,0 +1,32 @@
+@import "../../scss/variables";
+
+.category_paper_box {
+  margin-top: 50px;
+
+  .category_paper_card {
+    padding: 35px 45px;
+    box-shadow: 0 8px 42px -8px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      box-shadow: 0 8px 42px -8px rgba(0, 0, 0, 0.4);
+    }
+
+    .category_items {
+      display: flex;
+      flex-direction: column;
+      margin-top: 55px;
+
+    }
+
+    .category_paper_title {
+      text-align: center;
+      color: $primary_color;
+      font-family: 'Dancing Script', cursive;
+
+      .category_item_footer {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+  }
+}

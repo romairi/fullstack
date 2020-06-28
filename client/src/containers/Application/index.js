@@ -24,6 +24,7 @@ class App extends React.PureComponent {
     }
 
     onGetPapersSuccess = (response) =>  {
+        debugger
         this.props.setPapersAction(response.data);
     };
 
