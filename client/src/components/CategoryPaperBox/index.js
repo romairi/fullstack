@@ -6,14 +6,14 @@ import SearchMyPaper from "../SearchMyPaper";
 import CreateCategory from "../CreateCategory";
 
 
-function CategoryPaperBox({onSearchButton}) {
+function CategoryPaperBox() {
 
     return (
         <div className="category_paper_box">
             <Card className="category_paper_card">
                 <h3 className="category_paper_title">Category Paper</h3>
                 <div className="category_items">
-                    <SearchMyPaper onSearchButton={onSearchButton}/>
+                    <SearchMyPaper/>
                     <SelectCategory/>
                     <div className="category_item_footer">
                         <CreateCategory/>

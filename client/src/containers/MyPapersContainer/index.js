@@ -11,7 +11,6 @@ import CategoryPaperBox from "../../components/CategoryPaperBox";
 
 function MyPapersContainer(props) {
     const papers = useSelector(state => state.papers);
-    debugger
     const dispatch = useDispatch();
 
     const onRemovePapersSuccess = (response) => {
@@ -29,10 +28,6 @@ function MyPapersContainer(props) {
 
     const onRemovePapersFailed = (err) => {
         console.log(err);
-    };
-
-    const onSearchButton = (itemId) => {
-
     };
 
     const paperElements = papers.map(paper => {
@@ -56,7 +51,7 @@ function MyPapersContainer(props) {
 
     return (
         <div className="my_papers_container">
-            <CategoryPaperBox onSearchButton={onSearchButton}/>
+            <CategoryPaperBox></CategoryPaperBox>
             {paperElements}
         </div>
     )
