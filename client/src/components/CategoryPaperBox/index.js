@@ -58,19 +58,16 @@ function CreateCategory() {
 }
 
 
+function CategoryPaperBox({onSearchChange, searchParam}) {
+
+    // const [searchParam, setSearchParam] = React.useState('');
 
 
-function CategoryPaperBox() {
-
-    const [searchParam, setSearchParam] = React.useState('');
-    const [searchPaper, setSearchPaper] = React.useState([]);
-    const onSearchFieldChange = event => {
-        setSearchParam(event.target.value);
-    };
-    const onSubmit = (event) => {
-        event.preventDefault();
-        setSearchParam('');
-    };
+    // const onSearchFieldChange = event => {
+    //     debugger
+    //     setSearchParam(event.target.value);
+    //     onSearchFieldChange(event.target.value);
+    // };
 
     return (
         <div className="category_paper_box">
@@ -83,7 +80,7 @@ function CategoryPaperBox() {
                             variant="outlined"
                             type="text"
                             label="search article"
-                            onChange={onSearchFieldChange}
+                            onChange={onSearchChange}
                             value={searchParam}
                             InputProps={{
                                 startAdornment: (
@@ -94,7 +91,6 @@ function CategoryPaperBox() {
                             }}
                         />
                     </div>
-
                     <div className="select_category">
                         <FormControl>
                             <InputLabel
@@ -115,7 +111,6 @@ function CategoryPaperBox() {
                             </Select>
                         </FormControl>
                     </div>
-
                     <div className="category_item_footer">
                         <CreateCategory/>
                     </div>

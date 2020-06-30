@@ -13,6 +13,21 @@ function MyPapersContainer(props) {
     const papers = useSelector(state => state.papers);
     const dispatch = useDispatch();
 
+    const [allPapers, setAllPapers] = React.useState(papers);
+    const [searchParam, setSearchParam] = React.useState('');
+
+    const onSearchChange = (event) => {
+
+        const filterPapers = papers.filter(item => {
+            return item.title.toLowerCase().includes(event.target.value.toLowerCase());
+        });
+
+        console.log("filterPapers: ", filterPapers);
+
+        setAllPapers(filterPapers);
+        setSearchParam(event.target.value);
+    };
+
     const onRemovePapersSuccess = (response) => {
         dispatch(extractPaperAction(response.data));
     };
@@ -30,10 +45,10 @@ function MyPapersContainer(props) {
         console.log(err);
     };
 
-    const paperElements = papers.map(paper => {
+    const paperElements = allPapers.map(paper => {
         const publishedDate = new Date(paper.published).toDateString();
         const updatedDate = new Date(paper.updated).toDateString();
-        const paperExist = papers.find(p => p.paperId === paper.paperId);
+        const paperExist = allPapers.find(p => p.paperId === paper.paperId);
 
         return <PaperItem
             id={paper.paperId}
@@ -51,7 +66,8 @@ function MyPapersContainer(props) {
 
     return (
         <div className="my_papers_container">
-            <CategoryPaperBox></CategoryPaperBox>
+            <CategoryPaperBox onSearchChange={onSearchChange} searchParam={searchParam}>
+            </CategoryPaperBox>
             {paperElements}
         </div>
     )
