@@ -16,13 +16,20 @@ function MyPapersContainer(props) {
     const [allPapers, setAllPapers] = React.useState(papers);
     const [searchParam, setSearchParam] = React.useState('');
 
+    React.useEffect(() => {
+        setAllPapers(papers);
+        setSearchParam('');
+    }, [papers]);
+
     const onSearchChange = (event) => {
-
-        const filterPapers = papers.filter(item => {
-            return item.title.toLowerCase().includes(event.target.value.toLowerCase());
-        });
-
-        console.log("filterPapers: ", filterPapers);
+        // const filterPapers = papers.filter(item => {
+        //     return item.title.toLowerCase().includes(event.target.value.toLowerCase()); //TODO support more fields + extract to a service
+        // });
+        const filterPapers = papers.filter(item => [item.title, item.summary]
+            .map(text => text.toLowerCase())
+            .filter(text => text.includes(event.target.value.toLowerCase()))
+            .length > 0
+        );
 
         setAllPapers(filterPapers);
         setSearchParam(event.target.value);
@@ -66,8 +73,7 @@ function MyPapersContainer(props) {
 
     return (
         <div className="my_papers_container">
-            <CategoryPaperBox onSearchChange={onSearchChange} searchParam={searchParam}>
-            </CategoryPaperBox>
+            <CategoryPaperBox onSearchChange={onSearchChange} searchParam={searchParam} />
             {paperElements}
         </div>
     )
