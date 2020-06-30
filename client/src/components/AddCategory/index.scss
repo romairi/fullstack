@@ -1,0 +1,31 @@
+@import "../../scss/variables";
+
+.add_category {
+  width: 80%;
+  margin: 30px auto 40px;
+
+  .form_items {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .category_textField {
+      width: 250px;
+
+      .MuiInputLabel-formControl {
+        font-family: 'Dancing Script', cursive;
+      }
+    }
+
+    .btn_add {
+      color: $color_white;
+      background-color: $primary_color;
+      font-family: 'Dancing Script', cursive;
+
+      &:hover {
+        background-color: $primary_hover_color;
+      }
+    }
+  }
+}
+

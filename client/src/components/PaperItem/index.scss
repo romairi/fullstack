@@ -17,23 +17,38 @@
       box-shadow: 0 8px 42px -8px rgba(0, 0, 0, 0.4);
     }
 
+    .paper_item_title {
+      font-family: 'Baloo 2', cursive;
+    }
+
     .paper_item_summary {
       text-align: left;
+      font-family: 'Tajawal', sans-serif;
     }
 
     .paper_item_published_authors {
       display: block;
       margin-bottom: 15px;
+      font-family: 'Dancing Script', cursive;
+
+      .authors_title {
+        color: $primary_color;
+      }
     }
 
     .paper_item_footer {
       display: flex;
       justify-content: space-between;
+      font-family: 'Martel', serif;
+
 
       @media(max-width: $max-sm) {
         flex-direction: column-reverse;
       }
 
+      .paper_item_footer_btn {
+        font-family: 'Dancing Script', cursive;
+      }
 
       .paper_item_meta {
         display: flex;
@@ -42,7 +57,12 @@
         @media(max-width: $max-sm) {
           margin-bottom: 7px;
         }
+
+        .data_title {
+          color: $primary_color;
+        }
       }
+
     }
 
     .paper_item_save {
@@ -51,6 +71,7 @@
 
       .btn_save {
         margin-top: 22px;
+        font-family: 'Dancing Script', cursive;
       }
     }
   }

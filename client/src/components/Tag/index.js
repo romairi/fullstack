@@ -1,6 +1,6 @@
 import React from 'react';
-import _ from 'lodash';
 import './index.scss';
+import _ from 'lodash';
 
 function Tag({id, children, onDeleteClicked=_.noop}) {
     return (

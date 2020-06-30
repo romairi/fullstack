@@ -1,6 +1,15 @@
+@import "../../scss/variables";
+
 .pagination {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   .pagination_page_number {
     user-select: none;
+    font-size: x-large;
+    font-style: oblique;
+    color: $primary_color;
   }
 }

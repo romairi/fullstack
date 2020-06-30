@@ -27,8 +27,7 @@ function PaperItem(props) {
     } = props;
 
     const authorsNames = authors.join(', ');
-
-    const buttonIcon = paperExist ? <DeleteIcon /> : <SaveIcon />;
+    const buttonIcon = paperExist ? <DeleteIcon/> : <SaveIcon/>;
     const buttonOnClick = paperExist ? onRemoveButtonClicked : onSaveButtonClicked;
     const buttonText = paperExist ? 'Remove' : 'Save';
 
@@ -37,17 +36,16 @@ function PaperItem(props) {
             <Card className="paper_item_card">
                 <div className='paper_item_header'>
                     <h3 className='paper_item_title'>{title}</h3>
-
                 </div>
                 <p className='paper_item_summary'>
                     {summary}
                 </p>
                 <span className='paper_item_published_authors'>
-                    <strong>Authors:</strong> {authorsNames}
+                    <strong className="authors_title">Authors:</strong> {authorsNames}
                 </span>
-
                 <div className='paper_item_footer'>
                     <Button
+                        className="paper_item_footer_btn"
                         component="a"
                         target='_blank'
                         href={pdfLink}
@@ -59,13 +57,12 @@ function PaperItem(props) {
                     </Button>
                     <div className="paper_item_meta">
                         <span className='paper_item_published_date'>
-                            <strong>Published Date:</strong> {publishedDate}
+                            <strong className="data_title">Published Date:</strong> {publishedDate}
                         </span>
                         <span className='paper_item_updated_date'>
-                           <strong>Updated Date:</strong> {updatedDate}
+                           <strong className="data_title">Updated Date:</strong> {updatedDate}
                         </span>
                     </div>
-
                 </div>
                 <div className="paper_item_save">
                     <ActionButton id={id} startIcon={buttonIcon} onClick={buttonOnClick}>
@@ -75,8 +72,6 @@ function PaperItem(props) {
             </Card>
         </div>
     );
-
-
 }
 
 export default PaperItem;

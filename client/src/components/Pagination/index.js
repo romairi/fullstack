@@ -5,17 +5,27 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import "./index.scss";
 import {buildClassName} from "../../services/classNameService";
 
+/**
+ *
+ * @param page
+ * @param className
+ * @param onChangePage
+ * @param isLastPage
+ * @returns {*}
+ * @constructor
+ */
+
 function Pagination({page, className, onChangePage, isLastPage}) {
     return (
         <div className={buildClassName(["pagination", className])}>
             <Button className={buildClassName(["pagination_button", "button_left", (page === 0) && "disable"])}
                     disabled={page === 0} onClick={() => onChangePage(page - 1)}>
-                <ChevronLeftIcon/>
+                <ChevronLeftIcon fontSize="large"/>
             </Button>
             <span className="pagination_page_number">{page}</span>
             <Button className={buildClassName(["pagination_button", "button_right", isLastPage && "disable"])}
                     disabled={isLastPage} onClick={() => onChangePage(page + 1)}>
-                <ChevronRightIcon/>
+                <ChevronRightIcon fontSize="large"/>
             </Button>
         </div>
     );

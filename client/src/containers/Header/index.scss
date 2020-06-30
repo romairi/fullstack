@@ -1,19 +1,43 @@
 @import "../../scss/variables";
 
 .header {
-    .MuiToolbar-root {
-        justify-content: flex-end;
-    }
 
-    .header_toolbar {
-        padding-right: 5px;
-    }
+  .header_toolbar {
+    padding-right: 5px;
+    justify-content: space-between;
+    background-color: $primary_color;
 
-    .header_btn {
-        margin: 4px;
+    .navigation_bar {
 
-        &.selected {
-            background-color: red;
+      .navigation_bar_list {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        .navigation_bar_item {
+          margin-left: 35px;
+
+          &.selected a {
+            cursor: none;
+          }
+
+          &:first-child {
+            margin: 0;
+          }
         }
+      }
     }
+  }
+
+  .header_btn {
+    margin-right: 20px;
+    text-decoration: none;
+    color: $color_white;
+    font-family: 'Dancing Script', cursive;
+
+    &:hover {
+      color: $color_black;
+    }
+  }
 }

@@ -10,7 +10,6 @@ export default function myPapersReducer(state = [], action) {
             newState = [...state, action.payload];
             break;
         case EXTRACT_PAPER_ACTION_TYPE:
-            debugger
             newState = state.filter(paper => paper.paperId !== action.payload);
             break;
         default:
