@@ -26,7 +26,7 @@ function NavigationBar({currentLocation}) {
     )
 }
 
-export default function Header(props) {
+function Header(props) {
 
     const user = useSelector(state => state.user);
     const router = useSelector(state => state.router);
@@ -68,3 +68,5 @@ export default function Header(props) {
         </div>
     )
 }
+
+export default Header;

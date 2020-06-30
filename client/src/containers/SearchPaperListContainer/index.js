@@ -1,8 +1,8 @@
 import React from 'react';
+import './index.scss';
 import _ from 'lodash';
 import {useDispatch, useSelector} from "react-redux";
 import PaperItem from "../../components/PaperItem";
-import './index.scss';
 import SearchBox from "../../components/SearchBox";
 import SpinnerContainer from "../../components/Spinner";
 import {
@@ -15,8 +15,8 @@ import {
     removePaperAction,
 } from "../../redux/reducers/MyPapersReducer/actions";
 import Pagination from "../../components/Pagination";
+import {RESULTS_PER_PAGE} from "./constants";
 
-const RESULTS_PER_PAGE = 10;
 
 function SearchPaperListContainer(props) {
     const myPapers = useSelector(state => state.papers);

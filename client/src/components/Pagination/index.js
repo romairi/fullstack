@@ -5,6 +5,16 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import "./index.scss";
 import {buildClassName} from "../../services/classNameService";
 
+/**
+ *
+ * @param page
+ * @param className
+ * @param onChangePage
+ * @param isLastPage
+ * @returns {*}
+ * @constructor
+ */
+
 function Pagination({page, className, onChangePage, isLastPage}) {
     return (
         <div className={buildClassName(["pagination", className])}>
