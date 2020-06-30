@@ -1,5 +1,7 @@
-const PaperItem = require('../paper/model');
+const CategoryModel = require('../category/model');
 const mongoose = require('mongoose');
+
+const CATEGORIES_FIELD = 'categories';
 
 const UserSchema = new mongoose.Schema({
     username: {
@@ -21,40 +23,73 @@ const UserSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    paperItems: [{
+    categories: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'PaperItem'
+        ref: 'Category'
     }],
 });
 
-UserSchema.statics.addPaper = async function (id, paper) {
-    const user = await this.findById(id).populate('paperItems');
-    const foundPaper = user.paperItems.find(item => item.paperId === paper.paperId);
-    if (!foundPaper) {
-        const paperObj = await PaperItem.findByPaperIdOrCreate(paper.paperId, paper);
-        await this.findByIdAndUpdate(id, {$push: {paperItems: paperObj.id}}, {});
+UserSchema.statics.createUser = async function (args) {
+    const user = await this.create(args);
+    const category = new CategoryModel({name: 'default', user: user.id});
+    await category.save();
+    user.categories = [category];
+    return await user.save();
+};
+
+UserSchema.statics.getCategories = async function (userId) {
+    const user = await this.findById(userId).populate({
+        path: CATEGORIES_FIELD,
+        populate: {
+            path: 'paperItems',
+            model: 'PaperItem'
+        }
+    });
+    return user.categories;
+};
+
+UserSchema.statics.addCategory = async function (userId, categoryName) {
+    const user = await this.findById(userId).populate(CATEGORIES_FIELD);
+    const foundCategory = user.categories.find(item => item.name === categoryName);
+    if (!foundCategory) {
+        const categoryObj = new CategoryModel({name: categoryName, user: userId});
+        await this.findByIdAndUpdate(userId, {$push: {categories: categoryObj.id}}, {});
         return {
-            paper: await paperObj.save(),
+            category: await categoryObj.save(),
         };
     }
     return {
-        paper: foundPaper
+        paper: foundCategory
     }
-
 };
 
-UserSchema.statics.removePaper = async function (id, paperId) {
-    const user = await this.findById(id).populate('paperItems');
-    user.paperItems = user.paperItems.filter(item => item.paperId !== paperId);
+UserSchema.statics.removeCategory = async function (userId, categoryId) {
+    const user = await this.findById(userId).populate(CATEGORIES_FIELD);
+    user.categories = user.categories.filter(item => item.id !== categoryId);
     await user.save();
     return {
-        paperId
+        categoryId
     };
 };
 
-UserSchema.statics.getPapers = async function (id) {
-    const user = await this.findById(id).populate('paperItems');
-    return user.paperItems;
+UserSchema.statics.addPaper = async function (userId, categoryId, paper) {
+    const user = await this.findById(userId).populate(CATEGORIES_FIELD);
+    const foundCategory = user.categories.find(item => item.id === categoryId);
+    if (foundCategory) {
+        return await CategoryModel.addPaper(categoryId, paper);
+    } else {
+        throw new Error(); // TODO make it better error
+    }
+};
+
+UserSchema.statics.removePaper = async function (userId, categoryId, paperId) {
+    const user = await this.findById(userId).populate(CATEGORIES_FIELD);
+    const foundCategory = user.categories.find(item => item.id === categoryId);
+    if (foundCategory) {
+        return await CategoryModel.removePaper(categoryId, paperId);
+    } else {
+        throw new Error(); // TODO make it better error
+    }
 };
 
 module.exports = mongoose.model('User', UserSchema);

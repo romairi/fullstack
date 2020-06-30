@@ -21,11 +21,11 @@ async function searchPapers(req, res, next) {
     res.json(resultPapers.map(formatPaper));
 }
 
-async function getPapers(req, res, next) {
+async function getCategories(req, res, next) {
     const userId = req.user._id;
 
     try {
-        const userPapers = await UserModel.getPapers(userId);
+        const userPapers = await UserModel.getCategories(userId);
         return res.json(userPapers);
     } catch (err) {
         next(err);
@@ -33,11 +33,11 @@ async function getPapers(req, res, next) {
 }
 
 async function savePaper(req, res, next) {
-    const {paper} = req.body;
+    const {paper, categoryId} = req.body;
     const userId = req.user._id;
 
     try {
-        const data = await UserModel.addPaper(userId, paper);
+        const data = await UserModel.addPaper(userId, categoryId, paper);
         return res.status(HttpStatus.CREATED).json(data.paper);
     } catch (err) {
         next(err);
@@ -45,11 +45,11 @@ async function savePaper(req, res, next) {
 }
 
 async function removePaper(req, res, next) {
-    const {paperId} = req.body;
+    const {paperId, categoryId} = req.body;
     const userId = req.user._id;
 
     try {
-        const data = await UserModel.removePaper(userId, paperId);
+        const data = await UserModel.removePaper(userId, categoryId, paperId);
         return res.status(HttpStatus.CREATED).json(data.paperId);
     } catch (err) {
         next(err);
@@ -57,4 +57,4 @@ async function removePaper(req, res, next) {
 }
 
 
-module.exports = {getPapers, searchPapers, savePaper, removePaper};
+module.exports = {getCategories, searchPapers, savePaper, removePaper};

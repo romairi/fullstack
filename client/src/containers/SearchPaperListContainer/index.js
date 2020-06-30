@@ -13,13 +13,14 @@ import {
 import {
     addPaperAction, extractPaperAction,
     removePaperAction,
-} from "../../redux/reducers/MyPapersReducer/actions";
+} from "../../redux/reducers/CategoriesReducer/actions";
 import Pagination from "../../components/Pagination";
 import {RESULTS_PER_PAGE} from "./constants";
 
 
 function SearchPaperListContainer(props) {
-    const myPapers = useSelector(state => state.papers);
+    const categories = useSelector(state => state.categories);
+    const myPapers = categories.length > 0 ? categories[0].paperItems : [];
     const papers = useSelector(state => state.searchPapers);
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = React.useState(false);
@@ -61,9 +62,9 @@ function SearchPaperListContainer(props) {
         }
     };
 
-    const onSavePapersSuccess = response => {
+    const onSavePapersSuccess = (categoryId, response) => {
         setIsLoading(false);
-        dispatch(addPaperAction(response.data));
+        dispatch(addPaperAction(categoryId, response.data));
     };
 
     const onSavePapersFailed = (err) => {
@@ -72,11 +73,12 @@ function SearchPaperListContainer(props) {
     };
 
     const onSaveButtonClicked = (itemId) => {
+        const categoryId = categories.length > 0 ? categories[0]._id : 'default';//TODO get category id from a modal
         const item = papers.find(paper => paper.paperId === itemId);
         if (item) {
             dispatch(savePaperAction({
-                data: {paper: item},
-                onSuccess: onSavePapersSuccess,
+                data: {paper: item, categoryId},
+                onSuccess: response => onSavePapersSuccess(categoryId, response),
                 onError: onSavePapersFailed
             }));
         }
@@ -124,7 +126,7 @@ function SearchPaperListContainer(props) {
     const paperElements = papers.map(paper => {
         const publishedDate = new Date(paper.published).toDateString();
         const updatedDate = new Date(paper.updated).toDateString();
-        const paperExist = myPapers.find(p => p.paperId === paper.paperId);
+        const paperExist = categories.find(category => !!category.paperItems.find(p => p.paperId === paper.paperId));
 
         return <PaperItem
             id={paper.paperId}

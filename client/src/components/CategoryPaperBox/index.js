@@ -12,7 +12,7 @@ import CreateCategory from "../CreateCategory";
 
 
 
-function CategoryPaperBox({onSearchChange, searchParam}) {
+function CategoryPaperBox({onSearchChange, searchParam, onAddCategoryClicked}) {
 
     // const [searchParam, setSearchParam] = React.useState('');
 
@@ -66,7 +66,7 @@ function CategoryPaperBox({onSearchChange, searchParam}) {
                         </FormControl>
                     </div>
                     <div className="category_item_footer">
-                        <CreateCategory/>
+                        <CreateCategory onAddCategoryClicked={onAddCategoryClicked}/>
                     </div>
                 </div>
             </Card>
