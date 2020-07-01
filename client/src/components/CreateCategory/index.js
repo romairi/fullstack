@@ -7,7 +7,7 @@ import Fade from "@material-ui/core/Fade/Fade";
 import AddCategory from "../AddCategory";
 
 
-function CreateCategory() {
+function CreateCategory({onAddCategoryClicked}) {
     const [open, setOpen] = React.useState(false);
 
     const handleOpen = () => {
@@ -42,7 +42,7 @@ function CreateCategory() {
             >
                 <Fade in={open}>
                     <div className="modal_box">
-                        <AddCategory/>
+                        <AddCategory onAddCategoryClicked={onAddCategoryClicked} />
                     </div>
                 </Fade>
             </Modal>

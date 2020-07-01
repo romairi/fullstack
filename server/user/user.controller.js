@@ -39,8 +39,7 @@ async function signup(req, res, next) {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        const newUser = new UserModel({username, email, password: hashedPassword});
-        const user = await newUser.save();
+        const user = await UserModel.createUser({username, email, password: hashedPassword});
 
         return loadUser(req, res, user);
 

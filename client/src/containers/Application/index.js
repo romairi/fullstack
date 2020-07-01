@@ -6,7 +6,7 @@ import './index.scss';
 import Header from "../../containers/Header";
 import routes from "../../routes";
 import {BASE_ROUTE, LOGIN_ROUTE, SIGNUP_ROUTE} from "../../routes/constants";
-import {getPapersAction, setPapersAction} from "../../redux/reducers/MyPapersReducer/actions";
+import {getCategoriesAction, setCategoriesAction} from "../../redux/reducers/CategoriesReducer/actions";
 
 class App extends React.PureComponent {
 
@@ -20,12 +20,13 @@ class App extends React.PureComponent {
             path => path === router.location.pathname)) {
             this.props.replace(BASE_ROUTE);
         }
-        this.props.getPapersAction({onSuccess: this.onGetPapersSuccess, onError: err => console.log(err)})
+        if(!_.isEmpty(user)) {
+            this.props.getCategoriesAction({onSuccess: this.onGetCategoriesSuccess, onError: err => console.log(err)});
+        }
     }
 
-    onGetPapersSuccess = (response) =>  {
-
-        this.props.setPapersAction(response.data);
+    onGetCategoriesSuccess = (response) =>  {
+        this.props.setCategoriesAction(response.data);
     };
 
     render() {
@@ -50,8 +51,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     replace,
-    getPapersAction,
-    setPapersAction,
+    getCategoriesAction,
+    setCategoriesAction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

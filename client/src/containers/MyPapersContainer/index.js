@@ -2,15 +2,17 @@ import React from 'react';
 import './index.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {
+    addCategoryAction,
     extractPaperAction,
     removePaperAction,
-} from "../../redux/reducers/MyPapersReducer/actions";
+} from "../../redux/reducers/CategoriesReducer/actions";
 import PaperItem from "../../components/PaperItem";
 import CategoryPaperBox from "../../components/CategoryPaperBox";
 
 
 function MyPapersContainer(props) {
-    const papers = useSelector(state => state.papers);
+    const categories = useSelector(state => state.categories);
+    const papers = categories.length > 0 ? categories[0].paperItems : [];
     const dispatch = useDispatch();
 
     const [allPapers, setAllPapers] = React.useState(papers);
@@ -52,6 +54,16 @@ function MyPapersContainer(props) {
         console.log(err);
     };
 
+    const onAddCategoryClicked = categoryName => {
+        dispatch(addCategoryAction({
+            data: {categoryName},
+            onSuccess: response => {
+                debugger
+            },
+            onError: () => {}
+        }));
+    };
+
     const paperElements = allPapers.map(paper => {
         const publishedDate = new Date(paper.published).toDateString();
         const updatedDate = new Date(paper.updated).toDateString();
@@ -73,7 +85,7 @@ function MyPapersContainer(props) {
 
     return (
         <div className="my_papers_container">
-            <CategoryPaperBox onSearchChange={onSearchChange} searchParam={searchParam} />
+            <CategoryPaperBox onSearchChange={onSearchChange} searchParam={searchParam} onAddCategoryClicked={onAddCategoryClicked} />
             {paperElements}
         </div>
     )
