@@ -12,7 +12,8 @@ function AddCategory({onAddCategoryClicked}) {
     };
 
     const onAddButtonClicked = (event) => {
-        onAddCategoryClicked && onAddCategoryClicked(event.target.value);
+        // onAddCategoryClicked && onAddCategoryClicked(event.target.value);
+        onAddCategoryClicked(event.target.value);
     };
 
     return (

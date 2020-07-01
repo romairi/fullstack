@@ -22,6 +22,7 @@ export function getCategoriesAction({onSuccess = _.noop, onError = _.noop}) {
 }
 
 export function addCategoryAction({categoryName, onSuccess = _.noop, onError = _.noop}) {
+    debugger
     return {
         type: API_ACTION_TYPE,
         payload: {
@@ -37,6 +38,7 @@ export function addCategoryAction({categoryName, onSuccess = _.noop, onError = _
 }
 
 export function addPaperAction(categoryId, paper) {
+    debugger
     return {
         type: ADD_PAPER_ACTION_TYPE,
         payload: {

@@ -63,6 +63,7 @@ function SearchPaperListContainer(props) {
     };
 
     const onSavePapersSuccess = (categoryId, response) => {
+        debugger
         setIsLoading(false);
         dispatch(addPaperAction(categoryId, response.data));
     };

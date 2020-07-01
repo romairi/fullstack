@@ -18,10 +18,10 @@ function MyPapersContainer(props) {
     const [allPapers, setAllPapers] = React.useState(papers);
     const [searchParam, setSearchParam] = React.useState('');
 
-    React.useEffect(() => {
-        setAllPapers(papers);
-        setSearchParam('');
-    }, [papers]);
+    // React.useEffect(() => {
+    //     setAllPapers(papers);
+    //     setSearchParam('');
+    // }, [papers]);
 
     const onSearchChange = (event) => {
         // const filterPapers = papers.filter(item => {
@@ -54,9 +54,9 @@ function MyPapersContainer(props) {
         console.log(err);
     };
 
-    const onAddCategoryClicked = categoryName => {
+    const onAddCategoryClicked = (categoryName) => {
         dispatch(addCategoryAction({
-            data: {categoryName},
+            data: {category: categoryName},
             onSuccess: response => {
                 debugger
             },
