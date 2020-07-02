@@ -11,7 +11,7 @@ import {
     setSearchPapersAction
 } from "../../redux/reducers/SearchPapersReducer/actions";
 import {
-    addPaperAction, extractPaperAction,
+    addPaperAction, deletePaperAction,
     removePaperAction,
 } from "../../redux/reducers/CategoriesReducer/actions";
 import Pagination from "../../components/Pagination";
@@ -63,7 +63,6 @@ function SearchPaperListContainer(props) {
     };
 
     const onSavePapersSuccess = (categoryId, response) => {
-        debugger
         setIsLoading(false);
         dispatch(addPaperAction(categoryId, response.data));
     };
@@ -85,9 +84,9 @@ function SearchPaperListContainer(props) {
         }
     };
 
-    const onRemovePapersSuccess = response => {
+    const onRemovePapersSuccess = (categoryId, response) => {
         setIsLoading(false);
-        dispatch(extractPaperAction(response.data));
+        dispatch(deletePaperAction(categoryId, response.data));
     };
 
     const onRemovePapersFailed = (err) => {
@@ -96,9 +95,10 @@ function SearchPaperListContainer(props) {
     };
 
     const onRemoveButtonClicked = (itemId) => {
+        const categoryId = categories.length > 0 ? categories[0]._id : 'default';//TODO get category id from a modal
         dispatch(removePaperAction({
-            data: {paperId: itemId},
-            onSuccess: onRemovePapersSuccess,
+            data: {paperId: itemId, categoryId},
+            onSuccess: response => onRemovePapersSuccess(categoryId, response),
             onError: onRemovePapersFailed
         }));
     };

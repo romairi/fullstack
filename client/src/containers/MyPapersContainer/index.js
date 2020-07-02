@@ -3,7 +3,7 @@ import './index.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {
     addCategoryAction,
-    extractPaperAction,
+    deletePaperAction,
     removePaperAction,
 } from "../../redux/reducers/CategoriesReducer/actions";
 import PaperItem from "../../components/PaperItem";
@@ -18,10 +18,10 @@ function MyPapersContainer(props) {
     const [allPapers, setAllPapers] = React.useState(papers);
     const [searchParam, setSearchParam] = React.useState('');
 
-    // React.useEffect(() => {
-    //     setAllPapers(papers);
-    //     setSearchParam('');
-    // }, [papers]);
+    React.useEffect(() => {
+        setAllPapers(papers);
+        setSearchParam('');
+    }, [papers]);
 
     const onSearchChange = (event) => {
         // const filterPapers = papers.filter(item => {
@@ -37,14 +37,15 @@ function MyPapersContainer(props) {
         setSearchParam(event.target.value);
     };
 
-    const onRemovePapersSuccess = (response) => {
-        dispatch(extractPaperAction(response.data));
+    const onRemovePapersSuccess = (categoryId, response) => {
+        dispatch(deletePaperAction(categoryId, response.data));
     };
 
     const onRemoveButtonClicked = (itemId) => {
+        const categoryId = categories.length > 0 ? categories[0]._id : 'default';//TODO get category id from a modal
         dispatch(removePaperAction({
-            data: {paperId: itemId},
-            onSuccess: onRemovePapersSuccess,
+            data: {paperId: itemId, categoryId},
+            onSuccess: response => onRemovePapersSuccess(categoryId, response),
             onError: onRemovePapersFailed
         }));
 
@@ -60,7 +61,8 @@ function MyPapersContainer(props) {
             onSuccess: response => {
                 debugger
             },
-            onError: () => {}
+            onError: () => {
+            }
         }));
     };
 
@@ -85,7 +87,8 @@ function MyPapersContainer(props) {
 
     return (
         <div className="my_papers_container">
-            <CategoryPaperBox onSearchChange={onSearchChange} searchParam={searchParam} onAddCategoryClicked={onAddCategoryClicked} />
+            <CategoryPaperBox onSearchChange={onSearchChange} searchParam={searchParam}
+                              onAddCategoryClicked={onAddCategoryClicked}/>
             {paperElements}
         </div>
     )
