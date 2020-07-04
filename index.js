@@ -5,7 +5,11 @@ const middleware = require('./server/middleware');
 
 const app = express();
 
-mongoose.connect(serverConfig.mongo.hostUri, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
+mongoose.connect(serverConfig.mongo.hostUri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+});
 
 middleware(app);
 

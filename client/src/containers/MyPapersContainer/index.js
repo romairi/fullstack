@@ -25,6 +25,10 @@ function MyPapersContainer(props) {
     }, [categories]);
 
 
+    React.useEffect(() => {
+
+    });
+
     const onSearchChange = (event) => {
         const filterPapers = searchByFields(papers, event.target.value); //TODO support more fields
         setAllPapers(filterPapers);
