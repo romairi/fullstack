@@ -8,6 +8,7 @@ import {
 } from "../../redux/reducers/CategoriesReducer/actions";
 import PaperItem from "../../components/PaperItem";
 import CategoryPaperBox from "../../components/CategoryPaperBox";
+import {searchByFields} from "../../services/itemUtilitiesService";
 
 
 function MyPapersContainer(props) {
@@ -21,18 +22,11 @@ function MyPapersContainer(props) {
     React.useEffect(() => {
         setAllPapers(papers);
         setSearchParam('');
-    }, [papers]);
+    }, [categories]);
+
 
     const onSearchChange = (event) => {
-        // const filterPapers = papers.filter(item => {
-        //     return item.title.toLowerCase().includes(event.target.value.toLowerCase()); //TODO support more fields + extract to a service
-        // });
-        const filterPapers = papers.filter(item => [item.title, item.summary]
-            .map(text => text.toLowerCase())
-            .filter(text => text.includes(event.target.value.toLowerCase()))
-            .length > 0
-        );
-
+        const filterPapers = searchByFields(papers, event.target.value); //TODO support more fields
         setAllPapers(filterPapers);
         setSearchParam(event.target.value);
     };

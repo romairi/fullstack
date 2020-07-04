@@ -10,18 +10,7 @@ import Select from "@material-ui/core/Select/Select";
 import CreateCategory from "../CreateCategory";
 
 
-
-
 function CategoryPaperBox({onSearchChange, searchParam, onAddCategoryClicked}) {
-
-    // const [searchParam, setSearchParam] = React.useState('');
-
-
-    // const onSearchFieldChange = event => {
-    //     debugger
-    //     setSearchParam(event.target.value);
-    //     onSearchFieldChange(event.target.value);
-    // };
 
     return (
         <div className="category_paper_box">
