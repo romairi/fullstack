@@ -16,6 +16,7 @@ import {
 } from "../../redux/reducers/CategoriesReducer/actions";
 import Pagination from "../../components/Pagination";
 import {RESULTS_PER_PAGE} from "./constants";
+import CreateCategory from "../../components/CreateCategory";
 
 
 function SearchPaperListContainer(props) {
@@ -73,6 +74,7 @@ function SearchPaperListContainer(props) {
     };
 
     const onSaveButtonClicked = (itemId) => {
+        debugger
         const categoryId = categories.length > 0 ? categories[0]._id : 'default';//TODO get category id from a modal
         const item = papers.find(paper => paper.paperId === itemId);
         if (item) {

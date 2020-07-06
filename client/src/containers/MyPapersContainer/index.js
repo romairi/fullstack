@@ -25,10 +25,6 @@ function MyPapersContainer(props) {
     }, [categories]);
 
 
-    React.useEffect(() => {
-
-    });
-
     const onSearchChange = (event) => {
         const filterPapers = searchByFields(papers, event.target.value); //TODO support more fields
         setAllPapers(filterPapers);
@@ -53,13 +49,15 @@ function MyPapersContainer(props) {
         console.log(err);
     };
 
+
     const onAddCategoryClicked = (categoryName) => {
+        categoryName ='default';
         dispatch(addCategoryAction({
             data: {category: categoryName},
             onSuccess: response => {
-                debugger
             },
-            onError: () => {
+            onError: (err) => {
+                console.log(err);
             }
         }));
     };
@@ -85,8 +83,10 @@ function MyPapersContainer(props) {
 
     return (
         <div className="my_papers_container">
-            <CategoryPaperBox onSearchChange={onSearchChange} searchParam={searchParam}
-                              onAddCategoryClicked={onAddCategoryClicked}/>
+            <CategoryPaperBox onSearchChange={onSearchChange}
+                              searchParam={searchParam}
+                              onAddCategoryClicked={onAddCategoryClicked}
+            />
             {paperElements}
         </div>
     )

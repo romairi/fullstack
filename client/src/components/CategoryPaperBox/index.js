@@ -10,7 +10,38 @@ import Select from "@material-ui/core/Select/Select";
 import CreateCategory from "../CreateCategory";
 
 
+const animalsList = [
+    {
+        id: 1,
+        value: 'Tiger'
+    }, {
+        id: 2,
+        value: 'Lion'
+    }, {
+        id: 3,
+        value: 'Dog'
+    }, {
+        id: 4,
+        value: 'Cat'
+    }
+];
+
+function Options({options}) {
+    return (
+        options.map(option =>
+            <option key={option.id} value={option.value}>
+                {option.value}
+            </option>)
+    );
+}
+
 function CategoryPaperBox({onSearchChange, searchParam, onAddCategoryClicked}) {
+
+    const [categoryParam, setCategoryParams] = React.useState('');
+
+    const onTitleChange = (event) => {
+        setCategoryParams(event.target.value);
+    };
 
     return (
         <div className="category_paper_box">
@@ -46,16 +77,16 @@ function CategoryPaperBox({onSearchChange, searchParam, onAddCategoryClicked}) {
                                 native defaultValue=""
                                 id="grouped-native-select"
                             >
-                                <option hidden="hidden" aria-label="None" value=""/>
-                                <option value={1}>Option 1</option>
-                                <option value={2}>Option 2</option>
-                                <option value={3}>Option 3</option>
-                                <option value={4}>Option 4</option>
+                                {/*<option hidden="hidden" aria-label="None" value=""/>*/}
+                                <Options options={animalsList}/>
                             </Select>
                         </FormControl>
                     </div>
                     <div className="category_item_footer">
-                        <CreateCategory onAddCategoryClicked={onAddCategoryClicked}/>
+                        <CreateCategory
+                            onAddCategoryClicked={onAddCategoryClicked}
+                            categoryParam={categoryParam}
+                            onTitleChange={onTitleChange}/>
                     </div>
                 </div>
             </Card>

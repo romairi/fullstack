@@ -15,7 +15,13 @@ export default function categoriesReducer(state = [], action) {
             break;
         case REMOVE_PAPER_ACTION_TYPE:
             category = state.find(c => c._id === action.payload.categoryId);
-            newState = category.filter(paper => paper.paperId !== action.payload);
+            const idx = category.paperItems.findIndex((el) => el.paperId === action.payload.paperId);
+            const newArray = [
+                ...category.paperItems.slice(0, idx),
+                ...category.paperItems.slice(idx + 1)
+            ];
+            newState = newArray;
+            // newState = category.paperItems.filter(item => item.paperId !== action.payload.paperId)
             break;
         default:
             newState = state;
