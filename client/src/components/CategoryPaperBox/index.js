@@ -7,41 +7,23 @@ import SearchIcon from '@material-ui/icons/Search';
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import Select from "@material-ui/core/Select/Select";
-import CreateCategory from "../CreateCategory";
+import CreateCategoryModal from "../CreateCategoryModal";
+import Button from "@material-ui/core/Button";
 
 
-const animalsList = [
-    {
-        id: 1,
-        value: 'Tiger'
-    }, {
-        id: 2,
-        value: 'Lion'
-    }, {
-        id: 3,
-        value: 'Dog'
-    }, {
-        id: 4,
-        value: 'Cat'
-    }
-];
+function CategoryPaperBox({
+                              categories,
+                              selectedCategoryId,
+                              setSelectedCategoryId,
+                              isCreateCategoryModalOpen,
+                              setCreateCategoryModalOpen,
+                              onSearchChange,
+                              searchParam,
+                              onAddCategoryClicked
+                          }) {
+    const categoriesOptions = categories.map(c => <option key={c._id} value={c._id}>{c.name}</option>);
 
-function Options({options}) {
-    return (
-        options.map(option =>
-            <option key={option.id} value={option.value}>
-                {option.value}
-            </option>)
-    );
-}
-
-function CategoryPaperBox({onSearchChange, searchParam, onAddCategoryClicked}) {
-
-    const [categoryParam, setCategoryParams] = React.useState('');
-
-    const onTitleChange = (event) => {
-        setCategoryParams(event.target.value);
-    };
+    const onSelectedCategoryChange = event => setSelectedCategoryId(event.target.value);
 
     return (
         <div className="category_paper_box">
@@ -76,17 +58,25 @@ function CategoryPaperBox({onSearchChange, searchParam, onAddCategoryClicked}) {
                                 className="select_item"
                                 native defaultValue=""
                                 id="grouped-native-select"
+                                value={selectedCategoryId}
+                                onChange={onSelectedCategoryChange}
                             >
-                                {/*<option hidden="hidden" aria-label="None" value=""/>*/}
-                                <Options options={animalsList}/>
+                                {categoriesOptions}
                             </Select>
                         </FormControl>
                     </div>
                     <div className="category_item_footer">
-                        <CreateCategory
-                            onAddCategoryClicked={onAddCategoryClicked}
-                            categoryParam={categoryParam}
-                            onTitleChange={onTitleChange}/>
+                        <Button
+                            className="btn_topic"
+                            variant="contained"
+                            type="button"
+                            onClick={() => setCreateCategoryModalOpen(true)}
+                        >
+                            Create Category
+                        </Button>
+                        <CreateCategoryModal onAddCategoryClicked={onAddCategoryClicked}
+                                             isCreateCategoryModalOpen={isCreateCategoryModalOpen}
+                                             setCreateCategoryModalOpen={setCreateCategoryModalOpen}/>
                     </div>
                 </div>
             </Card>

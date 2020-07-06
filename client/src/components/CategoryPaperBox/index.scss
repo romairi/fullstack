@@ -54,7 +54,16 @@
         display: flex;
         justify-content: flex-end;
 
+        .btn_topic {
+          background-color: #1976d2;
+          color: $color_white;
+          font-size: large;
+          font-family: 'Dancing Script', cursive;
 
+          &:hover {
+            background-color: $primary_hover_color;
+          }
+        }
       }
     }
   }

@@ -7,44 +7,34 @@ import Fade from "@material-ui/core/Fade/Fade";
 import TextField from "@material-ui/core/TextField/TextField";
 
 
-function CreateCategory({onAddCategoryClicked, categoryParam, onTitleChange}) {
-    const [open, setOpen] = React.useState(false);
+function CreateCategoryModal({onAddCategoryClicked, isCreateCategoryModalOpen, setCreateCategoryModalOpen}) {
+    const [categoryParam, setCategoryParams] = React.useState('');
 
-    const handleOpen = () => {
-        setOpen(true);
+    const onCategoryNameChange = (event) => {
+        setCategoryParams(event.target.value);
     };
 
-    const handleClose = () => {
-        setOpen(false);
+    const onAddButtonClicked = () => {
+        onAddCategoryClicked && onAddCategoryClicked(categoryParam);
     };
 
-    const onAddButtonClicked = (event) => {
-        onAddCategoryClicked && onAddCategoryClicked(event.target.value);
-    };
+    const closeModal = () => setCreateCategoryModalOpen(false);
 
     return (
-        <div className="create_category">
-            <Button
-                className="btn_topic"
-                variant="contained"
-                type="button"
-                onClick={handleOpen}
-            >
-                Create Category
-            </Button>
+        <div className="create_category_modal">
             <Modal
                 className="modal"
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
-                open={open}
-                onClose={handleClose}
+                open={isCreateCategoryModalOpen}
+                onClose={() => setCreateCategoryModalOpen(false)}
                 closeAfterTransition
                 BackdropComponent={Backdrop}
                 BackdropProps={{
                     timeout: 500,
                 }}
             >
-                <Fade in={open}>
+                <Fade in={isCreateCategoryModalOpen}>
                     <div className="modal_box">
                         <h3 className="title_modal_box">Add new category</h3>
                         <div className="add_category">
@@ -52,7 +42,7 @@ function CreateCategory({onAddCategoryClicked, categoryParam, onTitleChange}) {
                                 className="category_textField"
                                 type="text"
                                 label="Name category"
-                                onChange={onTitleChange}
+                                onChange={onCategoryNameChange}
                                 value={categoryParam}
                                 variant="outlined"
                             />
@@ -63,7 +53,7 @@ function CreateCategory({onAddCategoryClicked, categoryParam, onTitleChange}) {
                                 className="btn_cancel"
                                 variant="contained"
                                 size="large"
-                                onClick={handleClose}>
+                                onClick={closeModal}>
                                 Cancel
                             </Button>
                             <Button
@@ -81,4 +71,4 @@ function CreateCategory({onAddCategoryClicked, categoryParam, onTitleChange}) {
     );
 }
 
-export default CreateCategory;
+export default CreateCategoryModal;

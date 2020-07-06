@@ -12,22 +12,32 @@ import {searchByFields} from "../../services/itemUtilitiesService";
 
 
 function MyPapersContainer(props) {
-    const categories = useSelector(state => state.categories);
-    const papers = categories.length > 0 ? categories[0].paperItems : [];
     const dispatch = useDispatch();
-
-    const [allPapers, setAllPapers] = React.useState(papers);
+    const categories = useSelector(state => state.categories);
+    const [selectedCategoryId, setSelectedCategoryId] = React.useState(undefined);
     const [searchParam, setSearchParam] = React.useState('');
+    const [isCreateCategoryModalOpen, setCreateCategoryModalOpen] = React.useState(false);
+    const [allPapers, setAllPapers] = React.useState([]);
+    const [selectedPapers, setSelectedPapers] = React.useState([]);
+
 
     React.useEffect(() => {
-        setAllPapers(papers);
-        setSearchParam('');
-    }, [categories]);
-
+        if (categories.length > 0) {
+            if (!selectedCategoryId) {
+                setSelectedCategoryId(categories[0]._id);
+            } else {
+                const selectedCategory = categories.find(c => c._id === selectedCategoryId);
+                const papers = selectedCategory.paperItems;
+                setAllPapers(papers);
+                setSelectedPapers(papers);
+                setSearchParam('');
+            }
+        }
+    }, [categories, selectedCategoryId]);
 
     const onSearchChange = (event) => {
-        const filterPapers = searchByFields(papers, event.target.value); //TODO support more fields
-        setAllPapers(filterPapers);
+        const filterPapers = searchByFields(allPapers, event.target.value); //TODO support more fields
+        setSelectedPapers(filterPapers);
         setSearchParam(event.target.value);
     };
 
@@ -51,10 +61,10 @@ function MyPapersContainer(props) {
 
 
     const onAddCategoryClicked = (categoryName) => {
-        categoryName ='default';
         dispatch(addCategoryAction({
-            data: {category: categoryName},
+            categoryName,
             onSuccess: response => {
+                setCreateCategoryModalOpen(false);
             },
             onError: (err) => {
                 console.log(err);
@@ -62,10 +72,10 @@ function MyPapersContainer(props) {
         }));
     };
 
-    const paperElements = allPapers.map(paper => {
+    const paperElements = selectedPapers.map(paper => {
         const publishedDate = new Date(paper.published).toDateString();
         const updatedDate = new Date(paper.updated).toDateString();
-        const paperExist = allPapers.find(p => p.paperId === paper.paperId);
+        const paperExist = selectedPapers.find(p => p.paperId === paper.paperId);
 
         return <PaperItem
             id={paper.paperId}
@@ -83,9 +93,15 @@ function MyPapersContainer(props) {
 
     return (
         <div className="my_papers_container">
-            <CategoryPaperBox onSearchChange={onSearchChange}
-                              searchParam={searchParam}
-                              onAddCategoryClicked={onAddCategoryClicked}
+            <CategoryPaperBox
+                categories={categories}
+                selectedCategoryId={selectedCategoryId}
+                setSelectedCategoryId={setSelectedCategoryId}
+                onSearchChange={onSearchChange}
+                searchParam={searchParam}
+                onAddCategoryClicked={onAddCategoryClicked}
+                isCreateCategoryModalOpen={isCreateCategoryModalOpen}
+                setCreateCategoryModalOpen={setCreateCategoryModalOpen}
             />
             {paperElements}
         </div>

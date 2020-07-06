@@ -16,7 +16,7 @@ import {
 } from "../../redux/reducers/CategoriesReducer/actions";
 import Pagination from "../../components/Pagination";
 import {RESULTS_PER_PAGE} from "./constants";
-import CreateCategory from "../../components/CreateCategory";
+import CreateCategory from "../../components/CreateCategoryModal";
 
 
 function SearchPaperListContainer(props) {
