@@ -1,0 +1,62 @@
+@import "../../scss/variables";
+
+.select_category_modal {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 40px;
+}
+
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .modal_box {
+    width: 500px;
+    height: 300px;
+    border: 2px solid #000;
+    box-shadow: 3px 3px 5px 4px #beb5b5;
+    padding: 30px;
+    background: white;
+    .title_modal_box {
+      text-align: center;
+      color: $primary_color;
+      font-family: 'Dancing Script', cursive;
+    }
+    .add_category {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+
+      .category_textField {
+        width: 95%;
+
+        .MuiInputLabel-formControl {
+          font-family: 'Dancing Script', cursive;
+        }
+      }
+
+    }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      margin-top: 50px;
+
+      .btn_add {
+        color: $color_white;
+        background-color: $primary_color;
+        font-family: 'Dancing Script', cursive;
+        margin-left: 25px;
+
+        &:hover {
+          background-color: $primary_hover_color;
+        }
+      }
+
+      .btn_cancel {
+        font-family: 'Dancing Script', cursive;
+        margin-right: 40px;
+      }
+    }
+  }
+}

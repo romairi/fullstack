@@ -11,16 +11,16 @@ import {
     setSearchPapersAction
 } from "../../redux/reducers/SearchPapersReducer/actions";
 import {
-    addPaperAction, extractPaperAction,
+    addPaperAction, deletePaperAction,
     removePaperAction,
 } from "../../redux/reducers/CategoriesReducer/actions";
 import Pagination from "../../components/Pagination";
 import {RESULTS_PER_PAGE} from "./constants";
+import SelectCategoryModal from "../../components/SelectCategoryModal";
 
 
 function SearchPaperListContainer(props) {
     const categories = useSelector(state => state.categories);
-    const myPapers = categories.length > 0 ? categories[0].paperItems : [];
     const papers = useSelector(state => state.searchPapers);
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = React.useState(false);
@@ -28,6 +28,8 @@ function SearchPaperListContainer(props) {
     const [isLastPage, setIsLastPage] = React.useState(false);
     const [currentSearchIncTags, setCurrentSearchIncTags] = React.useState([]);
     const [currentSearchExcTags, setCurrentSearchExcTags] = React.useState([]);
+    const [isSelectCategoryModalOpen, setSelectCategoryModalOpen] = React.useState(false);
+    const [selectedPaperId, setSelectedPaperId] = React.useState(null);
 
     const onSearchPapersSuccess = (response) => {
         setIsLoading(false);
@@ -63,18 +65,19 @@ function SearchPaperListContainer(props) {
     };
 
     const onSavePapersSuccess = (categoryId, response) => {
+        setSelectedPaperId(null);
         setIsLoading(false);
         dispatch(addPaperAction(categoryId, response.data));
     };
 
     const onSavePapersFailed = (err) => {
+        setSelectedPaperId(null);
         setIsLoading(false);
         console.log(err);
     };
 
-    const onSaveButtonClicked = (itemId) => {
-        const categoryId = categories.length > 0 ? categories[0]._id : 'default';//TODO get category id from a modal
-        const item = papers.find(paper => paper.paperId === itemId);
+    const onSelectCategoryClicked = categoryId => {
+        const item = papers.find(paper => paper.paperId === selectedPaperId);
         if (item) {
             dispatch(savePaperAction({
                 data: {paper: item, categoryId},
@@ -82,11 +85,17 @@ function SearchPaperListContainer(props) {
                 onError: onSavePapersFailed
             }));
         }
+        setSelectCategoryModalOpen(false);
     };
 
-    const onRemovePapersSuccess = response => {
+    const onSaveButtonClicked = itemId => {
+        setSelectedPaperId(itemId);
+        setSelectCategoryModalOpen(true);
+    };
+
+    const onRemovePapersSuccess = (categoryId, response) => {
         setIsLoading(false);
-        dispatch(extractPaperAction(response.data));
+        dispatch(deletePaperAction(categoryId, response.data));
     };
 
     const onRemovePapersFailed = (err) => {
@@ -95,9 +104,10 @@ function SearchPaperListContainer(props) {
     };
 
     const onRemoveButtonClicked = (itemId) => {
+        const categoryId = categories.length > 0 ? categories[0]._id : 'default';//TODO get category id from a modal
         dispatch(removePaperAction({
-            data: {paperId: itemId},
-            onSuccess: onRemovePapersSuccess,
+            data: {paperId: itemId, categoryId},
+            onSuccess: response => onRemovePapersSuccess(categoryId, response),
             onError: onRemovePapersFailed
         }));
     };
@@ -152,6 +162,7 @@ function SearchPaperListContainer(props) {
             <SpinnerContainer isLoading={isLoading}>
                 {paperElements}
                 {pagination}
+                <SelectCategoryModal categories={categories} onSelectCategoryClicked={onSelectCategoryClicked} isModalOpen={isSelectCategoryModalOpen} setModalOpen={setSelectCategoryModalOpen} />
             </SpinnerContainer>
         </div>
     )

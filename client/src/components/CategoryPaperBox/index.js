@@ -7,21 +7,23 @@ import SearchIcon from '@material-ui/icons/Search';
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import Select from "@material-ui/core/Select/Select";
-import CreateCategory from "../CreateCategory";
+import CreateCategoryModal from "../CreateCategoryModal";
+import Button from "@material-ui/core/Button";
 
 
+function CategoryPaperBox({
+                              categories,
+                              selectedCategoryId,
+                              setSelectedCategoryId,
+                              isCreateCategoryModalOpen,
+                              setCreateCategoryModalOpen,
+                              onSearchChange,
+                              searchParam,
+                              onAddCategoryClicked
+                          }) {
+    const categoriesOptions = categories.map(c => <option key={c._id} value={c._id}>{c.name}</option>);
 
-
-function CategoryPaperBox({onSearchChange, searchParam, onAddCategoryClicked}) {
-
-    // const [searchParam, setSearchParam] = React.useState('');
-
-
-    // const onSearchFieldChange = event => {
-    //     debugger
-    //     setSearchParam(event.target.value);
-    //     onSearchFieldChange(event.target.value);
-    // };
+    const onSelectedCategoryChange = event => setSelectedCategoryId(event.target.value);
 
     return (
         <div className="category_paper_box">
@@ -56,17 +58,25 @@ function CategoryPaperBox({onSearchChange, searchParam, onAddCategoryClicked}) {
                                 className="select_item"
                                 native defaultValue=""
                                 id="grouped-native-select"
+                                value={selectedCategoryId}
+                                onChange={onSelectedCategoryChange}
                             >
-                                <option hidden="hidden" aria-label="None" value=""/>
-                                <option value={1}>Option 1</option>
-                                <option value={2}>Option 2</option>
-                                <option value={3}>Option 3</option>
-                                <option value={4}>Option 4</option>
+                                {categoriesOptions}
                             </Select>
                         </FormControl>
                     </div>
                     <div className="category_item_footer">
-                        <CreateCategory onAddCategoryClicked={onAddCategoryClicked}/>
+                        <Button
+                            className="btn_topic"
+                            variant="contained"
+                            type="button"
+                            onClick={() => setCreateCategoryModalOpen(true)}
+                        >
+                            Create Category
+                        </Button>
+                        <CreateCategoryModal onAddCategoryClicked={onAddCategoryClicked}
+                                             isCreateCategoryModalOpen={isCreateCategoryModalOpen}
+                                             setCreateCategoryModalOpen={setCreateCategoryModalOpen}/>
                     </div>
                 </div>
             </Card>

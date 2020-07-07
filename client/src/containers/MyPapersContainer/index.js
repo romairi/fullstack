@@ -3,48 +3,53 @@ import './index.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {
     addCategoryAction,
-    extractPaperAction,
+    deletePaperAction,
     removePaperAction,
 } from "../../redux/reducers/CategoriesReducer/actions";
 import PaperItem from "../../components/PaperItem";
 import CategoryPaperBox from "../../components/CategoryPaperBox";
+import {searchByFields} from "../../services/itemUtilitiesService";
 
 
 function MyPapersContainer(props) {
-    const categories = useSelector(state => state.categories);
-    const papers = categories.length > 0 ? categories[0].paperItems : [];
     const dispatch = useDispatch();
-
-    const [allPapers, setAllPapers] = React.useState(papers);
+    const categories = useSelector(state => state.categories);
+    const [selectedCategoryId, setSelectedCategoryId] = React.useState(undefined);
     const [searchParam, setSearchParam] = React.useState('');
+    const [isCreateCategoryModalOpen, setCreateCategoryModalOpen] = React.useState(false);
+    const [allPapers, setAllPapers] = React.useState([]);
+    const [selectedPapers, setSelectedPapers] = React.useState([]);
+
 
     React.useEffect(() => {
-        setAllPapers(papers);
-        setSearchParam('');
-    }, [papers]);
+        if (categories.length > 0) {
+            if (!selectedCategoryId) {
+                setSelectedCategoryId(categories[0]._id);
+            } else {
+                const selectedCategory = categories.find(c => c._id === selectedCategoryId);
+                const papers = selectedCategory.paperItems;
+                setAllPapers(papers);
+                setSelectedPapers(papers);
+                setSearchParam('');
+            }
+        }
+    }, [categories, selectedCategoryId]);
 
     const onSearchChange = (event) => {
-        // const filterPapers = papers.filter(item => {
-        //     return item.title.toLowerCase().includes(event.target.value.toLowerCase()); //TODO support more fields + extract to a service
-        // });
-        const filterPapers = papers.filter(item => [item.title, item.summary]
-            .map(text => text.toLowerCase())
-            .filter(text => text.includes(event.target.value.toLowerCase()))
-            .length > 0
-        );
-
-        setAllPapers(filterPapers);
+        const filterPapers = searchByFields(allPapers, event.target.value); //TODO support more fields
+        setSelectedPapers(filterPapers);
         setSearchParam(event.target.value);
     };
 
-    const onRemovePapersSuccess = (response) => {
-        dispatch(extractPaperAction(response.data));
+    const onRemovePapersSuccess = (categoryId, response) => {
+        dispatch(deletePaperAction(categoryId, response.data));
     };
 
     const onRemoveButtonClicked = (itemId) => {
+        const categoryId = categories.length > 0 ? categories[0]._id : 'default';//TODO get category id from a modal
         dispatch(removePaperAction({
-            data: {paperId: itemId},
-            onSuccess: onRemovePapersSuccess,
+            data: {paperId: itemId, categoryId},
+            onSuccess: response => onRemovePapersSuccess(categoryId, response),
             onError: onRemovePapersFailed
         }));
 
@@ -54,20 +59,23 @@ function MyPapersContainer(props) {
         console.log(err);
     };
 
-    const onAddCategoryClicked = categoryName => {
+
+    const onAddCategoryClicked = (categoryName) => {
         dispatch(addCategoryAction({
-            data: {categoryName},
+            categoryName,
             onSuccess: response => {
-                debugger
+                setCreateCategoryModalOpen(false);
             },
-            onError: () => {}
+            onError: (err) => {
+                console.log(err);
+            }
         }));
     };
 
-    const paperElements = allPapers.map(paper => {
+    const paperElements = selectedPapers.map(paper => {
         const publishedDate = new Date(paper.published).toDateString();
         const updatedDate = new Date(paper.updated).toDateString();
-        const paperExist = allPapers.find(p => p.paperId === paper.paperId);
+        const paperExist = selectedPapers.find(p => p.paperId === paper.paperId);
 
         return <PaperItem
             id={paper.paperId}
@@ -85,7 +93,16 @@ function MyPapersContainer(props) {
 
     return (
         <div className="my_papers_container">
-            <CategoryPaperBox onSearchChange={onSearchChange} searchParam={searchParam} onAddCategoryClicked={onAddCategoryClicked} />
+            <CategoryPaperBox
+                categories={categories}
+                selectedCategoryId={selectedCategoryId}
+                setSelectedCategoryId={setSelectedCategoryId}
+                onSearchChange={onSearchChange}
+                searchParam={searchParam}
+                onAddCategoryClicked={onAddCategoryClicked}
+                isCreateCategoryModalOpen={isCreateCategoryModalOpen}
+                setCreateCategoryModalOpen={setCreateCategoryModalOpen}
+            />
             {paperElements}
         </div>
     )

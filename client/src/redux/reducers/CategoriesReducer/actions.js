@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {ADD_PAPER_ACTION_TYPE, EXTRACT_PAPER_ACTION_TYPE, SET_CATEGORIES_ACTION_TYPE} from "./constants";
+import {ADD_PAPER_ACTION_TYPE, REMOVE_PAPER_ACTION_TYPE, SET_CATEGORIES_ACTION_TYPE} from "./constants";
 import {API_ACTION_TYPE, API_METHOD_POST} from "../../middleware/ApiMiddleware/constants";
 import {ADD_CATEGORY_PATH, GET_CATEGORIES_PATH, REMOVE_PAPER_PATH} from "../../../constants";
 
@@ -46,10 +46,13 @@ export function addPaperAction(categoryId, paper) {
     }
 }
 
-export function extractPaperAction(paperId) {
+export function deletePaperAction(categoryId, paperId) {
     return {
-        type: EXTRACT_PAPER_ACTION_TYPE,
-        payload: paperId,
+        type: REMOVE_PAPER_ACTION_TYPE,
+        payload: {
+            categoryId,
+            paperId
+        }
     }
 }
 
