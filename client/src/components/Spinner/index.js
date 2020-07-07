@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.scss';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import {buildClassName} from "../../services/classNameService";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 export default function SpinnerContainer({children, isLoading}) {

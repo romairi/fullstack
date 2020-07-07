@@ -4,9 +4,6 @@ import _ from 'lodash';
 import {useDispatch} from "react-redux";
 import {Link} from 'react-router-dom';
 import {replace} from "connected-react-router";
-import Card from '@material-ui/core/Card';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import {
     EMAIL_FIELD,
     CONFIRM_PASSWORD_FIELD,
@@ -19,9 +16,14 @@ import useForm from "../../hooks/useForm";
 import {signupAction} from './actions';
 import {createSetUserAction} from "../../redux/reducers/UserReducer/actions";
 import {GENERAL_ERROR_FIELD} from "../../hooks/constants";
+import Card from '@material-ui/core/Card';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import LockIcon from '@material-ui/icons/Lock';
 import EmailIcon from '@material-ui/icons/Email';
-import PersonIcon from '@material-ui/icons/Person';
+import {AccountCircle} from "@material-ui/icons";
+import InputAdornment from "@material-ui/core/InputAdornment";
+
 
 const Error = ({message}) => (
     message ?
@@ -50,59 +52,76 @@ export default function SignUpContainer({}) {
             <Card className='signup_container'>
                 <h2 className="title_signup">Sign Up</h2>
                 <form className="form_signup">
-                    <div className="textField_user_name">
-                        <PersonIcon className="icon_user_name"/>
-                        <TextField
-                            margin="dense"
-                            error={!_.isEmpty(errors[USER_NAME_FIELD])}
-                            helperText={errors[USER_NAME_FIELD]}
-                            type="text"
-                            id={USER_NAME_FIELD}
-                            label="Username"
-                            value={values[USER_NAME_FIELD]}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="textField_email">
-                        <EmailIcon className="icon_email"/>
-                        <TextField
-                            margin="dense"
-                            error={!_.isEmpty(errors[EMAIL_FIELD])}
-                            helperText={errors[EMAIL_FIELD]}
-                            type="email"
-                            id={EMAIL_FIELD}
-                            label="Email"
-                            value={values[EMAIL_FIELD]}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="textField_password">
-                        <LockIcon className="icon_password"/>
-                        <TextField
-                            margin="dense"
-                            error={!_.isEmpty(errors[PASSWORD_FIELD])}
-                            helperText={errors[PASSWORD_FIELD]}
-                            type="password"
-                            id={PASSWORD_FIELD}
-                            label="Password"
-                            value={values[PASSWORD_FIELD]}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="textField_password">
-                        <LockIcon className="icon_password"/>
 
-                        <TextField
-                            margin="dense"
-                            error={!_.isEmpty(errors[CONFIRM_PASSWORD_FIELD])}
-                            helperText={errors[CONFIRM_PASSWORD_FIELD]}
-                            type="password"
-                            id={CONFIRM_PASSWORD_FIELD}
-                            label="Confirm Password"
-                            value={values[CONFIRM_PASSWORD_FIELD]}
-                            onChange={handleChange}
-                        />
-                    </div>
+                    <TextField
+                        margin="dense"
+                        error={!_.isEmpty(errors[USER_NAME_FIELD])}
+                        helperText={errors[USER_NAME_FIELD]}
+                        type="text"
+                        id={USER_NAME_FIELD}
+                        label="Username"
+                        value={values[USER_NAME_FIELD]}
+                        onChange={handleChange}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <AccountCircle className="icon"/>
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+
+                    <TextField
+                        margin="dense"
+                        error={!_.isEmpty(errors[EMAIL_FIELD])}
+                        helperText={errors[EMAIL_FIELD]}
+                        type="email"
+                        id={EMAIL_FIELD}
+                        label="Email"
+                        value={values[EMAIL_FIELD]}
+                        onChange={handleChange}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <EmailIcon className="icon"/>
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                    <TextField
+                        margin="dense"
+                        error={!_.isEmpty(errors[PASSWORD_FIELD])}
+                        helperText={errors[PASSWORD_FIELD]}
+                        type="password"
+                        id={PASSWORD_FIELD}
+                        label="Password"
+                        value={values[PASSWORD_FIELD]}
+                        onChange={handleChange}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <LockIcon className="icon"/>
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                    <TextField
+                        margin="dense"
+                        error={!_.isEmpty(errors[CONFIRM_PASSWORD_FIELD])}
+                        helperText={errors[CONFIRM_PASSWORD_FIELD]}
+                        type="password"
+                        id={CONFIRM_PASSWORD_FIELD}
+                        label="Confirm Password"
+                        value={values[CONFIRM_PASSWORD_FIELD]}
+                        onChange={handleChange}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <LockIcon className="icon"/>
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
                     <Error message={errors[GENERAL_ERROR_FIELD]}/>
                     <Button
                         className="base_container_btn"

@@ -1,11 +1,5 @@
 @import "../../scss/variables";
 
-.create_category_modal {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 40px;
-}
-
 .modal {
   display: flex;
   align-items: center;
@@ -18,11 +12,13 @@
     box-shadow: 3px 3px 5px 4px #beb5b5;
     padding: 30px;
     background: white;
+
     .title_modal_box {
       text-align: center;
       color: $primary_color;
       font-family: 'Dancing Script', cursive;
     }
+
     .add_category {
       display: flex;
       justify-content: center;
@@ -37,7 +33,8 @@
       }
 
     }
-    .buttons {
+
+    .footer_modal {
       display: flex;
       justify-content: center;
       margin-top: 50px;
@@ -46,14 +43,15 @@
         color: $color_white;
         background-color: $primary_color;
         font-family: 'Dancing Script', cursive;
-        margin-left: 25px;
+        padding-right: 30px;
+        padding-left: 30px;
 
         &:hover {
           background-color: $primary_hover_color;
         }
       }
 
-      .btn_cancel {
+      .btn_close {
         font-family: 'Dancing Script', cursive;
         margin-right: 40px;
       }

@@ -21,54 +21,52 @@ function SelectCategoryModal({categories, onSelectCategoryClicked, isModalOpen, 
     const onSelectedCategoryChange = event => setSelectedCategoryId(event.target.value);
 
     return (
-        <div className="create_category_modal">
-            <Modal
-                className="modal"
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                open={isModalOpen}
-                onClose={closeModal}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                    timeout: 500,
-                }}
-            >
-                <Fade in={isModalOpen}>
-                    <div className="modal_box">
-                        <h3 className="title_modal_box">Select category</h3>
-                        <div className="add_category">
-                            <Select
-                                className="select_item"
-                                native defaultValue=""
-                                id="grouped-native-select"
-                                value={selectedCategoryId}
-                                onChange={onSelectedCategoryChange}
-                            >
-                                {categoriesOptions}
-                            </Select>
+        <Modal
+            className="modal"
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            open={isModalOpen}
+            onClose={closeModal}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+                timeout: 500,
+            }}
+        >
+            <Fade in={isModalOpen}>
+                <div className="modal_box">
+                    <h3 className="title_modal_box">Select category for saving</h3>
+                    <div className="select_category">
+                        <Select
+                            className="select_item"
+                            native defaultValue=""
+                            id="grouped-native-select"
+                            value={selectedCategoryId}
+                            onChange={onSelectedCategoryChange}
+                        >
+                            {categoriesOptions}
+                        </Select>
 
-                        </div>
-                        <div className="buttons">
-                            <Button
-                                className="btn_cancel"
-                                variant="contained"
-                                size="large"
-                                onClick={closeModal}>
-                                Cancel
-                            </Button>
-                            <Button
-                                className="btn_add"
-                                variant="contained"
-                                size="large"
-                                onClick={onSelectButtonClicked}>
-                                Add
-                            </Button>
-                        </div>
                     </div>
-                </Fade>
-            </Modal>
-        </div>
+                    <div className="footer_selected_modal">
+                        <Button
+                            className="btn_close"
+                            variant="contained"
+                            size="large"
+                            onClick={closeModal}>
+                            Close
+                        </Button>
+                        <Button
+                            className="btn_selected"
+                            variant="contained"
+                            size="large"
+                            onClick={onSelectButtonClicked}>
+                            Save
+                        </Button>
+                    </div>
+                </div>
+            </Fade>
+        </Modal>
     );
 }
 

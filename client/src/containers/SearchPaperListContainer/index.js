@@ -28,7 +28,7 @@ function SearchPaperListContainer(props) {
     const [isLastPage, setIsLastPage] = React.useState(false);
     const [currentSearchIncTags, setCurrentSearchIncTags] = React.useState([]);
     const [currentSearchExcTags, setCurrentSearchExcTags] = React.useState([]);
-    const [isSelectCategoryModalOpen, setSelectCategoryModalOpen] = React.useState(false);
+    const [isModalOpen, setModalOpen] = React.useState(false);
     const [selectedPaperId, setSelectedPaperId] = React.useState(null);
 
     const onSearchPapersSuccess = (response) => {
@@ -85,12 +85,12 @@ function SearchPaperListContainer(props) {
                 onError: onSavePapersFailed
             }));
         }
-        setSelectCategoryModalOpen(false);
+        setModalOpen(false);
     };
 
     const onSaveButtonClicked = itemId => {
         setSelectedPaperId(itemId);
-        setSelectCategoryModalOpen(true);
+        setModalOpen(true);
     };
 
     const onRemovePapersSuccess = (categoryId, response) => {
@@ -162,7 +162,11 @@ function SearchPaperListContainer(props) {
             <SpinnerContainer isLoading={isLoading}>
                 {paperElements}
                 {pagination}
-                <SelectCategoryModal categories={categories} onSelectCategoryClicked={onSelectCategoryClicked} isModalOpen={isSelectCategoryModalOpen} setModalOpen={setSelectCategoryModalOpen} />
+                <SelectCategoryModal
+                    categories={categories}
+                    onSelectCategoryClicked={onSelectCategoryClicked}
+                    isModalOpen={isModalOpen}
+                    setModalOpen={setModalOpen} />
             </SpinnerContainer>
         </div>
     )
