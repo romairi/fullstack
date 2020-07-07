@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const HttpStatus = require('http-status-codes');
 const UserModel = require('./user.model');
 const serverConfig = require('../configs/serverConfig');
 
@@ -30,15 +29,7 @@ async function auth(req, res, next) {
     next();
 }
 
-function privateMiddleware(req, res, next) {
-    if (req.authenticated) {
-        next();
-    } else {
-        res.status(HttpStatus.FORBIDDEN).send('forbidden');
-    }
-}
 
 module.exports = {
     auth,
-    privateMiddleware,
 };
