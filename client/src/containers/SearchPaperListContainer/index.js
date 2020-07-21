@@ -76,7 +76,8 @@ function SearchPaperListContainer(props) {
         console.log(err);
     };
 
-    const onSelectCategoryClicked = categoryId => {
+    const onSelectCategoryClicked = categoryId => { // TODO if 0 categories find categoryId
+        debugger
         const item = papers.find(paper => paper.paperId === selectedPaperId);
         if (item) {
             dispatch(savePaperAction({
@@ -89,11 +90,13 @@ function SearchPaperListContainer(props) {
     };
 
     const onSaveButtonClicked = itemId => {
+        debugger
         setSelectedPaperId(itemId);
         setModalOpen(true);
     };
 
     const onRemovePapersSuccess = (categoryId, response) => {
+        debugger
         setIsLoading(false);
         dispatch(deletePaperAction(categoryId, response.data));
     };

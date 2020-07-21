@@ -2,7 +2,7 @@ import React from 'react';
 import './index.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {
-    addCategoryAction,
+    addCategoryAction, createCategoryAction,
     deletePaperAction,
     removePaperAction,
 } from "../../redux/reducers/CategoriesReducer/actions";
@@ -19,7 +19,6 @@ function MyPapersContainer(props) {
     const [isModalOpen, setModalOpen] = React.useState(false);
     const [allPapers, setAllPapers] = React.useState([]);
     const [selectedPapers, setSelectedPapers] = React.useState([]);
-
 
     React.useEffect(() => {
         if (categories.length > 0) {
@@ -46,7 +45,6 @@ function MyPapersContainer(props) {
     };
 
     const onRemoveButtonClicked = (itemId) => {
-        debugger
         const categoryId = selectedCategoryId;
         dispatch(removePaperAction({
             data: {paperId: itemId, categoryId},
@@ -60,11 +58,16 @@ function MyPapersContainer(props) {
         console.log(err);
     };
 
+    const onCreateCategorySuccess = (response) => {
+        dispatch(createCategoryAction(response.data));
+    };
 
     const onAddCategoryClicked = (categoryName) => {
+        setModalOpen(false);
         dispatch(addCategoryAction({
             categoryName,
-            onSuccess: () => {
+            onSuccess: (response) => {
+                onCreateCategorySuccess(response);
                 setModalOpen(false);
             },
             onError: (err) => {

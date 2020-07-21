@@ -1,5 +1,10 @@
 import _ from 'lodash';
-import {ADD_PAPER_ACTION_TYPE, REMOVE_PAPER_ACTION_TYPE, SET_CATEGORIES_ACTION_TYPE} from "./constants";
+import {
+    ADD_PAPER_ACTION_TYPE,
+    CREATE_CATEGORY_ACTION_TYPE,
+    REMOVE_PAPER_ACTION_TYPE,
+    SET_CATEGORIES_ACTION_TYPE
+} from "./constants";
 import {API_ACTION_TYPE, API_METHOD_POST} from "../../middleware/ApiMiddleware/constants";
 import {ADD_CATEGORY_PATH, GET_CATEGORIES_PATH, REMOVE_PAPER_PATH} from "../../../constants";
 
@@ -19,6 +24,15 @@ export function getCategoriesAction({onSuccess = _.noop, onError = _.noop}) {
             onError
         }
     };
+}
+
+export function createCategoryAction( category) {
+    return {
+        type: CREATE_CATEGORY_ACTION_TYPE,
+        payload: {
+            category
+        }
+    }
 }
 
 export function addCategoryAction({categoryName, onSuccess = _.noop, onError = _.noop}) {
