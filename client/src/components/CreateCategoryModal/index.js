@@ -12,10 +12,12 @@ function CreateCategoryModal({onAddCategoryClicked, isModalOpen, setModalOpen}) 
 
     const onCategoryNameChange = (event) => {
         setCategoryParams(event.target.value);
+
     };
 
     const onAddButtonClicked = () => {
         onAddCategoryClicked && onAddCategoryClicked(categoryParam);
+        setCategoryParams('');
     };
 
     const closeModal = () => setModalOpen(false);

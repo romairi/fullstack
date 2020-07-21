@@ -63,7 +63,6 @@ function MyPapersContainer(props) {
     };
 
     const onAddCategoryClicked = (categoryName) => {
-        setModalOpen(false);
         dispatch(addCategoryAction({
             categoryName,
             onSuccess: (response) => {
