@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`validateValuesService validateValues should return empty object - details as context but without key 1`] = `Object {}`;
+
+exports[`validateValuesService validateValues should return empty object - details as no context 1`] = `Object {}`;
+
+exports[`validateValuesService validateValues should return empty object - details as no message 1`] = `Object {}`;
+
+exports[`validateValuesService validateValues should return results with errors 1`] = `Object {}`;
+
+exports[`validateValuesService validateValues should return results with errors but details is empty array 1`] = `Object {}`;
+
+exports[`validateValuesService validateValues should return results with errors but details is not array 1`] = `Object {}`;
+
+exports[`validateValuesService validateValues should return results with errors but without details 1`] = `Object {}`;
+
+exports[`validateValuesService validateValues should return the formatted error 1`] = `
+Object {
+  "key": "message",
+}
+`;
+
+exports[`validateValuesService validateValues should return the formatted error only for the valid detail 1`] = `
+Object {
+  "key": "message",
+}
+`;

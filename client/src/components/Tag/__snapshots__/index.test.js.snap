@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tag render should render the component - without children 1`] = `
+<div
+  className="tag_item"
+>
+  <span
+    className="tag_item_delete_button"
+    onClick={[Function]}
+  >
+    X
+  </span>
+</div>
+`;
+
+exports[`Tag render should render the component - without children 2`] = `
+<div
+  className="tag_item"
+>
+  <div>
+    CHILDREN
+  </div>
+  <span
+    className="tag_item_delete_button"
+    onClick={[Function]}
+  >
+    X
+  </span>
+</div>
+`;

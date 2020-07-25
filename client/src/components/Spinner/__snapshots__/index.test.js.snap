@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Spinner render should render the children - isLoading is false 1`] = `
+<div
+  className="COMPUTED_CLASS_NAME"
+>
+  <div>
+    CHILDREN
+  </div>
+</div>
+`;
+
+exports[`Spinner render should render the children - isLoading is false 2`] = `
+Array [
+  Array [
+    "spinner_container",
+    false,
+  ],
+]
+`;
+
+exports[`Spinner render should render the spinner - isLoading is true 1`] = `
+<div
+  className="COMPUTED_CLASS_NAME"
+>
+  <div
+    className="CircularProgress"
+  />
+</div>
+`;
+
+exports[`Spinner render should render the spinner - isLoading is true 2`] = `
+Array [
+  Array [
+    "spinner_container",
+    "loading",
+  ],
+]
+`;
