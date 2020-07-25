@@ -77,7 +77,7 @@ function SearchPaperListContainer(props) {
         console.log(err);
     };
 
-    const onSelectCategoryClicked = categoryId => { // TODO if 0 categories find categoryId
+    const onSelectCategoryClicked = categoryId => {
         const item = papers.find(paper => paper.paperId === selectedPaperId);
         if (item) {
             dispatch(savePaperAction({
@@ -95,7 +95,6 @@ function SearchPaperListContainer(props) {
     };
 
     const onRemovePapersSuccess = (categoryId, response) => {
-        debugger
         setIsLoading(false);
         dispatch(deletePaperAction(categoryId, response.data));
     };

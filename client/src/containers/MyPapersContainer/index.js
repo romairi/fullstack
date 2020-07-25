@@ -58,15 +58,17 @@ function MyPapersContainer(props) {
         console.log(err);
     };
 
-    const onCreateCategorySuccess = (response) => {
-        dispatch(createCategoryAction(response.data));
+    const onCreateCategorySuccess = category => {
+        if (category) {
+            dispatch(createCategoryAction(category));
+        }
     };
 
     const onAddCategoryClicked = (categoryName) => {
         dispatch(addCategoryAction({
             categoryName,
             onSuccess: (response) => {
-                onCreateCategorySuccess(response);
+                onCreateCategorySuccess(response.data);
                 setModalOpen(false);
             },
             onError: (err) => {

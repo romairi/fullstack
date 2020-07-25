@@ -59,7 +59,7 @@ UserSchema.statics.addCategory = async function (userId, categoryName) {
         };
     }
     return {
-        category: foundCategory
+        category: null
     }
 };
 
