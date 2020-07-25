@@ -10,7 +10,6 @@ import Select from "@material-ui/core/Select/Select";
 import Button from "@material-ui/core/Button";
 import CreateCategoryModal from "../CreateCategoryModal";
 
-
 function CategoryPaperBox({
                               categories,
                               selectedCategoryId,
