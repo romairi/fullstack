@@ -17,6 +17,7 @@ import {
 import Pagination from "../../components/Pagination";
 import {RESULTS_PER_PAGE} from "./constants";
 import SelectCategoryModal from "../../components/SelectCategoryModal";
+import {findCategoryByPaperId} from "../../services/findCategoryByPaperId";
 
 
 function SearchPaperListContainer(props) {
@@ -105,12 +106,16 @@ function SearchPaperListContainer(props) {
     };
 
     const onRemoveButtonClicked = (itemId) => {
-        const categoryId = categories.length > 0 ? categories[0]._id : 'default';//TODO get category id from a modal
-        dispatch(removePaperAction({
-            data: {paperId: itemId, categoryId},
-            onSuccess: response => onRemovePapersSuccess(categoryId, response),
-            onError: onRemovePapersFailed
-        }));
+        const category = findCategoryByPaperId(categories, itemId);
+        if (category) {
+            const categoryId = category._id;
+            dispatch(removePaperAction({
+                data: {paperId: itemId, categoryId},
+                onSuccess: response => onRemovePapersSuccess(categoryId, response),
+                onError: onRemovePapersFailed
+            }));
+        }
+
     };
 
     const onChangePage = (nextPage) => {
@@ -167,7 +172,7 @@ function SearchPaperListContainer(props) {
                     categories={categories}
                     onSelectCategoryClicked={onSelectCategoryClicked}
                     isModalOpen={isModalOpen}
-                    setModalOpen={setModalOpen} />
+                    setModalOpen={setModalOpen}/>
             </SpinnerContainer>
         </div>
     )
