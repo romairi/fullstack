@@ -6,9 +6,9 @@ import {createSetUserAction} from "../../redux/reducers/UserReducer/actions";
 import {push} from "connected-react-router";
 import {BASE_ROUTE, LOGIN_ROUTE, SEARCH_PAPER_LIST_ROUTE} from "../../routes/constants";
 import {logoutAction} from "./actions";
-import Toolbar from "@material-ui/core/Toolbar";
 import {Link} from 'react-router-dom'
 import {buildClassName} from "../../services/classNameService";
+import Toolbar from "@material-ui/core/Toolbar";
 
 
 function NavigationBar({currentLocation}) {

@@ -2,7 +2,7 @@ import React from 'react';
 import './index.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {
-    addCategoryAction,
+    addCategoryAction, createCategoryAction,
     deletePaperAction,
     removePaperAction,
 } from "../../redux/reducers/CategoriesReducer/actions";
@@ -16,10 +16,9 @@ function MyPapersContainer(props) {
     const categories = useSelector(state => state.categories);
     const [selectedCategoryId, setSelectedCategoryId] = React.useState(undefined);
     const [searchParam, setSearchParam] = React.useState('');
-    const [isCreateCategoryModalOpen, setCreateCategoryModalOpen] = React.useState(false);
+    const [isModalOpen, setModalOpen] = React.useState(false);
     const [allPapers, setAllPapers] = React.useState([]);
     const [selectedPapers, setSelectedPapers] = React.useState([]);
-
 
     React.useEffect(() => {
         if (categories.length > 0) {
@@ -36,7 +35,7 @@ function MyPapersContainer(props) {
     }, [categories, selectedCategoryId]);
 
     const onSearchChange = (event) => {
-        const filterPapers = searchByFields(allPapers, event.target.value); //TODO support more fields
+        const filterPapers = searchByFields(allPapers, event.target.value);
         setSelectedPapers(filterPapers);
         setSearchParam(event.target.value);
     };
@@ -46,7 +45,7 @@ function MyPapersContainer(props) {
     };
 
     const onRemoveButtonClicked = (itemId) => {
-        const categoryId = categories.length > 0 ? categories[0]._id : 'default';//TODO get category id from a modal
+        const categoryId = selectedCategoryId;
         dispatch(removePaperAction({
             data: {paperId: itemId, categoryId},
             onSuccess: response => onRemovePapersSuccess(categoryId, response),
@@ -59,12 +58,18 @@ function MyPapersContainer(props) {
         console.log(err);
     };
 
+    const onCreateCategorySuccess = category => {
+        if (category) {
+            dispatch(createCategoryAction(category));
+        }
+    };
 
     const onAddCategoryClicked = (categoryName) => {
         dispatch(addCategoryAction({
             categoryName,
-            onSuccess: response => {
-                setCreateCategoryModalOpen(false);
+            onSuccess: (response) => {
+                onCreateCategorySuccess(response.data);
+                setModalOpen(false);
             },
             onError: (err) => {
                 console.log(err);
@@ -100,8 +105,8 @@ function MyPapersContainer(props) {
                 onSearchChange={onSearchChange}
                 searchParam={searchParam}
                 onAddCategoryClicked={onAddCategoryClicked}
-                isCreateCategoryModalOpen={isCreateCategoryModalOpen}
-                setCreateCategoryModalOpen={setCreateCategoryModalOpen}
+                isModalOpen={isModalOpen}
+                setModalOpen={setModalOpen}
             />
             {paperElements}
         </div>

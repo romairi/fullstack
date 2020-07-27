@@ -17,11 +17,12 @@
 
         .navigation_bar_item {
           margin-left: 35px;
+          padding: 10px;
 
           &.selected {
-            background: darkgray;
+            background: $color_dark_gray;
             border-radius: 33px;
-            color: #e45252;
+            padding: 10px;
           }
 
           &:first-child {

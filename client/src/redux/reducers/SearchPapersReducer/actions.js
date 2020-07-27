@@ -25,7 +25,7 @@ export function searchPapersAction({data, onSuccess = _.noop, onError = _.noop})
 }
 
 export function savePaperAction({data, onSuccess = _.noop, onError = _.noop}) {
-    return {
+        return {
         type: API_ACTION_TYPE,
         payload: {
             method: API_METHOD_POST,

@@ -3,7 +3,8 @@
 .base_container {
   .login_container {
     padding: 10px 30px;
-
+    width: 360px;
+    //height: 535px;
     .title_login {
       text-align: center;
       font-family: 'Dancing Script', cursive;
@@ -23,27 +24,8 @@
       flex-direction: column;
       padding: 10px;
 
-      .textField_email {
-        display: inline-flex;
-        align-items: flex-end;
-
-        .icon_email {
-          margin-right: 12px;
-          font-size: 25px;
-          color: $primary_color;
-        }
-      }
-
-      .textField_password {
-        display: inline-flex;
-        align-items: flex-end;
-
-        .icon_password {
-          margin-right: 12px;
-          margin-bottom: 3px;
-          font-size: 25px;
-          color: $primary_color;
-        }
+      .icon {
+        color: $primary_color;
       }
     }
 
@@ -55,5 +37,3 @@
     }
   }
 }
-
-

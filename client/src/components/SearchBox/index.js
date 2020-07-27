@@ -1,11 +1,11 @@
 import React from 'react';
 import './index.scss';
 import _ from 'lodash';
+import Tag from "../Tag";
 import TextField from "@material-ui/core/TextField/TextField";
 import Button from "@material-ui/core/Button";
 import {Card} from "@material-ui/core";
 import DeleteIcon from '@material-ui/icons/Delete';
-import Tag from "../Tag";
 
 
 function SearchTags({searchList, onDeleteTag}) {

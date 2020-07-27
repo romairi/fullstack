@@ -7,22 +7,21 @@ import SearchIcon from '@material-ui/icons/Search';
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import Select from "@material-ui/core/Select/Select";
-import CreateCategoryModal from "../CreateCategoryModal";
 import Button from "@material-ui/core/Button";
-
+import CreateCategoryModal from "../CreateCategoryModal";
 
 function CategoryPaperBox({
                               categories,
                               selectedCategoryId,
                               setSelectedCategoryId,
-                              isCreateCategoryModalOpen,
-                              setCreateCategoryModalOpen,
+                              isModalOpen,
+                              setModalOpen,
                               onSearchChange,
                               searchParam,
                               onAddCategoryClicked
                           }) {
-    const categoriesOptions = categories.map(c => <option key={c._id} value={c._id}>{c.name}</option>);
 
+    const categoriesOptions = categories.map(c => <option key={c._id} value={c._id}>{c.name}</option>);
     const onSelectedCategoryChange = event => setSelectedCategoryId(event.target.value);
 
     return (
@@ -70,13 +69,15 @@ function CategoryPaperBox({
                             className="btn_topic"
                             variant="contained"
                             type="button"
-                            onClick={() => setCreateCategoryModalOpen(true)}
+                            onClick={() => setModalOpen(true)}
                         >
                             Create Category
                         </Button>
-                        <CreateCategoryModal onAddCategoryClicked={onAddCategoryClicked}
-                                             isCreateCategoryModalOpen={isCreateCategoryModalOpen}
-                                             setCreateCategoryModalOpen={setCreateCategoryModalOpen}/>
+                        <CreateCategoryModal
+                            onAddCategoryClicked={onAddCategoryClicked}
+                            isModalOpen={isModalOpen}
+                            setModalOpen={setModalOpen}
+                        />
                     </div>
                 </div>
             </Card>

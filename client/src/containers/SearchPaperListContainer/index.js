@@ -17,6 +17,7 @@ import {
 import Pagination from "../../components/Pagination";
 import {RESULTS_PER_PAGE} from "./constants";
 import SelectCategoryModal from "../../components/SelectCategoryModal";
+import {findCategoryByPaperId} from "../../services/findCategoryByPaperId";
 
 
 function SearchPaperListContainer(props) {
@@ -28,7 +29,7 @@ function SearchPaperListContainer(props) {
     const [isLastPage, setIsLastPage] = React.useState(false);
     const [currentSearchIncTags, setCurrentSearchIncTags] = React.useState([]);
     const [currentSearchExcTags, setCurrentSearchExcTags] = React.useState([]);
-    const [isSelectCategoryModalOpen, setSelectCategoryModalOpen] = React.useState(false);
+    const [isModalOpen, setModalOpen] = React.useState(false);
     const [selectedPaperId, setSelectedPaperId] = React.useState(null);
 
     const onSearchPapersSuccess = (response) => {
@@ -85,12 +86,12 @@ function SearchPaperListContainer(props) {
                 onError: onSavePapersFailed
             }));
         }
-        setSelectCategoryModalOpen(false);
+        setModalOpen(false);
     };
 
     const onSaveButtonClicked = itemId => {
         setSelectedPaperId(itemId);
-        setSelectCategoryModalOpen(true);
+        setModalOpen(true);
     };
 
     const onRemovePapersSuccess = (categoryId, response) => {
@@ -104,12 +105,16 @@ function SearchPaperListContainer(props) {
     };
 
     const onRemoveButtonClicked = (itemId) => {
-        const categoryId = categories.length > 0 ? categories[0]._id : 'default';//TODO get category id from a modal
-        dispatch(removePaperAction({
-            data: {paperId: itemId, categoryId},
-            onSuccess: response => onRemovePapersSuccess(categoryId, response),
-            onError: onRemovePapersFailed
-        }));
+        const category = findCategoryByPaperId(categories, itemId);
+        if (category) {
+            const categoryId = category._id;
+            dispatch(removePaperAction({
+                data: {paperId: itemId, categoryId},
+                onSuccess: response => onRemovePapersSuccess(categoryId, response),
+                onError: onRemovePapersFailed
+            }));
+        }
+
     };
 
     const onChangePage = (nextPage) => {
@@ -162,7 +167,11 @@ function SearchPaperListContainer(props) {
             <SpinnerContainer isLoading={isLoading}>
                 {paperElements}
                 {pagination}
-                <SelectCategoryModal categories={categories} onSelectCategoryClicked={onSelectCategoryClicked} isModalOpen={isSelectCategoryModalOpen} setModalOpen={setSelectCategoryModalOpen} />
+                <SelectCategoryModal
+                    categories={categories}
+                    onSelectCategoryClicked={onSelectCategoryClicked}
+                    isModalOpen={isModalOpen}
+                    setModalOpen={setModalOpen}/>
             </SpinnerContainer>
         </div>
     )

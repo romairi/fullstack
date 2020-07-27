@@ -7,34 +7,35 @@ import Fade from "@material-ui/core/Fade/Fade";
 import TextField from "@material-ui/core/TextField/TextField";
 
 
-function CreateCategoryModal({onAddCategoryClicked, isCreateCategoryModalOpen, setCreateCategoryModalOpen}) {
+function CreateCategoryModal({onAddCategoryClicked, isModalOpen, setModalOpen}) {
     const [categoryParam, setCategoryParams] = React.useState('');
 
     const onCategoryNameChange = (event) => {
         setCategoryParams(event.target.value);
+
     };
 
     const onAddButtonClicked = () => {
         onAddCategoryClicked && onAddCategoryClicked(categoryParam);
+        setCategoryParams('');
     };
 
-    const closeModal = () => setCreateCategoryModalOpen(false);
+    const closeModal = () => setModalOpen(false);
 
     return (
-        <div className="create_category_modal">
             <Modal
                 className="modal"
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
-                open={isCreateCategoryModalOpen}
-                onClose={() => setCreateCategoryModalOpen(false)}
+                open={isModalOpen}
+                onClose={() => setModalOpen(false)}
                 closeAfterTransition
                 BackdropComponent={Backdrop}
                 BackdropProps={{
                     timeout: 500,
                 }}
             >
-                <Fade in={isCreateCategoryModalOpen}>
+                <Fade in={isModalOpen}>
                     <div className="modal_box">
                         <h3 className="title_modal_box">Add new category</h3>
                         <div className="add_category">
@@ -46,15 +47,14 @@ function CreateCategoryModal({onAddCategoryClicked, isCreateCategoryModalOpen, s
                                 value={categoryParam}
                                 variant="outlined"
                             />
-
                         </div>
-                        <div className="buttons">
+                        <div className="footer_modal">
                             <Button
-                                className="btn_cancel"
+                                className="btn_close"
                                 variant="contained"
                                 size="large"
                                 onClick={closeModal}>
-                                Cancel
+                                Close
                             </Button>
                             <Button
                                 className="btn_add"
@@ -67,7 +67,6 @@ function CreateCategoryModal({onAddCategoryClicked, isCreateCategoryModalOpen, s
                     </div>
                 </Fade>
             </Modal>
-        </div>
     );
 }
 
