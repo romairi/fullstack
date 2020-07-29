@@ -11,7 +11,7 @@ describe('Tag', () => {
             );
             expect(component.toJSON()).toMatchSnapshot();
         });
-        it('should render the component - without children', () => {
+        it('should render the component - with children', () => {
             const onDeleteClicked = jest.fn();
             const component = renderer.create(
                 <Tag id='SOME_ID' onDeleteClicked={onDeleteClicked} ><div>CHILDREN</div></Tag>,

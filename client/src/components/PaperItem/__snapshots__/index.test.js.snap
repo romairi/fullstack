@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaperItem ActionButton render should render the children 1`] = `
+<div
+  className="Button"
+/>
+`;
+
+exports[`PaperItem render should render the props 1`] = `
+<div
+  className="COMPUTED_CLASS_NAME"
+>
+  <div
+    className="MuiPaper-root MuiCard-root paper_item_card MuiPaper-elevation1 MuiPaper-rounded"
+  >
+    <div
+      className="paper_item_header"
+    >
+      <h3
+        className="paper_item_title"
+      />
+    </div>
+    <p
+      className="paper_item_summary"
+    />
+    <span
+      className="paper_item_published_authors"
+    >
+      <strong
+        className="authors_title"
+      >
+        Authors:
+      </strong>
+       
+      
+    </span>
+    <div
+      className="paper_item_footer"
+    >
+      <div
+        className="Button"
+      />
+      <div
+        className="paper_item_meta"
+      >
+        <span
+          className="paper_item_published_date"
+        >
+          <strong
+            className="data_title"
+          >
+            Published Date:
+          </strong>
+           
+        </span>
+        <span
+          className="paper_item_updated_date"
+        >
+          <strong
+            className="data_title"
+          >
+            Updated Date:
+          </strong>
+           
+        </span>
+      </div>
+    </div>
+    <div
+      className="paper_item_save"
+    >
+      <div
+        className="Button"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`PaperItem render should render the props 2`] = `
+Array [
+  Array [
+    "paper_item_container",
+    undefined,
+  ],
+]
+`;

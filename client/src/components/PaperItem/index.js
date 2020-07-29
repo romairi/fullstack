@@ -1,13 +1,13 @@
 import React from 'react';
+import './index.scss';
 import {buildClassName} from "../../services/classNameService";
 import Card from '@material-ui/core/Card';
-import './index.scss';
 import Button from "@material-ui/core/Button";
 import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 
-function ActionButton({id, startIcon, children, onClick}) {
+export function ActionButton({id, startIcon, children, onClick}) {
     return (<Button
         className="btn_save"
         variant="contained"
@@ -26,7 +26,7 @@ function PaperItem(props) {
         updatedDate, onSaveButtonClicked, onRemoveButtonClicked, id, paperExist,
     } = props;
 
-    const authorsNames = authors.join(', ');
+    const authorsNames = authors !== undefined ? authors.join(', ') : '';
     const buttonIcon = paperExist ? <DeleteIcon/> : <SaveIcon/>;
     const buttonOnClick = paperExist ? onRemoveButtonClicked : onSaveButtonClicked;
     const buttonText = paperExist ? 'Remove' : 'Save';

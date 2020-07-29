@@ -1,8 +1,8 @@
 import React from 'react';
+import "./index.scss";
 import Button from "@material-ui/core/Button";
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import "./index.scss";
 import {buildClassName} from "../../services/classNameService";
 
 
