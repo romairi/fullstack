@@ -32,6 +32,9 @@ function SearchPaperListContainer(props) {
     const [isModalOpen, setModalOpen] = React.useState(false);
     const [selectedPaperId, setSelectedPaperId] = React.useState(null);
 
+
+    //const [currentChecked, setCurrentChecked] = React.useState(false);
+
     const onSearchPapersSuccess = (response) => {
         setIsLoading(false);
         if (response.data.length < RESULTS_PER_PAGE) {
@@ -65,6 +68,12 @@ function SearchPaperListContainer(props) {
         }
     };
 
+    const onSaveLastSearch = (searchIncTags, searchExcTags, saveSearch) => {
+        if(saveSearch){
+
+        }
+    };
+
     const onSavePapersSuccess = (categoryId, response) => {
         setSelectedPaperId(null);
         setIsLoading(false);
@@ -78,6 +87,7 @@ function SearchPaperListContainer(props) {
     };
 
     const onSelectCategoryClicked = categoryId => {
+        debugger
         const item = papers.find(paper => paper.paperId === selectedPaperId);
         if (item) {
             dispatch(savePaperAction({
@@ -163,7 +173,7 @@ function SearchPaperListContainer(props) {
 
     return (
         <div className="papers_container">
-            <SearchBox onSearchButtonClicked={onSearchButtonClicked}/>
+            <SearchBox onSearchButtonClicked={onSearchButtonClicked} onSaveLastSearch={onSaveLastSearch}/>
             <SpinnerContainer isLoading={isLoading}>
                 {paperElements}
                 {pagination}

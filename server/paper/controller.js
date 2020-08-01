@@ -1,4 +1,3 @@
-const _ = require('lodash');
 const HttpStatus = require('http-status-codes');
 const arxiv = require('arxiv-api');
 const UserModel = require('../user/user.model');

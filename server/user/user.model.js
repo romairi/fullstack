@@ -1,7 +1,9 @@
 const CategoryModel = require('../category/model');
+// const SearchModal = require('../search/model');
 const mongoose = require('mongoose');
 
 const CATEGORIES_FIELD = 'categories';
+const SEARCH_FIELD = 'searches';
 
 const UserSchema = new mongoose.Schema({
     username: {
@@ -27,6 +29,11 @@ const UserSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category'
     }],
+
+    searches: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Search'
+    }]
 });
 
 UserSchema.statics.createUser = async function (args) {

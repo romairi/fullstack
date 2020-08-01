@@ -6,6 +6,7 @@ import TextField from "@material-ui/core/TextField/TextField";
 import Button from "@material-ui/core/Button";
 import {Card} from "@material-ui/core";
 import DeleteIcon from '@material-ui/icons/Delete';
+import Checkbox from '@material-ui/core/Checkbox';
 
 
 function SearchTags({searchList, onDeleteTag}) {
@@ -16,10 +17,19 @@ function SearchTags({searchList, onDeleteTag}) {
     );
 }
 
-function SearchBox({onSearchButtonClicked}) {
+function SearchBox({onSearchButtonClicked, onSaveLastSearch}) {
     const [searchParam, setSearchParam] = React.useState('');
     const [searchIncTags, setSearchIncTags] = React.useState([]);
     const [searchExcTags, setSearchExcTags] = React.useState([]);
+    const [checked, setChecked] = React.useState(false);
+
+
+    const handleCheckBox = (event) => {
+        debugger
+        setChecked(event.target.checked);
+        //onSaveLastSearch = checked;
+    };
+
 
     const onSearchFieldChange = event => {
         setSearchParam(event.target.value);
@@ -80,6 +90,14 @@ function SearchBox({onSearchButtonClicked}) {
                         </Button>
                     </div>
 
+                    <div className="check_box">
+                        <Checkbox
+                            checked={checked}
+                            onChange={handleCheckBox}
+                            // onChange={() => onSaveLastSearch(searchIncTags, searchExcTags, checked)}
+                            inputProps={{'aria-label': 'primary checkbox'}}
+                        />
+                    </div>
                 </div>
                 <div className="search_box_result">
                     <h4 className="title_tag">
