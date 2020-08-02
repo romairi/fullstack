@@ -33,8 +33,6 @@ function SearchPaperListContainer(props) {
     const [selectedPaperId, setSelectedPaperId] = React.useState(null);
 
 
-    //const [currentChecked, setCurrentChecked] = React.useState(false);
-
     const onSearchPapersSuccess = (response) => {
         setIsLoading(false);
         if (response.data.length < RESULTS_PER_PAGE) {
@@ -48,7 +46,7 @@ function SearchPaperListContainer(props) {
         console.log(err);
     };
 
-    const onSearchButtonClicked = (searchIncTags, searchExcTags) => {
+    const onSearchButtonClicked = (searchIncTags, searchExcTags, saveSearch) => {
         if (!_.isEmpty(searchIncTags) || !_.isEmpty(searchExcTags)) {
             setIsLoading(true);
             setCurrentPage(0);
@@ -60,17 +58,12 @@ function SearchPaperListContainer(props) {
                     includeList: searchIncTags,
                     excludeList: searchExcTags,
                     start: 0,
-                    maxResults: RESULTS_PER_PAGE
+                    maxResults: RESULTS_PER_PAGE,
+                    saveSearch: saveSearch,
                 },
                 onSuccess: onSearchPapersSuccess,
                 onError: onSearchPapersFailed
             }));
-        }
-    };
-
-    const onSaveLastSearch = (searchIncTags, searchExcTags, saveSearch) => {
-        if(saveSearch){
-
         }
     };
 
@@ -87,7 +80,6 @@ function SearchPaperListContainer(props) {
     };
 
     const onSelectCategoryClicked = categoryId => {
-        debugger
         const item = papers.find(paper => paper.paperId === selectedPaperId);
         if (item) {
             dispatch(savePaperAction({
@@ -173,7 +165,7 @@ function SearchPaperListContainer(props) {
 
     return (
         <div className="papers_container">
-            <SearchBox onSearchButtonClicked={onSearchButtonClicked} onSaveLastSearch={onSaveLastSearch}/>
+            <SearchBox onSearchButtonClicked={onSearchButtonClicked}/>
             <SpinnerContainer isLoading={isLoading}>
                 {paperElements}
                 {pagination}

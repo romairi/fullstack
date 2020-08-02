@@ -12,7 +12,9 @@ const {
 } = require("./constants");
 
 function loadUser(req, res, user) {
-    const token = jwt.sign({_id: user._id, hash: req.fingerprint.hash}, serverConfig.jwt.secret, {expiresIn: TOKEN_EXPIRATION_TIME});
+    const token = jwt.sign({_id: user._id, hash: req.fingerprint.hash},
+        serverConfig.jwt.secret,
+        {expiresIn: TOKEN_EXPIRATION_TIME});
     const {password: userPass, ...userArgs} = user.toObject();
 
     res

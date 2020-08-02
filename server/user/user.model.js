@@ -1,5 +1,5 @@
 const CategoryModel = require('../category/model');
-// const SearchModal = require('../search/model');
+const SearchModel = require('../search/model');
 const mongoose = require('mongoose');
 
 const CATEGORIES_FIELD = 'categories';
@@ -53,6 +53,30 @@ UserSchema.statics.getCategories = async function (userId) {
         }
     });
     return user.categories;
+};
+
+UserSchema.statics.getSearches = async function (userId) {
+    const user = await this.findById(userId).populate({
+        path: SEARCH_FIELD,
+        populate: {
+            path: 'paperItems',
+            model: 'PaperItem'
+        }
+    });
+    return user.searches;
+};
+
+UserSchema.statics.addSearch = async function (userId, includeList, excludeList, viewedPapers) {
+    const searchObj = new SearchModel({
+        include_tags: includeList,
+        exclude_tags: excludeList,
+        viewed_papers: viewedPapers,
+        user: userId
+    });
+    await this.findByIdAndUpdate(userId, {$push: {searches: searchObj.id}}, {});
+    return {
+        search: await searchObj.save(),
+    };
 };
 
 UserSchema.statics.addCategory = async function (userId, categoryName) {

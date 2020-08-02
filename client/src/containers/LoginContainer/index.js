@@ -47,6 +47,7 @@ export default function LoginContainer({}) {
                 <h2 className="title_login">Login</h2>
                 <form className="form_login">
                     <TextField
+                        className="text_field"
                         margin="dense"
                         error={!_.isEmpty(errors[EMAIL_FIELD])}
                         helperText={errors[EMAIL_FIELD]}
@@ -64,6 +65,7 @@ export default function LoginContainer({}) {
                         }}
                     />
                     <TextField
+                        className="text_field"
                         margin="dense"
                         error={!_.isEmpty(errors[PASSWORD_FIELD])}
                         helperText={errors[PASSWORD_FIELD]}

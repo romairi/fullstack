@@ -54,6 +54,7 @@ export default function SignUpContainer({}) {
                 <form className="form_signup">
 
                     <TextField
+                        className="text_field"
                         margin="dense"
                         error={!_.isEmpty(errors[USER_NAME_FIELD])}
                         helperText={errors[USER_NAME_FIELD]}
@@ -72,6 +73,7 @@ export default function SignUpContainer({}) {
                     />
 
                     <TextField
+                        className="text_field"
                         margin="dense"
                         error={!_.isEmpty(errors[EMAIL_FIELD])}
                         helperText={errors[EMAIL_FIELD]}
@@ -89,6 +91,7 @@ export default function SignUpContainer({}) {
                         }}
                     />
                     <TextField
+                        className="text_field"
                         margin="dense"
                         error={!_.isEmpty(errors[PASSWORD_FIELD])}
                         helperText={errors[PASSWORD_FIELD]}
@@ -106,6 +109,7 @@ export default function SignUpContainer({}) {
                         }}
                     />
                     <TextField
+                        className="text_field"
                         margin="dense"
                         error={!_.isEmpty(errors[CONFIRM_PASSWORD_FIELD])}
                         helperText={errors[CONFIRM_PASSWORD_FIELD]}

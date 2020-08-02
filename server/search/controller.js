@@ -1,21 +1,14 @@
 const HttpStatus = require('http-status-codes');
-const SearchModel = require('./model');
+const UserModel = require('../user/user.model');
 
-async function saveLastSearch(req, res, next) {
-    // const {includeList, excludeList, start, maxResults} = req.body;
-    //
-    // const resultPapers = await arxiv.search({
-    //     searchQueryParams: [
-    //         {
-    //             include: includeList.map(s => ({name: s})),
-    //             exclude: excludeList.map(s => ({name: s})),
-    //         }
-    //     ],
-    //     start,
-    //     maxResults: Math.min(maxResults, 30),
-    // });
-    //
-    // res.json(resultPapers.map(formatPaper));
+async function addSearch(req, res, next) {
+    const { searchIncTags, searchExcTags } = req.body;
+    const userId = req.user._id;
+    try {
+        const data = await UserModel.addSearch(userId, searchIncTags, searchExcTags,);
+        return res.status(HttpStatus.CREATED).json(data.search);
+    } catch (err) {
+        next(err);
+    }
 }
-
-module.exports = {saveLastSearch};
+module.exports = { addSearch };

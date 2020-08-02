@@ -17,7 +17,7 @@ function SearchTags({searchList, onDeleteTag}) {
     );
 }
 
-function SearchBox({onSearchButtonClicked, onSaveLastSearch}) {
+function SearchBox({onSearchButtonClicked}) {
     const [searchParam, setSearchParam] = React.useState('');
     const [searchIncTags, setSearchIncTags] = React.useState([]);
     const [searchExcTags, setSearchExcTags] = React.useState([]);
@@ -25,9 +25,7 @@ function SearchBox({onSearchButtonClicked, onSaveLastSearch}) {
 
 
     const handleCheckBox = (event) => {
-        debugger
         setChecked(event.target.checked);
-        //onSaveLastSearch = checked;
     };
 
 
@@ -90,11 +88,12 @@ function SearchBox({onSearchButtonClicked, onSaveLastSearch}) {
                         </Button>
                     </div>
 
-                    <div className="check_box">
+                    <div className="search_check_box">
+                        <h4 className="title_check_box"><strong>For saving your search press V</strong></h4>
                         <Checkbox
+                            className="check_box"
                             checked={checked}
                             onChange={handleCheckBox}
-                            // onChange={() => onSaveLastSearch(searchIncTags, searchExcTags, checked)}
                             inputProps={{'aria-label': 'primary checkbox'}}
                         />
                     </div>
@@ -117,7 +116,7 @@ function SearchBox({onSearchButtonClicked, onSaveLastSearch}) {
                         size="medium"
                         color="primary"
                         type="submit"
-                        onClick={() => onSearchButtonClicked(searchIncTags, searchExcTags)}>
+                        onClick={() => onSearchButtonClicked(searchIncTags, searchExcTags, checked)}>
                         Search
                     </Button>
                     <Button
