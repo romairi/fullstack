@@ -3,10 +3,11 @@ import {
     ADD_PAPER_ACTION_TYPE,
     CREATE_CATEGORY_ACTION_TYPE,
     REMOVE_PAPER_ACTION_TYPE,
-    SET_CATEGORIES_ACTION_TYPE
+    SET_CATEGORIES_ACTION_TYPE,
+    REMOVE_CATEGORY_ACTION_TYPE
 } from "./constants";
 import {API_ACTION_TYPE, API_METHOD_POST} from "../../middleware/ApiMiddleware/constants";
-import {ADD_CATEGORY_PATH, GET_CATEGORIES_PATH, REMOVE_PAPER_PATH} from "../../../constants";
+import {ADD_CATEGORY_PATH, GET_CATEGORIES_PATH, REMOVE_PAPER_PATH, REMOVE_CATEGORY_PATH} from "../../../constants";
 
 export function setCategoriesAction(categories) {
     return {
@@ -26,7 +27,7 @@ export function getCategoriesAction({onSuccess = _.noop, onError = _.noop}) {
     };
 }
 
-export function createCategoryAction( category) {
+export function createCategoryAction(category) {
     return {
         type: CREATE_CATEGORY_ACTION_TYPE,
         payload: {
@@ -50,6 +51,20 @@ export function addCategoryAction({categoryName, onSuccess = _.noop, onError = _
     };
 }
 
+export function removeCategoryAction({data, onSuccess = _.noop, onError = _.noop}) {
+    return {
+        type: API_ACTION_TYPE,
+        payload: {
+            method: API_METHOD_POST,
+            url: REMOVE_CATEGORY_PATH,
+            data,
+            onSuccess,
+            onError
+        }
+    };
+}
+
+
 export function addPaperAction(categoryId, paper) {
     return {
         type: ADD_PAPER_ACTION_TYPE,
@@ -66,6 +81,15 @@ export function deletePaperAction(categoryId, paperId) {
         payload: {
             categoryId,
             paperId
+        }
+    }
+}
+
+export function deleteCategoryAction(categoryId) {
+    return {
+        type: REMOVE_CATEGORY_ACTION_TYPE,
+        payload: {
+            categoryId,
         }
     }
 }

@@ -2,7 +2,8 @@ import {
     ADD_PAPER_ACTION_TYPE,
     CREATE_CATEGORY_ACTION_TYPE,
     REMOVE_PAPER_ACTION_TYPE,
-    SET_CATEGORIES_ACTION_TYPE
+    SET_CATEGORIES_ACTION_TYPE,
+    REMOVE_CATEGORY_ACTION_TYPE
 } from "./constants";
 import Immutable from 'seamless-immutable';
 
@@ -35,6 +36,13 @@ export default function categoriesReducer(state = Immutable([]), action) {
 
         case CREATE_CATEGORY_ACTION_TYPE: {
             newState = [...state, action.payload.category];
+            break;
+        }
+
+        case REMOVE_CATEGORY_ACTION_TYPE: {
+            // const resCategories = state.filter(c => c._id !== action.payload.categoryId);
+            // category = state.find(c => c._id === action.payload.categoryId).asMutable();
+            newState = state.filter(c => action.payload.categoryId !== c._id);
             break;
         }
 

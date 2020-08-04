@@ -18,7 +18,8 @@ function CategoryPaperBox({
                               setModalOpen,
                               onSearchChange,
                               searchParam,
-                              onAddCategoryClicked
+                              onAddCategoryClicked,
+                              onRemoveCategoryClicked
                           }) {
 
     const categoriesOptions = categories.map(c => <option key={c._id} value={c._id}>{c.name}</option>);
@@ -51,7 +52,7 @@ function CategoryPaperBox({
                             <InputLabel
                                 className="category_input_label"
                                 htmlFor="grouped-native-select"
-                            >Category
+                            >Choose Category
                             </InputLabel>
                             <Select
                                 className="select_item"
@@ -63,6 +64,12 @@ function CategoryPaperBox({
                                 {categoriesOptions}
                             </Select>
                         </FormControl>
+                        <Button
+                            className="remove_category"
+                            variant="contained"
+                            onClick={onRemoveCategoryClicked}>
+                            Remove Category
+                        </Button>
                     </div>
                     <div className="category_item_footer">
                         <Button

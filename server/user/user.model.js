@@ -36,7 +36,7 @@ const UserSchema = new mongoose.Schema({
     }]
 });
 
-UserSchema.statics.createUser = async function (args) {
+UserSchema.statics.createUser = async function (args) { // TODO
     const user = await this.create(args);
     const category = new CategoryModel({name: 'default', user: user.id});
     await category.save();
@@ -96,7 +96,7 @@ UserSchema.statics.addCategory = async function (userId, categoryName) {
 
 UserSchema.statics.removeCategory = async function (userId, categoryId) {
     const user = await this.findById(userId).populate(CATEGORIES_FIELD);
-    user.categories = user.categories.filter(item => item.id !== categoryId);
+    user.categories = user.categories.filter(item => item.id !== categoryId); // TODO
     await user.save();
     return {
         categoryId

@@ -45,7 +45,7 @@ async function getCategories(req, res, next) {
 }
 
 async function savePaper(req, res, next) {
-    const {paper, categoryId} = req.body;
+    const {paper, categoryId} = req.body; // TODO (If new User Check category on undefined)
     const userId = req.user._id;
 
     try {

@@ -2,9 +2,12 @@ import React from 'react';
 import './index.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {
-    addCategoryAction, createCategoryAction,
+    addCategoryAction,
+    createCategoryAction,
+    deleteCategoryAction,
+    removeCategoryAction,
     deletePaperAction,
-    removePaperAction,
+    removePaperAction
 } from "../../redux/reducers/CategoriesReducer/actions";
 import PaperItem from "../../components/PaperItem";
 import CategoryPaperBox from "../../components/CategoryPaperBox";
@@ -26,7 +29,8 @@ function MyPapersContainer(props) {
                 setSelectedCategoryId(categories[0]._id);
             } else {
                 const selectedCategory = categories.find(c => c._id === selectedCategoryId);
-                const papers = selectedCategory.paperItems;
+
+                const papers = selectedCategory === undefined ? [] : selectedCategory.paperItems;
                 setAllPapers(papers);
                 setSelectedPapers(papers);
                 setSearchParam('');
@@ -77,6 +81,22 @@ function MyPapersContainer(props) {
         }));
     };
 
+    const onRemoveCategorySuccess = (categoryId, response) => {
+        dispatch(deleteCategoryAction(categoryId, response.data));
+    };
+
+    const onRemoveCategoryClicked = () => {
+        const categoryId = selectedCategoryId;
+        dispatch(removeCategoryAction({
+            data: {categoryId},
+            onSuccess: response => onRemoveCategorySuccess(categoryId, response),
+            onError: (err) => {
+                console.log(err);
+            }
+        }));
+
+    };
+
     const paperElements = selectedPapers.map(paper => {
         const publishedDate = new Date(paper.published).toDateString();
         const updatedDate = new Date(paper.updated).toDateString();
@@ -105,6 +125,7 @@ function MyPapersContainer(props) {
                 onSearchChange={onSearchChange}
                 searchParam={searchParam}
                 onAddCategoryClicked={onAddCategoryClicked}
+                onRemoveCategoryClicked={onRemoveCategoryClicked}
                 isModalOpen={isModalOpen}
                 setModalOpen={setModalOpen}
             />

@@ -61,7 +61,7 @@ export default function SignUpContainer({}) {
                         type="text"
                         id={USER_NAME_FIELD}
                         label="Username"
-                        value={values[USER_NAME_FIELD]}
+                        value={values[USER_NAME_FIELD] || ''}
                         onChange={handleChange}
                         InputProps={{
                             startAdornment: (
@@ -80,7 +80,7 @@ export default function SignUpContainer({}) {
                         type="email"
                         id={EMAIL_FIELD}
                         label="Email"
-                        value={values[EMAIL_FIELD]}
+                        value={values[EMAIL_FIELD] || ''}
                         onChange={handleChange}
                         InputProps={{
                             startAdornment: (
@@ -98,7 +98,7 @@ export default function SignUpContainer({}) {
                         type="password"
                         id={PASSWORD_FIELD}
                         label="Password"
-                        value={values[PASSWORD_FIELD]}
+                        value={values[PASSWORD_FIELD] || ''}
                         onChange={handleChange}
                         InputProps={{
                             startAdornment: (
@@ -116,7 +116,7 @@ export default function SignUpContainer({}) {
                         type="password"
                         id={CONFIRM_PASSWORD_FIELD}
                         label="Confirm Password"
-                        value={values[CONFIRM_PASSWORD_FIELD]}
+                        value={values[CONFIRM_PASSWORD_FIELD] || ''}
                         onChange={handleChange}
                         InputProps={{
                             startAdornment: (

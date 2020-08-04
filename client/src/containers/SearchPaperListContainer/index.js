@@ -11,7 +11,8 @@ import {
     setSearchPapersAction
 } from "../../redux/reducers/SearchPapersReducer/actions";
 import {
-    addPaperAction, deletePaperAction,
+    addPaperAction,
+    deletePaperAction,
     removePaperAction,
 } from "../../redux/reducers/CategoriesReducer/actions";
 import Pagination from "../../components/Pagination";

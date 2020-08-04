@@ -54,7 +54,7 @@ export default function LoginContainer({}) {
                         type="email"
                         id={EMAIL_FIELD}
                         label="Email"
-                        value={values[EMAIL_FIELD]}
+                        value={values[EMAIL_FIELD] || ''}
                         onChange={handleChange}
                         InputProps={{
                             startAdornment: (
@@ -72,7 +72,7 @@ export default function LoginContainer({}) {
                         type="password"
                         id={PASSWORD_FIELD}
                         label="Password"
-                        value={values[PASSWORD_FIELD]}
+                        value={values[PASSWORD_FIELD] || ''}
                         onChange={handleChange}
                         InputProps={{
                             startAdornment: (

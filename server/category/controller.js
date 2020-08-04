@@ -11,4 +11,18 @@ async function addCategory(req, res, next) {
         next(err);
     }
 }
-module.exports = { addCategory };
+
+async function removeCategory(req, res, next) {
+    const { categoryId } = req.body;
+    const userId = req.user._id;
+    try {
+        const data = await UserModel.removeCategory(userId, categoryId);
+        return res.status(HttpStatus.CREATED).json(data.categoryId);
+    } catch (err) {
+        next(err);
+    }
+}
+
+
+
+module.exports = { addCategory, removeCategory};
