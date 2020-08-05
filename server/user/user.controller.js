@@ -1,4 +1,3 @@
-const _ = require('lodash');
 const HttpStatus = require('http-status-codes');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -15,7 +14,7 @@ function loadUser(req, res, user) {
     const token = jwt.sign({_id: user._id, hash: req.fingerprint.hash},
         serverConfig.jwt.secret,
         {expiresIn: TOKEN_EXPIRATION_TIME});
-    const {password: userPass, ...userArgs} = user.toObject();
+    const {password: userPass, ...userArgs} = user.toObject(); // TODO CHECK ERROR
 
     res
         .cookie('token', token, {

@@ -9,6 +9,8 @@ import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import Select from "@material-ui/core/Select/Select";
 import Button from "@material-ui/core/Button";
 import CreateCategoryModal from "../CreateCategoryModal";
+import MenuItem from "@material-ui/core/MenuItem";
+
 
 function CategoryPaperBox({
                               categories,
@@ -21,9 +23,11 @@ function CategoryPaperBox({
                               onAddCategoryClicked,
                               onRemoveCategoryClicked
                           }) {
-
     const categoriesOptions = categories.map(c => <option key={c._id} value={c._id}>{c.name}</option>);
-    const onSelectedCategoryChange = event => setSelectedCategoryId(event.target.value);
+
+    const onSelectedCategoryChange = event => {
+        setSelectedCategoryId(event.target.value);
+    };
 
     return (
         <div className="category_paper_box">
@@ -37,7 +41,7 @@ function CategoryPaperBox({
                             type="text"
                             label="search article"
                             onChange={onSearchChange}
-                            value={searchParam}
+                            value={searchParam || ''}
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
@@ -56,12 +60,16 @@ function CategoryPaperBox({
                             </InputLabel>
                             <Select
                                 className="select_item"
-                                native defaultValue=""
+                                native
+                                defaultValue=""
                                 id="grouped-native-select"
                                 value={selectedCategoryId}
                                 onChange={onSelectedCategoryChange}
                             >
-                                {categoriesOptions}
+                                <MenuItem>
+
+                                    {categoriesOptions}
+                                </MenuItem>
                             </Select>
                         </FormControl>
                         <Button

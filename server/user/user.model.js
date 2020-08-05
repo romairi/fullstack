@@ -44,16 +44,6 @@ UserSchema.statics.createUser = async function (args) { // TODO
     return await user.save();
 };
 
-UserSchema.statics.getCategories = async function (userId) {
-    const user = await this.findById(userId).populate({
-        path: CATEGORIES_FIELD,
-        populate: {
-            path: 'paperItems',
-            model: 'PaperItem'
-        }
-    });
-    return user.categories;
-};
 
 UserSchema.statics.getSearches = async function (userId) {
     const user = await this.findById(userId).populate({
@@ -79,6 +69,18 @@ UserSchema.statics.addSearch = async function (userId, includeList, excludeList,
     };
 };
 
+UserSchema.statics.getCategories = async function (userId) {
+    const user = await this.findById(userId).populate({
+        path: CATEGORIES_FIELD,
+        populate: {
+            path: 'paperItems',
+            model: 'PaperItem'
+        }
+    });
+    return user.categories;
+};
+
+
 UserSchema.statics.addCategory = async function (userId, categoryName) {
     const user = await this.findById(userId).populate(CATEGORIES_FIELD);
     const foundCategory = user.categories.find(item => item.name === categoryName);
@@ -96,8 +98,9 @@ UserSchema.statics.addCategory = async function (userId, categoryName) {
 
 UserSchema.statics.removeCategory = async function (userId, categoryId) {
     const user = await this.findById(userId).populate(CATEGORIES_FIELD);
-    user.categories = user.categories.filter(item => item.id !== categoryId); // TODO
+    user.categories = user.categories.filter(item => item.id !== categoryId); // TODO Check for Master
     await user.save();
+    await CategoryModel.findOneAndRemove({_id: categoryId}); // TODO Check for Master
     return {
         categoryId
     };

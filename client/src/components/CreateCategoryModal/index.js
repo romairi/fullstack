@@ -12,7 +12,6 @@ function CreateCategoryModal({onAddCategoryClicked, isModalOpen, setModalOpen}) 
 
     const onCategoryNameChange = (event) => {
         setCategoryParams(event.target.value);
-
     };
 
     const onAddButtonClicked = () => {
@@ -44,7 +43,7 @@ function CreateCategoryModal({onAddCategoryClicked, isModalOpen, setModalOpen}) 
                                 type="text"
                                 label="Name category"
                                 onChange={onCategoryNameChange}
-                                value={categoryParam}
+                                value={categoryParam || ''}
                                 variant="outlined"
                             />
                         </div>

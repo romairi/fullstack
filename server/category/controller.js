@@ -23,6 +23,4 @@ async function removeCategory(req, res, next) {
     }
 }
 
-
-
 module.exports = { addCategory, removeCategory};

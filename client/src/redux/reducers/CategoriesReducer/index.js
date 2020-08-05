@@ -40,8 +40,7 @@ export default function categoriesReducer(state = Immutable([]), action) {
         }
 
         case REMOVE_CATEGORY_ACTION_TYPE: {
-            // const resCategories = state.filter(c => c._id !== action.payload.categoryId);
-            // category = state.find(c => c._id === action.payload.categoryId).asMutable();
+            debugger
             newState = state.filter(c => action.payload.categoryId !== c._id);
             break;
         }

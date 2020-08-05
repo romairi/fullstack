@@ -21,6 +21,12 @@ const CategorySchema = new mongoose.Schema({
     },
 });
 
+
+CategorySchema.statics.getPapers = async function (categoryId) {
+    const category = await this.findById(categoryId).populate('paperItems');
+    return category.paperItems;
+};
+
 CategorySchema.statics.addPaper = async function (categoryId, paper) {
     const category = await this.findById(categoryId).populate('paperItems');
     const foundPaper = category.paperItems.find(item => item.paperId === paper.paperId);
@@ -44,11 +50,6 @@ CategorySchema.statics.removePaper = async function (categoryId, paperId) {
     return {
         paperId
     };
-};
-
-CategorySchema.statics.getPapers = async function (categoryId) {
-    const category = await this.findById(categoryId).populate('paperItems');
-    return category.paperItems;
 };
 
 module.exports = mongoose.model('Category', CategorySchema);
