@@ -44,7 +44,7 @@ export default function LoginContainer({}) {
     return (
         <div className="base_container">
             <Card className="login_container">
-                <h2 className="title_login">Login</h2>
+                <h2 className="title_login"><strong>Login</strong></h2>
                 <form className="form_login">
                     <TextField
                         className="text_field"

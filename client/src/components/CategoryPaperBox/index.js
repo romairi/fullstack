@@ -9,7 +9,6 @@ import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import Select from "@material-ui/core/Select/Select";
 import Button from "@material-ui/core/Button";
 import CreateCategoryModal from "../CreateCategoryModal";
-import MenuItem from "@material-ui/core/MenuItem";
 
 
 function CategoryPaperBox({
@@ -32,7 +31,7 @@ function CategoryPaperBox({
     return (
         <div className="category_paper_box">
             <Card className="category_paper_card">
-                <h3 className="category_paper_title">Category Paper</h3>
+                <h3 className="category_paper_title"><strong>Category Paper</strong></h3>
                 <div className="category_items">
                     <div className="search_my_paper">
                         <TextField
@@ -66,10 +65,7 @@ function CategoryPaperBox({
                                 value={selectedCategoryId}
                                 onChange={onSelectedCategoryChange}
                             >
-                                <MenuItem>
-
-                                    {categoriesOptions}
-                                </MenuItem>
+                                {categoriesOptions}
                             </Select>
                         </FormControl>
                         <Button

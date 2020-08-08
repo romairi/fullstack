@@ -36,10 +36,11 @@ function SearchPaperListContainer(props) {
 
     const onSearchPapersSuccess = (response) => {
         setIsLoading(false);
-        if (response.data.length < RESULTS_PER_PAGE) {
+        const getResponse = response.data.length === undefined ? response.data.papers : response.data;
+        if (getResponse.length < RESULTS_PER_PAGE) {
             setIsLastPage(true);
         }
-        dispatch(setSearchPapersAction(response.data));
+        dispatch(setSearchPapersAction(getResponse));
     };
 
     const onSearchPapersFailed = (err) => {

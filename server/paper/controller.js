@@ -19,12 +19,13 @@ async function searchPapers(req, res, next) {
     });
 
     if (saveSearch) {
-        // TODO Create new search record in the DB
         const userId = req.user._id;
         const viewedPapers = resultPapers.map(item => item.id);
         try {
+            const papers = await resultPapers.map(formatPaper);
             const data = await UserModel.addSearch(userId, includeList, excludeList, viewedPapers);
-            return res.status(HttpStatus.CREATED).json(data.search);
+            return res.status(HttpStatus.CREATED).json({search: data.search, papers});
+
         } catch (err) {
             next(err);
         }

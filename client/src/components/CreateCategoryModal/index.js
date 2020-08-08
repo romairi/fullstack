@@ -36,7 +36,7 @@ function CreateCategoryModal({onAddCategoryClicked, isModalOpen, setModalOpen}) 
             >
                 <Fade in={isModalOpen}>
                     <div className="modal_box">
-                        <h3 className="title_modal_box">Add new category</h3>
+                        <h3 className="title_modal_box"><strong>Add new category</strong></h3>
                         <div className="add_category">
                             <TextField
                                 className="category_textField"

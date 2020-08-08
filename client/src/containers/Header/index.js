@@ -2,11 +2,11 @@ import React from 'react';
 import './index.scss'
 import _ from "lodash";
 import {useDispatch, useSelector} from "react-redux";
-import {createSetUserAction} from "../../redux/reducers/UserReducer/actions";
 import {push} from "connected-react-router";
-import {BASE_ROUTE, LOGIN_ROUTE, SEARCH_PAPER_LIST_ROUTE} from "../../routes/constants";
-import {logoutAction} from "./actions";
 import {Link} from 'react-router-dom'
+import {BASE_ROUTE, LOGIN_ROUTE, SEARCH_PAPER_LIST_ROUTE, MY_SEARCHES} from "../../routes/constants";
+import {createSetUserAction} from "../../redux/reducers/UserReducer/actions";
+import {logoutAction} from "./actions";
 import {buildClassName} from "../../services/classNameService";
 import Toolbar from "@material-ui/core/Toolbar";
 
@@ -21,6 +21,10 @@ function NavigationBar({currentLocation}) {
             <li className={buildClassName(["navigation_bar_item",
                 (currentLocation === SEARCH_PAPER_LIST_ROUTE) && "selected"])}>
                 <Link className="header_btn" to={SEARCH_PAPER_LIST_ROUTE}>Search Papers</Link>
+            </li>
+            <li className={buildClassName(["navigation_bar_item",
+                (currentLocation === MY_SEARCHES) && "selected"])}>
+                <Link className="header_btn" to={MY_SEARCHES}>My Searches</Link>
             </li>
         </ul>
     )

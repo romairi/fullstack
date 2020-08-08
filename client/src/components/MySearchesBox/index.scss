@@ -1,0 +1,76 @@
+@import "../../scss/variables";
+
+.my_searches_box {
+  margin: 40px auto;
+
+  .my_searches_card {
+    padding: 35px 45px;
+    box-shadow: 0 8px 42px -8px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      box-shadow: 0 8px 42px -8px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  .my_searches_title {
+    text-align: center;
+    color: $primary_color;
+    font-family: 'Dancing Script', cursive;
+  }
+
+  .my_searches_filter_lists {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    .my_search_list_include {
+      display: flex;
+      flex-direction: column;
+
+      .title_include_list {
+        color: $primary_color;
+        font-family: 'Dancing Script', cursive;
+      }
+
+      .list_include {
+        width: 100%;
+        max-width: 320px;
+        position: relative;
+        overflow: auto;
+        max-height: 150px;
+        margin-top: 20px;
+      }
+    }
+
+    .my_search_list_ul {
+      background-color: inherit;
+      padding: 0;
+    }
+
+    .my_search_list_exclude {
+      display: flex;
+      flex-direction: column;
+
+      .title_exclude_list {
+        color: $primary_color;
+        font-family: 'Dancing Script', cursive;
+      }
+
+      .list_exclude {
+        width: 100%;
+        max-width: 320px;
+        position: relative;
+        overflow: auto;
+        max-height: 150px;
+        margin-top: 20px;
+      }
+    }
+  }
+
+  .card_footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 50px;
+  }
+}

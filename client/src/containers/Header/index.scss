@@ -20,7 +20,7 @@
           padding: 10px;
 
           &.selected {
-            background: $color_dark_gray;
+            background: $secondary_color;
             border-radius: 33px;
             padding: 10px;
           }
@@ -35,13 +35,9 @@
 
   .header_btn {
     margin-right: 8px;
-    margin-left: 3px;
+    margin-left: 8px;
     text-decoration: none;
     color: $color_white;
     font-family: 'Dancing Script', cursive;
-
-    &:hover {
-      color: $color_black;
-    }
   }
 }

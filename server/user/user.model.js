@@ -91,7 +91,7 @@ UserSchema.statics.addCategory = async function (userId, categoryName) {
             category: await categoryObj.save(),
         };
     }
-    return {
+    return { // TODO
         category: null
     }
 };

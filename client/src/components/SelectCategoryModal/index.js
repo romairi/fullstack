@@ -39,7 +39,7 @@ function SelectCategoryModal({categories, onSelectCategoryClicked, isModalOpen, 
         >
             <Fade in={isModalOpen}>
                 <div className="modal_box">
-                    <h3 className="title_modal_box">Select Category</h3>
+                    <h3 className="title_modal_box"><strong>Select Category</strong></h3>
                     <div className="select_category">
                         <Select
                             className="select_item"

@@ -50,7 +50,7 @@ export default function SignUpContainer({}) {
     return (
         <div className="base_container">
             <Card className='signup_container'>
-                <h2 className="title_signup">Sign Up</h2>
+                <h2 className="title_signup"><strong>Sign Up</strong></h2>
                 <form className="form_signup">
 
                     <TextField
@@ -71,7 +71,6 @@ export default function SignUpContainer({}) {
                             ),
                         }}
                     />
-
                     <TextField
                         className="text_field"
                         margin="dense"
