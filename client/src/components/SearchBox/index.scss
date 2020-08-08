@@ -20,11 +20,13 @@
     .search_box {
       display: flex;
       padding: 5px;
+      margin-top: 40px;
       justify-content: space-between;
 
       .search_box_textField {
         margin-right: 10px;
-        flex-grow: 2;
+        //flex-grow: 2;
+        flex-grow: 0.5;
 
         .MuiInputLabel-formControl {
           font-family: 'Dancing Script', cursive;
@@ -38,7 +40,8 @@
       }
 
       .search_box_buttons {
-        margin-top: 7px;
+        margin-top: 15px;
+        margin-right: 15px;
         padding: 5px;
 
         @media(max-width: $max-sm) {
@@ -49,6 +52,18 @@
           display: flex;
           flex-direction: column;
         }
+      }
+    }
+
+    .search_check_box {
+      margin-right: 10px;
+      .title_check_box {
+        margin: 5px;
+        font-family: 'Dancing Script', cursive;
+      }
+      .check_box{
+        display: flex;
+        margin-top: 2px;
       }
     }
 

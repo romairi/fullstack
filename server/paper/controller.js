@@ -1,11 +1,11 @@
-const _ = require('lodash');
 const HttpStatus = require('http-status-codes');
 const arxiv = require('arxiv-api');
 const UserModel = require('../user/user.model');
 const {formatPaper} = require("../services/formatPaper");
 
 async function searchPapers(req, res, next) {
-    const {includeList, excludeList, start, maxResults} = req.body;
+    const {includeList, excludeList, start, maxResults, saveSearch} = req.body;
+    // TODO update search list on pagination
 
     const resultPapers = await arxiv.search({
         searchQueryParams: [
@@ -18,7 +18,20 @@ async function searchPapers(req, res, next) {
         maxResults: Math.min(maxResults, 30),
     });
 
-    res.json(resultPapers.map(formatPaper));
+    if (saveSearch) {
+        const userId = req.user._id;
+        const viewedPapers = resultPapers.map(item => item.id);
+        try {
+            const papers = await resultPapers.map(formatPaper);
+            const data = await UserModel.addSearch(userId, includeList, excludeList, viewedPapers);
+            return res.status(HttpStatus.CREATED).json({search: data.search, papers});
+
+        } catch (err) {
+            next(err);
+        }
+    }
+
+    res.json({papers: resultPapers.map(formatPaper)});
 }
 
 async function getCategories(req, res, next) {
@@ -33,7 +46,7 @@ async function getCategories(req, res, next) {
 }
 
 async function savePaper(req, res, next) {
-    const {paper, categoryId} = req.body;
+    const {paper, categoryId} = req.body; // TODO (If new User Check category on undefined)
     const userId = req.user._id;
 
     try {

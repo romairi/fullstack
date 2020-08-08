@@ -17,3 +17,4 @@ export const REMOVE_PAPER_PATH = `${PAPERS_API_PATH}/remove_paper`;
 // CATEGORIES API
 const CATEGORIES_API_PATH = `${BASE_API_PATH}/categories`;
 export const ADD_CATEGORY_PATH = `${CATEGORIES_API_PATH}/add_category`;
+export const REMOVE_CATEGORY_PATH = `${CATEGORIES_API_PATH}/remove_category`;

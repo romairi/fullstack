@@ -2,18 +2,19 @@ import React from 'react';
 import './index.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {
-    addCategoryAction, createCategoryAction,
-    deletePaperAction,
-    removePaperAction,
+    addCategoryAction,
+    removeCategoryAction,
+    removePaperAction
 } from "../../redux/reducers/CategoriesReducer/actions";
 import PaperItem from "../../components/PaperItem";
 import CategoryPaperBox from "../../components/CategoryPaperBox";
 import {searchByFields} from "../../services/itemUtilitiesService";
+import {createCategoryAction, deleteCategoryAction, deletePaperAction} from "../../redux/reducers/UserReducer/actions";
 
 
 function MyPapersContainer(props) {
     const dispatch = useDispatch();
-    const categories = useSelector(state => state.categories);
+    const categories = useSelector(state => state.user.categories);
     const [selectedCategoryId, setSelectedCategoryId] = React.useState(undefined);
     const [searchParam, setSearchParam] = React.useState('');
     const [isModalOpen, setModalOpen] = React.useState(false);
@@ -25,8 +26,12 @@ function MyPapersContainer(props) {
             if (!selectedCategoryId) {
                 setSelectedCategoryId(categories[0]._id);
             } else {
-                const selectedCategory = categories.find(c => c._id === selectedCategoryId);
-                const papers = selectedCategory.paperItems;
+                let selectedCategory = categories.find(c => c._id === selectedCategoryId);
+                if (!selectedCategory) {
+                    selectedCategory = categories[0];
+                }
+
+                const papers = selectedCategory === undefined ? [] : selectedCategory.paperItems;
                 setAllPapers(papers);
                 setSelectedPapers(papers);
                 setSearchParam('');
@@ -77,6 +82,23 @@ function MyPapersContainer(props) {
         }));
     };
 
+    const onRemoveCategorySuccess = (categoryId, response) => {
+        dispatch(deleteCategoryAction(categoryId, response.data));
+        setSelectedCategoryId(undefined);
+    };
+
+    const onRemoveCategoryClicked = () => {
+        const categoryId = selectedCategoryId;
+        dispatch(removeCategoryAction({
+            data: {categoryId},
+            onSuccess: response => onRemoveCategorySuccess(categoryId, response),
+            onError: (err) => {
+                console.log(err);
+            }
+        }));
+
+    };
+
     const paperElements = selectedPapers.map(paper => {
         const publishedDate = new Date(paper.published).toDateString();
         const updatedDate = new Date(paper.updated).toDateString();
@@ -105,6 +127,7 @@ function MyPapersContainer(props) {
                 onSearchChange={onSearchChange}
                 searchParam={searchParam}
                 onAddCategoryClicked={onAddCategoryClicked}
+                onRemoveCategoryClicked={onRemoveCategoryClicked}
                 isModalOpen={isModalOpen}
                 setModalOpen={setModalOpen}
             />

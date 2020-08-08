@@ -11,17 +11,17 @@ import {
     setSearchPapersAction
 } from "../../redux/reducers/SearchPapersReducer/actions";
 import {
-    addPaperAction, deletePaperAction,
     removePaperAction,
 } from "../../redux/reducers/CategoriesReducer/actions";
 import Pagination from "../../components/Pagination";
 import {RESULTS_PER_PAGE} from "./constants";
 import SelectCategoryModal from "../../components/SelectCategoryModal";
 import {findCategoryByPaperId} from "../../services/findCategoryByPaperId";
+import {addPaperAction, deletePaperAction} from "../../redux/reducers/UserReducer/actions";
 
 
 function SearchPaperListContainer(props) {
-    const categories = useSelector(state => state.categories);
+    const categories = useSelector(state => state.user.categories);
     const papers = useSelector(state => state.searchPapers);
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = React.useState(false);
@@ -32,12 +32,19 @@ function SearchPaperListContainer(props) {
     const [isModalOpen, setModalOpen] = React.useState(false);
     const [selectedPaperId, setSelectedPaperId] = React.useState(null);
 
+
     const onSearchPapersSuccess = (response) => {
         setIsLoading(false);
-        if (response.data.length < RESULTS_PER_PAGE) {
+        const papers =  response.data.papers;
+        if (papers.length < RESULTS_PER_PAGE) {
             setIsLastPage(true);
         }
-        dispatch(setSearchPapersAction(response.data));
+        dispatch(setSearchPapersAction(papers));
+
+        if ( response.data.search) {
+            debugger
+            //TODO
+        }
     };
 
     const onSearchPapersFailed = (err) => {
@@ -45,7 +52,7 @@ function SearchPaperListContainer(props) {
         console.log(err);
     };
 
-    const onSearchButtonClicked = (searchIncTags, searchExcTags) => {
+    const onSearchButtonClicked = (searchIncTags, searchExcTags, saveSearch) => {
         if (!_.isEmpty(searchIncTags) || !_.isEmpty(searchExcTags)) {
             setIsLoading(true);
             setCurrentPage(0);
@@ -57,7 +64,8 @@ function SearchPaperListContainer(props) {
                     includeList: searchIncTags,
                     excludeList: searchExcTags,
                     start: 0,
-                    maxResults: RESULTS_PER_PAGE
+                    maxResults: RESULTS_PER_PAGE,
+                    saveSearch: saveSearch,
                 },
                 onSuccess: onSearchPapersSuccess,
                 onError: onSearchPapersFailed

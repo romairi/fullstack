@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login render should render a component 1`] = `
+<div
+  className="base_container"
+>
+  <div
+    className="MuiPaper-root MuiCard-root login_container MuiPaper-elevation1 MuiPaper-rounded"
+  >
+    <h2
+      className="title_login"
+    >
+      Login
+    </h2>
+    <form
+      className="form_login"
+    >
+      <div
+        className="TextField"
+      />
+      <div
+        className="TextField"
+      />
+      <div
+        className="Button"
+      />
+    </form>
+    <div
+      className="nav_another_page"
+    >
+      Don't have an account?
+      <a
+        href="/signup"
+        onClick={[Function]}
+      >
+        <strong>
+          Sign up
+        </strong>
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Login render should render a component with snapshot 1`] = `
+<div
+  className="base_container"
+>
+  <div
+    className="MuiPaper-root MuiCard-root login_container MuiPaper-elevation1 MuiPaper-rounded"
+  >
+    <h2
+      className="title_login"
+    >
+      Login
+    </h2>
+    <form
+      className="form_login"
+    >
+      <div
+        className="TextField"
+      />
+      <div
+        className="TextField"
+      />
+      <div
+        className="Button"
+      />
+    </form>
+    <div
+      className="nav_another_page"
+    >
+      Don't have an account?
+      <a
+        href="/signup"
+        onClick={[Function]}
+      >
+        <strong>
+          Sign up
+        </strong>
+      </a>
+    </div>
+  </div>
+</div>
+`;

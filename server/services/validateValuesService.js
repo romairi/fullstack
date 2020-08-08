@@ -3,10 +3,17 @@ function validateValues(values, schema) {
     let errors = {};
 
     if (results.error) {
-        errors = results.error.details.reduce((acc, cur) => {
-            acc[cur.context.key] = cur.message;
-            return acc;
-        }, {});
+        // errors = Array.isArray(results.error.details) ? results.error.details.reduce((acc, cur) => {
+        //     acc[cur.context.key] = cur.message;
+        //     return acc;
+        // }, {}) : {};
+
+        Array.isArray(results.error.details) ? results.error.details
+            .filter(item => !!item?.context?.key && !!item.message)
+            .reduce((acc, cur) => {
+                acc[cur.context.key] = cur.message;
+                return acc;
+            }, {}) : {};
     }
     return errors;
 }

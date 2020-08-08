@@ -50,6 +50,18 @@
           font-size: large;
 
         }
+
+        .remove_category {
+          margin-top: 30px;
+          margin-left: 45px;
+          font-family: 'Dancing Script', cursive;
+          color: $color_white;
+          background-color: $primary_color;
+
+          &:hover {
+            background-color: $primary_hover_color;
+          }
+        }
       }
 
       .category_item_footer {
@@ -57,7 +69,7 @@
         justify-content: flex-end;
 
         .btn_topic {
-          background-color: #1976d2;
+          background-color: $primary_color;
           color: $color_white;
           font-size: large;
           font-family: 'Dancing Script', cursive;

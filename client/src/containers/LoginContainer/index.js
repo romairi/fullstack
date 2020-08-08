@@ -44,16 +44,17 @@ export default function LoginContainer({}) {
     return (
         <div className="base_container">
             <Card className="login_container">
-                <h2 className="title_login">Login</h2>
+                <h2 className="title_login"><strong>Login</strong></h2>
                 <form className="form_login">
                     <TextField
+                        className="text_field"
                         margin="dense"
                         error={!_.isEmpty(errors[EMAIL_FIELD])}
                         helperText={errors[EMAIL_FIELD]}
                         type="email"
                         id={EMAIL_FIELD}
                         label="Email"
-                        value={values[EMAIL_FIELD]}
+                        value={values[EMAIL_FIELD] || ''}
                         onChange={handleChange}
                         InputProps={{
                             startAdornment: (
@@ -64,13 +65,14 @@ export default function LoginContainer({}) {
                         }}
                     />
                     <TextField
+                        className="text_field"
                         margin="dense"
                         error={!_.isEmpty(errors[PASSWORD_FIELD])}
                         helperText={errors[PASSWORD_FIELD]}
                         type="password"
                         id={PASSWORD_FIELD}
                         label="Password"
-                        value={values[PASSWORD_FIELD]}
+                        value={values[PASSWORD_FIELD] || ''}
                         onChange={handleChange}
                         InputProps={{
                             startAdornment: (

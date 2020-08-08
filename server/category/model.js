@@ -5,6 +5,7 @@ const CategorySchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
+        unique: false,
     },
     creation_time: {
         type: Date,
@@ -20,6 +21,12 @@ const CategorySchema = new mongoose.Schema({
         required: true,
     },
 });
+
+
+CategorySchema.statics.getPapers = async function (categoryId) {
+    const category = await this.findById(categoryId).populate('paperItems');
+    return category.paperItems;
+};
 
 CategorySchema.statics.addPaper = async function (categoryId, paper) {
     const category = await this.findById(categoryId).populate('paperItems');
@@ -44,11 +51,6 @@ CategorySchema.statics.removePaper = async function (categoryId, paperId) {
     return {
         paperId
     };
-};
-
-CategorySchema.statics.getPapers = async function (categoryId) {
-    const category = await this.findById(categoryId).populate('paperItems');
-    return category.paperItems;
 };
 
 module.exports = mongoose.model('Category', CategorySchema);

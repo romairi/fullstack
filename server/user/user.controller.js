@@ -1,4 +1,3 @@
-const _ = require('lodash');
 const HttpStatus = require('http-status-codes');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -12,8 +11,10 @@ const {
 } = require("./constants");
 
 function loadUser(req, res, user) {
-    const token = jwt.sign({_id: user._id, hash: req.fingerprint.hash}, serverConfig.jwt.secret, {expiresIn: TOKEN_EXPIRATION_TIME});
-    const {password: userPass, ...userArgs} = user.toObject();
+    const token = jwt.sign({_id: user._id, hash: req.fingerprint.hash},
+        serverConfig.jwt.secret,
+        {expiresIn: TOKEN_EXPIRATION_TIME});
+    const {password: userPass, ...userArgs} = user.toObject(); // TODO CHECK ERROR
 
     res
         .cookie('token', token, {
@@ -30,7 +31,7 @@ async function signup(req, res, next) {
 
     try {
 
-        const foundUser = await UserModel.findOne({email});
+        const foundUser = await UserModel.getUserByEmail(email);
         if (foundUser) {
             res.status(HttpStatus.BAD_REQUEST).json({type: 'error', message: ERROR_EMAIL_EXIST_MESSAGE});
             return;
@@ -52,8 +53,8 @@ async function signup(req, res, next) {
 async function login(req, res, next) {
     const {email, password} = req.body;
 
-    try {
-        const user = await UserModel.findOne({email});
+    try {   
+        const user = await UserModel.getUserByEmail(email);
         if (!user) {
             res.status(HttpStatus.BAD_REQUEST).json({type: 'error', message: ERROR_MESSAGE});
             return;

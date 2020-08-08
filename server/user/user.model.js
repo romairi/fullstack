@@ -1,7 +1,9 @@
 const CategoryModel = require('../category/model');
+const SearchModel = require('../search/model');
 const mongoose = require('mongoose');
 
 const CATEGORIES_FIELD = 'categories';
+const SEARCH_FIELD = 'searches';
 
 const UserSchema = new mongoose.Schema({
     username: {
@@ -27,14 +29,66 @@ const UserSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category'
     }],
+
+    searches: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Search'
+    }]
 });
 
-UserSchema.statics.createUser = async function (args) {
+UserSchema.statics.createUser = async function (args) { // TODO
     const user = await this.create(args);
     const category = new CategoryModel({name: 'default', user: user.id});
     await category.save();
     user.categories = [category];
     return await user.save();
+};
+
+
+UserSchema.statics.getSearches = async function (userId) {
+    const user = await this.findById(userId).populate({
+        path: SEARCH_FIELD,
+        populate: {
+            path: 'paperItems',
+            model: 'PaperItem'
+        }
+    });
+    return user.searches;
+};
+
+UserSchema.statics.addSearch = async function (userId, includeList, excludeList, viewedPapers) {
+    const searchObj = new SearchModel({
+        include_tags: includeList,
+        exclude_tags: excludeList,
+        viewed_papers: viewedPapers,
+        user: userId
+    });
+    await this.findByIdAndUpdate(userId, {$push: {searches: searchObj.id}}, {});
+    return {
+        search: await searchObj.save(),
+    };
+};
+
+UserSchema.statics.getUserByEmail = async function (email) {
+    const user = await this.findOne({ email }).populate({
+        path: CATEGORIES_FIELD,
+        populate: {
+            path: 'paperItems',
+            model: 'PaperItem'
+        }
+    });
+    return user;
+};
+
+UserSchema.statics.getUserById = async function (userId) {
+    const user = await this.findById(userId).populate({
+        path: CATEGORIES_FIELD,
+        populate: {
+            path: 'paperItems',
+            model: 'PaperItem'
+        }
+    });
+    return user;
 };
 
 UserSchema.statics.getCategories = async function (userId) {
@@ -48,6 +102,7 @@ UserSchema.statics.getCategories = async function (userId) {
     return user.categories;
 };
 
+
 UserSchema.statics.addCategory = async function (userId, categoryName) {
     const user = await this.findById(userId).populate(CATEGORIES_FIELD);
     const foundCategory = user.categories.find(item => item.name === categoryName);
@@ -58,15 +113,16 @@ UserSchema.statics.addCategory = async function (userId, categoryName) {
             category: await categoryObj.save(),
         };
     }
-    return {
+    return { // TODO
         category: null
     }
 };
 
 UserSchema.statics.removeCategory = async function (userId, categoryId) {
     const user = await this.findById(userId).populate(CATEGORIES_FIELD);
-    user.categories = user.categories.filter(item => item.id !== categoryId);
+    user.categories = user.categories.filter(item => item.id !== categoryId); // TODO Check for Master
     await user.save();
+    await CategoryModel.findOneAndRemove({_id: categoryId}); // TODO Check for Master
     return {
         categoryId
     };

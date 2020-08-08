@@ -50,17 +50,18 @@ export default function SignUpContainer({}) {
     return (
         <div className="base_container">
             <Card className='signup_container'>
-                <h2 className="title_signup">Sign Up</h2>
+                <h2 className="title_signup"><strong>Sign Up</strong></h2>
                 <form className="form_signup">
 
                     <TextField
+                        className="text_field"
                         margin="dense"
                         error={!_.isEmpty(errors[USER_NAME_FIELD])}
                         helperText={errors[USER_NAME_FIELD]}
                         type="text"
                         id={USER_NAME_FIELD}
                         label="Username"
-                        value={values[USER_NAME_FIELD]}
+                        value={values[USER_NAME_FIELD] || ''}
                         onChange={handleChange}
                         InputProps={{
                             startAdornment: (
@@ -70,15 +71,15 @@ export default function SignUpContainer({}) {
                             ),
                         }}
                     />
-
                     <TextField
+                        className="text_field"
                         margin="dense"
                         error={!_.isEmpty(errors[EMAIL_FIELD])}
                         helperText={errors[EMAIL_FIELD]}
                         type="email"
                         id={EMAIL_FIELD}
                         label="Email"
-                        value={values[EMAIL_FIELD]}
+                        value={values[EMAIL_FIELD] || ''}
                         onChange={handleChange}
                         InputProps={{
                             startAdornment: (
@@ -89,13 +90,14 @@ export default function SignUpContainer({}) {
                         }}
                     />
                     <TextField
+                        className="text_field"
                         margin="dense"
                         error={!_.isEmpty(errors[PASSWORD_FIELD])}
                         helperText={errors[PASSWORD_FIELD]}
                         type="password"
                         id={PASSWORD_FIELD}
                         label="Password"
-                        value={values[PASSWORD_FIELD]}
+                        value={values[PASSWORD_FIELD] || ''}
                         onChange={handleChange}
                         InputProps={{
                             startAdornment: (
@@ -106,13 +108,14 @@ export default function SignUpContainer({}) {
                         }}
                     />
                     <TextField
+                        className="text_field"
                         margin="dense"
                         error={!_.isEmpty(errors[CONFIRM_PASSWORD_FIELD])}
                         helperText={errors[CONFIRM_PASSWORD_FIELD]}
                         type="password"
                         id={CONFIRM_PASSWORD_FIELD}
                         label="Confirm Password"
-                        value={values[CONFIRM_PASSWORD_FIELD]}
+                        value={values[CONFIRM_PASSWORD_FIELD] || ''}
                         onChange={handleChange}
                         InputProps={{
                             startAdornment: (

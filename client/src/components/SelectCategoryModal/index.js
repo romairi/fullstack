@@ -8,11 +8,15 @@ import Select from "@material-ui/core/Select/Select";
 
 
 function SelectCategoryModal({categories, onSelectCategoryClicked, isModalOpen, setModalOpen}) {
-    const [selectedCategoryId, setSelectedCategoryId] = React.useState(undefined);
+    let [selectedCategoryId, setSelectedCategoryId] = React.useState(undefined);
 
     const categoriesOptions = categories.map(c => <option key={c._id} value={c._id}>{c.name}</option>);
 
     const onSelectButtonClicked = () => {
+        if (selectedCategoryId === undefined) {
+            const defaultCategory = categories.map(item => item._id);
+            selectedCategoryId = defaultCategory[0];
+        }
         onSelectCategoryClicked && onSelectCategoryClicked(selectedCategoryId);
     };
 
@@ -35,11 +39,12 @@ function SelectCategoryModal({categories, onSelectCategoryClicked, isModalOpen, 
         >
             <Fade in={isModalOpen}>
                 <div className="modal_box">
-                    <h3 className="title_modal_box">Select category for saving</h3>
+                    <h3 className="title_modal_box"><strong>Select Category</strong></h3>
                     <div className="select_category">
                         <Select
                             className="select_item"
-                            native defaultValue=""
+                            native
+                            defaultValue=""
                             id="grouped-native-select"
                             value={selectedCategoryId}
                             onChange={onSelectedCategoryChange}

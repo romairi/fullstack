@@ -10,6 +10,7 @@ import Select from "@material-ui/core/Select/Select";
 import Button from "@material-ui/core/Button";
 import CreateCategoryModal from "../CreateCategoryModal";
 
+
 function CategoryPaperBox({
                               categories,
                               selectedCategoryId,
@@ -18,16 +19,19 @@ function CategoryPaperBox({
                               setModalOpen,
                               onSearchChange,
                               searchParam,
-                              onAddCategoryClicked
+                              onAddCategoryClicked,
+                              onRemoveCategoryClicked
                           }) {
-
     const categoriesOptions = categories.map(c => <option key={c._id} value={c._id}>{c.name}</option>);
-    const onSelectedCategoryChange = event => setSelectedCategoryId(event.target.value);
+
+    const onSelectedCategoryChange = event => {
+        setSelectedCategoryId(event.target.value);
+    };
 
     return (
         <div className="category_paper_box">
             <Card className="category_paper_card">
-                <h3 className="category_paper_title">Category Paper</h3>
+                <h3 className="category_paper_title"><strong>Category Paper</strong></h3>
                 <div className="category_items">
                     <div className="search_my_paper">
                         <TextField
@@ -36,7 +40,7 @@ function CategoryPaperBox({
                             type="text"
                             label="search article"
                             onChange={onSearchChange}
-                            value={searchParam}
+                            value={searchParam || ''}
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
@@ -51,11 +55,12 @@ function CategoryPaperBox({
                             <InputLabel
                                 className="category_input_label"
                                 htmlFor="grouped-native-select"
-                            >Category
+                            >Choose Category
                             </InputLabel>
                             <Select
                                 className="select_item"
-                                native defaultValue=""
+                                native
+                                defaultValue=""
                                 id="grouped-native-select"
                                 value={selectedCategoryId}
                                 onChange={onSelectedCategoryChange}
@@ -63,6 +68,12 @@ function CategoryPaperBox({
                                 {categoriesOptions}
                             </Select>
                         </FormControl>
+                        <Button
+                            className="remove_category"
+                            variant="contained"
+                            onClick={onRemoveCategoryClicked}>
+                            Remove Category
+                        </Button>
                     </div>
                     <div className="category_item_footer">
                         <Button
