@@ -19,7 +19,7 @@
   }
 
   .my_searches_filter_lists {
-    margin-top: 100px;
+    margin-top: 70px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -31,21 +31,22 @@
       .title_include_list {
         color: $primary_color;
         font-family: 'Dancing Script', cursive;
+        text-align: center;
       }
 
-      .list_include {
-        width: 100%;
-        max-width: 320px;
-        position: relative;
-        overflow: auto;
-        max-height: 150px;
-        margin-top: 20px;
-      }
     }
 
     .my_search_list_ul {
-      background-color: inherit;
-      padding: 0;
+      display: flex;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      list-style: none;
+      padding: 4px;
+      margin-left: 20px;
+
+      .my_search_chip {
+        margin: 5px;
+      }
     }
 
     .my_search_list_exclude {
@@ -55,17 +56,11 @@
       .title_exclude_list {
         color: $primary_color;
         font-family: 'Dancing Script', cursive;
+        text-align: center;
       }
 
-      .list_exclude {
-        width: 100%;
-        max-width: 320px;
-        position: relative;
-        overflow: auto;
-        max-height: 150px;
-        margin-top: 20px;
-      }
     }
+
   }
 
   .card_footer {

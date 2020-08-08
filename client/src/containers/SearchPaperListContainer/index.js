@@ -11,18 +11,17 @@ import {
     setSearchPapersAction
 } from "../../redux/reducers/SearchPapersReducer/actions";
 import {
-    addPaperAction,
-    deletePaperAction,
     removePaperAction,
 } from "../../redux/reducers/CategoriesReducer/actions";
 import Pagination from "../../components/Pagination";
 import {RESULTS_PER_PAGE} from "./constants";
 import SelectCategoryModal from "../../components/SelectCategoryModal";
 import {findCategoryByPaperId} from "../../services/findCategoryByPaperId";
+import {addPaperAction, deletePaperAction} from "../../redux/reducers/UserReducer/actions";
 
 
 function SearchPaperListContainer(props) {
-    const categories = useSelector(state => state.categories);
+    const categories = useSelector(state => state.user.categories);
     const papers = useSelector(state => state.searchPapers);
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = React.useState(false);
@@ -36,11 +35,16 @@ function SearchPaperListContainer(props) {
 
     const onSearchPapersSuccess = (response) => {
         setIsLoading(false);
-        const getResponse = response.data.length === undefined ? response.data.papers : response.data;
-        if (getResponse.length < RESULTS_PER_PAGE) {
+        const papers =  response.data.papers;
+        if (papers.length < RESULTS_PER_PAGE) {
             setIsLastPage(true);
         }
-        dispatch(setSearchPapersAction(getResponse));
+        dispatch(setSearchPapersAction(papers));
+
+        if ( response.data.search) {
+            debugger
+            //TODO
+        }
     };
 
     const onSearchPapersFailed = (err) => {

@@ -13,6 +13,7 @@ module.exports = {
         filename: `static/js/main${devMode ? '' : '.[hash]'}.js`,
         publicPath: "<%- publicPath %>"
     },
+    devtool: 'inline-source-map',
     optimization: {
         minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
     },

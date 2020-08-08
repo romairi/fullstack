@@ -6,7 +6,6 @@ import './index.scss';
 import Header from "../../containers/Header";
 import routes from "../../routes";
 import {BASE_ROUTE, LOGIN_ROUTE, SIGNUP_ROUTE} from "../../routes/constants";
-import {getCategoriesAction, setCategoriesAction} from "../../redux/reducers/CategoriesReducer/actions";
 
 class App extends React.PureComponent {
 
@@ -20,14 +19,7 @@ class App extends React.PureComponent {
             path => path === router.location.pathname)) {
             this.props.replace(BASE_ROUTE);
         }
-        if(!_.isEmpty(user)) {
-            this.props.getCategoriesAction({onSuccess: this.onGetCategoriesSuccess, onError: err => console.log(err)});
-        }
     }
-
-    onGetCategoriesSuccess = (response) =>  {
-        this.props.setCategoriesAction(response.data);
-    };
 
     render() {
         const {history} = this.props;
@@ -51,8 +43,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     replace,
-    getCategoriesAction,
-    setCategoriesAction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

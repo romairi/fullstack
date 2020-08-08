@@ -69,6 +69,28 @@ UserSchema.statics.addSearch = async function (userId, includeList, excludeList,
     };
 };
 
+UserSchema.statics.getUserByEmail = async function (email) {
+    const user = await this.findOne({ email }).populate({
+        path: CATEGORIES_FIELD,
+        populate: {
+            path: 'paperItems',
+            model: 'PaperItem'
+        }
+    });
+    return user;
+};
+
+UserSchema.statics.getUserById = async function (userId) {
+    const user = await this.findById(userId).populate({
+        path: CATEGORIES_FIELD,
+        populate: {
+            path: 'paperItems',
+            model: 'PaperItem'
+        }
+    });
+    return user;
+};
+
 UserSchema.statics.getCategories = async function (userId) {
     const user = await this.findById(userId).populate({
         path: CATEGORIES_FIELD,

@@ -9,8 +9,8 @@ async function auth(req, res, next) {
     if (token) {
         try {
             const {_id: userId, hash} = jwt.verify(token, serverConfig.jwt.secret);
-            if (hash === req.fingerprint.hash) {
-                const userObj = await UserModel.findById(userId); // TODO  Error Cannot read property 'toObject'
+            if (hash === req.fingerprint.hash) {    
+                const userObj = await UserModel.getUserById(userId);
                 if(userObj !== null){
                     const {password: userPass, ...useArgs} = userObj.toObject();
                     user = useArgs;

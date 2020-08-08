@@ -2,10 +2,9 @@ import React from 'react';
 import './index.scss';
 import Card from "@material-ui/core/Card";
 import Button from "@material-ui/core/Button";
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Chip from "@material-ui/core/Chip";
+import Paper from "@material-ui/core/Paper";
 
 
 function MySearchesBox({searches}) {
@@ -13,6 +12,22 @@ function MySearchesBox({searches}) {
     const onDeleteButtonClicked = () => {
 
     };
+
+    const [chipData, setChipData] = React.useState([
+        {key: 0, label: 'Angular'},
+        {key: 1, label: 'jQuery'},
+        {key: 2, label: 'Polymer'},
+        {key: 3, label: 'Vue.js'},
+        {key: 4, label: 'Vue.js'},
+        {key: 5, label: 'Vue.js'},
+        {key: 6, label: 'Vue.js'},
+        {key: 7, label: 'Vue.js'},
+    ]);
+
+    const handleDelete = (chipToDelete) => () => {
+        setChipData((chips) => chips.filter((chip) => chip.key !== chipToDelete.key));
+    };
+
 
     return (
         <div className="my_searches_box">
@@ -22,35 +37,35 @@ function MySearchesBox({searches}) {
                     <div className="my_searches_filter_lists">
                         <div className="my_search_list_include">
                             <h3 className="title_include_list"><strong>Include List</strong></h3>
-                            <List className="list_include">
-                                {[0, 1, 2, 3, 4].map((sectionId) => (
-                                    <li key={`section-${sectionId}`} className="">
-                                        <ul className="my_search_list_ul">
-                                            {[0, 1, 2].map((item) => (
-                                                <ListItem key={`item-${sectionId}-${item}`}>
-                                                    <ListItemText primary={`Item ${item}`}/>
-                                                </ListItem>
-                                            ))}
-                                        </ul>
-                                    </li>
-                                ))}
-                            </List>
+                            <Paper component="ul" className="my_search_list_ul">
+                                {chipData.map((data) => {
+                                    return (
+                                        <li key={data.key}>
+                                            <Chip
+                                                label={data.label}
+                                                onDelete={handleDelete(data)}
+                                                className="my_search_chip"
+                                            />
+                                        </li>
+                                    );
+                                })}
+                            </Paper>
                         </div>
                         <div className="my_search_list_exclude">
                             <h3 className="title_exclude_list"><strong>Exclude List</strong></h3>
-                            <List className="list_exclude" subheader={<li/>}>
-                                {[0, 1, 2, 3, 4].map((sectionId) => (
-                                    <li key={`section-${sectionId}`} className="">
-                                        <ul className="my_search_list_ul">
-                                            {[0, 1, 2].map((item) => (
-                                                <ListItem key={`item-${sectionId}-${item}`}>
-                                                    <ListItemText primary={`Item ${item}`}/>
-                                                </ListItem>
-                                            ))}
-                                        </ul>
-                                    </li>
-                                ))}
-                            </List>
+                            <Paper component="ul" className="my_search_list_ul">
+                                {chipData.map((data) => {
+                                    return (
+                                        <li key={data.key}>
+                                            <Chip
+                                                label={data.label}
+                                                onDelete={handleDelete(data)}
+                                                className="my_search_chip"
+                                            />
+                                        </li>
+                                    );
+                                })}
+                            </Paper>
                         </div>
                     </div>
                     <div className="card_footer">

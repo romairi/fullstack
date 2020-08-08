@@ -31,7 +31,7 @@ async function signup(req, res, next) {
 
     try {
 
-        const foundUser = await UserModel.findOne({email});
+        const foundUser = await UserModel.getUserByEmail(email);
         if (foundUser) {
             res.status(HttpStatus.BAD_REQUEST).json({type: 'error', message: ERROR_EMAIL_EXIST_MESSAGE});
             return;
@@ -53,8 +53,8 @@ async function signup(req, res, next) {
 async function login(req, res, next) {
     const {email, password} = req.body;
 
-    try {
-        const user = await UserModel.findOne({email});
+    try {   
+        const user = await UserModel.getUserByEmail(email);
         if (!user) {
             res.status(HttpStatus.BAD_REQUEST).json({type: 'error', message: ERROR_MESSAGE});
             return;

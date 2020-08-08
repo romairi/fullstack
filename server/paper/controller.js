@@ -31,7 +31,7 @@ async function searchPapers(req, res, next) {
         }
     }
 
-    res.json(resultPapers.map(formatPaper));
+    res.json({papers: resultPapers.map(formatPaper)});
 }
 
 async function getCategories(req, res, next) {
