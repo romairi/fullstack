@@ -36,7 +36,7 @@ const UserSchema = new mongoose.Schema({
     }]
 });
 
-UserSchema.statics.createUser = async function (args) { // TODO
+UserSchema.statics.createUser = async function (args) {
     const user = await this.create(args);
     const category = new CategoryModel({name: 'default', user: user.id});
     await category.save();

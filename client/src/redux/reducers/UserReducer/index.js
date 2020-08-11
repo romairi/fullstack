@@ -38,7 +38,10 @@ export default function userReducer(state = Immutable({}), action) {
         }
 
         case REMOVE_CATEGORY_ACTION_TYPE: {
-            newState = Immutable({...state, categories: state.categories.filter(c => action.payload.categoryId !== c._id)});
+            newState = Immutable({
+                ...state,
+                categories: state.categories.filter(c => action.payload.categoryId !== c._id)
+            });
             break;
         }
 

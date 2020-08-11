@@ -9,7 +9,11 @@ import {
 import PaperItem from "../../components/PaperItem";
 import CategoryPaperBox from "../../components/CategoryPaperBox";
 import {searchByFields} from "../../services/itemUtilitiesService";
-import {createCategoryAction, deleteCategoryAction, deletePaperAction} from "../../redux/reducers/UserReducer/actions";
+import {
+    createCategoryAction,
+    deleteCategoryAction,
+    deletePaperAction
+} from "../../redux/reducers/UserReducer/actions";
 
 
 function MyPapersContainer(props) {
@@ -82,11 +86,11 @@ function MyPapersContainer(props) {
         }));
     };
 
-    const onRemoveCategorySuccess = (categoryId, response) => {
-        if(categories.length < 2) {
+    const onRemoveCategorySuccess = (categoryId) => {
+        if (categories.length < 2) {
             return;
         }
-        dispatch(deleteCategoryAction(categoryId, response.data));
+        dispatch(deleteCategoryAction(categoryId));
         setSelectedCategoryId(undefined);
     };
 
@@ -94,7 +98,7 @@ function MyPapersContainer(props) {
         const categoryId = selectedCategoryId;
         dispatch(removeCategoryAction({
             data: {categoryId},
-            onSuccess: response => onRemoveCategorySuccess(categoryId, response),
+            onSuccess: () => onRemoveCategorySuccess(categoryId), //TODO
             onError: (err) => {
                 console.log(err);
             }
