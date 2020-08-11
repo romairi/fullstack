@@ -17,7 +17,7 @@ async function removeCategory(req, res, next) {
     const userId = req.user._id;
     try {
         const data = await UserModel.removeCategory(userId, categoryId);
-        return res.status(HttpStatus.CREATED).json(data.categoryId);
+        return res.status(HttpStatus.CREATED).json(data); // TODO CHECK BUG data
     } catch (err) {
         next(err);
     }

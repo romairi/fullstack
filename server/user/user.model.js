@@ -70,7 +70,7 @@ UserSchema.statics.addSearch = async function (userId, includeList, excludeList,
 };
 
 UserSchema.statics.getUserByEmail = async function (email) {
-    const user = await this.findOne({ email }).populate({
+    const user = await this.findOne({email}).populate({
         path: CATEGORIES_FIELD,
         populate: {
             path: 'paperItems',
@@ -113,19 +113,23 @@ UserSchema.statics.addCategory = async function (userId, categoryName) {
             category: await categoryObj.save(),
         };
     }
-    return { // TODO
+    return {
         category: null
     }
 };
 
 UserSchema.statics.removeCategory = async function (userId, categoryId) {
     const user = await this.findById(userId).populate(CATEGORIES_FIELD);
-    user.categories = user.categories.filter(item => item.id !== categoryId); // TODO Check for Master
-    await user.save();
-    await CategoryModel.findOneAndRemove({_id: categoryId}); // TODO Check for Master
-    return {
-        categoryId
-    };
+    if (user.categories.length > 1) {
+        user.categories = user.categories.filter(item => item.id !== categoryId);
+        await user.save();
+        await CategoryModel.findOneAndRemove({_id: categoryId});
+        return {
+            categoryId
+        };
+    } else {
+        return categoryId;
+    }
 };
 
 UserSchema.statics.addPaper = async function (userId, categoryId, paper) {

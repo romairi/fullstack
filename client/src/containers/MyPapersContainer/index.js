@@ -83,6 +83,9 @@ function MyPapersContainer(props) {
     };
 
     const onRemoveCategorySuccess = (categoryId, response) => {
+        if(categories.length < 2) {
+            return;
+        }
         dispatch(deleteCategoryAction(categoryId, response.data));
         setSelectedCategoryId(undefined);
     };
