@@ -1,7 +1,10 @@
 import {
     ADD_PAPER_ACTION_TYPE,
-    CREATE_CATEGORY_ACTION_TYPE, REMOVE_CATEGORY_ACTION_TYPE,
+    ADD_SEARCH_ACTION_TYPE,
+    CREATE_CATEGORY_ACTION_TYPE,
+    REMOVE_CATEGORY_ACTION_TYPE,
     REMOVE_PAPER_ACTION_TYPE,
+    REMOVE_SEARCH_ACTION_TYPE,
     SET_USER_ACTION_TYPE
 } from "./constants";
 import Immutable from "seamless-immutable";
@@ -41,6 +44,19 @@ export default function userReducer(state = Immutable({}), action) {
             newState = Immutable({
                 ...state,
                 categories: state.categories.filter(c => action.payload.categoryId !== c._id)
+            });
+            break;
+        }
+
+        case ADD_SEARCH_ACTION_TYPE:
+            debugger
+            newState = Immutable({...state, searches: [...state.searches, action.payload.search]});
+            break;
+
+        case REMOVE_SEARCH_ACTION_TYPE: {
+            newState = Immutable({
+                ...state,
+                searches: state.searches.filter(c => action.payload.searchId !== c._id)
             });
             break;
         }

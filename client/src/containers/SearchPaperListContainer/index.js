@@ -17,7 +17,7 @@ import Pagination from "../../components/Pagination";
 import {RESULTS_PER_PAGE} from "./constants";
 import SelectCategoryModal from "../../components/SelectCategoryModal";
 import {findCategoryByPaperId} from "../../services/findCategoryByPaperId";
-import {addPaperAction, deletePaperAction} from "../../redux/reducers/UserReducer/actions";
+import {addPaperAction, addSearchAction, deletePaperAction} from "../../redux/reducers/UserReducer/actions";
 
 
 function SearchPaperListContainer(props) {
@@ -44,6 +44,7 @@ function SearchPaperListContainer(props) {
         if (response.data.search) {
             debugger
             //TODO
+            dispatch(addSearchAction(response.data.search));
         }
     };
 

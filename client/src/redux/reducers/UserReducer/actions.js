@@ -3,7 +3,9 @@ import {
     CREATE_CATEGORY_ACTION_TYPE,
     REMOVE_PAPER_ACTION_TYPE,
     SET_USER_ACTION_TYPE,
-    REMOVE_CATEGORY_ACTION_TYPE
+    REMOVE_CATEGORY_ACTION_TYPE,
+    ADD_SEARCH_ACTION_TYPE,
+    REMOVE_SEARCH_ACTION_TYPE
 } from "./constants";
 
 export function createSetUserAction(user) {
@@ -47,6 +49,26 @@ export function deleteCategoryAction(categoryId) {
         type: REMOVE_CATEGORY_ACTION_TYPE,
         payload: {
             categoryId,
+        }
+    }
+}
+
+export function addSearchAction(search) {
+    debugger
+    return {
+        type: ADD_SEARCH_ACTION_TYPE,
+        payload: {
+            search
+        }
+    }
+}
+
+export function removeSearchAction(searchId) {
+    debugger
+    return {
+        type: REMOVE_SEARCH_ACTION_TYPE,
+        payload: {
+            searchId
         }
     }
 }
