@@ -35,13 +35,13 @@ function SearchPaperListContainer(props) {
 
     const onSearchPapersSuccess = (response) => {
         setIsLoading(false);
-        const papers =  response.data.papers;
+        const papers = response.data.papers;
         if (papers.length < RESULTS_PER_PAGE) {
             setIsLastPage(true);
         }
         dispatch(setSearchPapersAction(papers));
 
-        if ( response.data.search) {
+        if (response.data.search) {
             debugger
             //TODO
         }
