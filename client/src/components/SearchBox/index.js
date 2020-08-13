@@ -29,7 +29,11 @@ function SearchBox({onSearchButtonClicked}) {
     };
 
 
-    const onSearchFieldChange = event => {
+    const onSearchFieldChange = event => { //TODO CHECK IF
+
+        if(event.target.value.length > 100) {
+            return;
+        }
         setSearchParam(event.target.value);
     };
 

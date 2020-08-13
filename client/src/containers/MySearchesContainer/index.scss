@@ -1,8 +1,7 @@
 @import "../../scss/variables";
 
-
 .searches_container {
-  margin: 0 auto;
+  margin: 100px auto;
   width: 65%;
   padding-bottom: 100px;
 
@@ -12,5 +11,68 @@
 
   @media(max-width: $max-xs) {
     width: 98%;
+  }
+
+  .my_searches_card {
+    padding: 35px 45px;
+    box-shadow: 0 8px 42px -8px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      box-shadow: 0 8px 42px -8px rgba(0, 0, 0, 0.4);
+    }
+
+    .my_searches_title {
+      text-align: center;
+      color: $primary_color;
+      font-family: 'Dancing Script', cursive;
+    }
+
+    .my_searches_filter_lists {
+      display: flex;
+      flex-direction: column;
+      margin-top: 70px;
+
+      .my_last_search_title {
+        color: $primary_color;
+        font-family: 'Dancing Script', cursive;
+        text-align: start;
+      }
+
+      .search_list {
+        .title_list {
+          color: $primary_color;
+          font-family: 'Dancing Script', cursive;
+          text-align: start;
+          margin-right: 10px;
+        }
+
+        .chip_items {
+          display: flex;
+          flex-wrap: wrap;
+          margin-right: 5px;
+          margin-top: 5px;
+
+          .chip_item {
+            display: flex;
+            justify-content: start;
+            background: #e9e8e8;
+            flex-wrap: wrap;
+            margin: 5px 5px 10px 0;
+            font-size: medium;
+
+            &:last-child {
+              margin-right: 0;
+            }
+          }
+        }
+      }
+
+    }
+
+    .card_footer {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 50px;
+    }
   }
 }

@@ -1,7 +1,6 @@
 import {SET_SEARCH_PAPERS_ACTION_TYPE} from "./constants";
 
 export default function searchPapersReducer(state = [], action) {
-    debugger
     let newState;
     switch (action.type) {
         case SET_SEARCH_PAPERS_ACTION_TYPE:
