@@ -114,6 +114,7 @@ function SearchPaperListContainer(props) {
     };
 
     const onRemoveButtonClicked = (itemId) => {
+        debugger
         const category = findCategoryByPaperId(categories, itemId);
         if (category) {
             const categoryId = category._id;

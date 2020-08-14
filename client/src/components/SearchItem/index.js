@@ -24,14 +24,16 @@ function SearchItem(props) {
     const {
         id,
         incTagsList,
-        excTagsList
+        excTagsList,
+        onDeleteButtonClicked
     } = props;
 
     debugger
 
-    const onDeleteButtonClicked = () => {
-
-    };
+    // const onDeleteButtonClicked = (id) => {
+    //     debugger
+    //     console.log(id);
+    // };
 
     return (
         <div className="search_item_container">

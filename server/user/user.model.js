@@ -75,6 +75,13 @@ UserSchema.statics.getUserByEmail = async function (email) {
         populate: {
             path: 'paperItems',
             model: 'PaperItem'
+        },
+
+    }).populate({
+        path: SEARCH_FIELD,
+        populate: {
+            path: 'searches',
+            model: 'Search'
         }
     });
     return user;
@@ -86,6 +93,12 @@ UserSchema.statics.getUserById = async function (userId) {
         populate: {
             path: 'paperItems',
             model: 'PaperItem'
+        }
+    }).populate({
+        path: SEARCH_FIELD,
+        populate: {
+            path: 'searches',
+            model: 'Search'
         }
     });
     return user;
