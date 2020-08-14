@@ -1,6 +1,13 @@
 @import "../../scss/variables";
 
 .search_item_container {
+  margin-bottom: 80px;
+  margin-top: 80px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
   .my_searches_card {
     padding: 35px 45px;
     box-shadow: 0 8px 42px -8px rgba(0, 0, 0, 0.2);
