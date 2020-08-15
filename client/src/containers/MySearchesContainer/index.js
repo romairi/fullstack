@@ -9,40 +9,24 @@ import {removeSearchDataAction} from "../../redux/reducers/MySearchesReducer/act
 function MySearchesContainer() {
     const dispatch = useDispatch();
     const searches = useSelector(state => state.user.searches);
-    const [searchCurrentId, setSearchCurrentId] = React.useState(undefined);
-
-
-
-    React.useEffect(() => {
-        if (searches.length > 0) {
-            if (!searchCurrentId) {
-                setSearchCurrentId(searches[0]._id);
-            } else {
-                let searchFound = searches.find(c => c._id === searchCurrentId);
-                if (!searchFound) {
-                    searchFound = searches[0];
-                }
-
-            }
-        }
-    }, [searches, searchCurrentId]);
-
 
 
     const onRemoveSearchSuccess = (searchId) => {
-        debugger
         dispatch(removeSearchAction(searchId))
     };
 
-    const onRemoveSearch = () => {
-        const searchId = searchCurrentId;
-        dispatch(removeSearchDataAction({
-            data: {searchId},
-            onSuccess: () => onRemoveSearchSuccess(searchId),
-            onError: (err) => {
-                console.log(err);
-            }
-        }));
+    const onRemoveSearch = (itemId) => {
+        const mySearch = searches.find(c => c._id === itemId);
+        if (mySearch) {
+            const searchId = mySearch._id;
+            dispatch(removeSearchDataAction({
+                data: {searchId},
+                onSuccess: () => onRemoveSearchSuccess(searchId),
+                onError: (err) => {
+                    console.log(err)
+                }
+            }));
+        }
 
     };
 

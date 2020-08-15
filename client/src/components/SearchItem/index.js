@@ -14,10 +14,8 @@ function FilterSearchTags({searchList}) {
             </>
         );
     }
-    return [];
-
+    return [];  // TODO CHECK MASTER
 }
-
 
 function SearchItem(props) {
 
@@ -27,13 +25,6 @@ function SearchItem(props) {
         excTagsList,
         onDeleteButtonClicked
     } = props;
-
-    debugger
-
-    // const onDeleteButtonClicked = (id) => {
-    //     debugger
-    //     console.log(id);
-    // };
 
     return (
         <div className="search_item_container">
@@ -62,7 +53,7 @@ function SearchItem(props) {
                             size="medium"
                             color="secondary"
                             startIcon={<DeleteIcon/>}
-                            onClick={onDeleteButtonClicked}>
+                            onClick={() => onDeleteButtonClicked(id)}>
                         Delete Search
                     </Button>
                 </div>

@@ -63,7 +63,6 @@ export function addSearchAction(search) {
 }
 
 export function removeSearchAction(searchId) {
-    debugger
     return {
         type: REMOVE_SEARCH_ACTION_TYPE,
         payload: {

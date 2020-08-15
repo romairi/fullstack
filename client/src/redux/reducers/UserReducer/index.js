@@ -52,7 +52,6 @@ export default function userReducer(state = Immutable({}), action) {
             break;
 
         case REMOVE_SEARCH_ACTION_TYPE: {
-            debugger
             newState = Immutable({
                 ...state,
                 searches: state.searches.filter(c => action.payload.searchId !== c._id)
