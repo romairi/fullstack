@@ -12,4 +12,15 @@ async function addSearch(req, res, next) {
     }
 }
 
-module.exports = {addSearch};
+async function removeSearch(req, res, next) {
+    const {searchId} = req.body;
+    const userId = req.user._id;
+    try {
+        const data = await UserModel.removeSearch(userId, searchId);
+        return res.status(HttpStatus.CREATED).json(data);
+    } catch (err) {
+        next(err);
+    }
+}
+
+module.exports = {addSearch, removeSearch};

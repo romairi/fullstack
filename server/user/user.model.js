@@ -69,8 +69,18 @@ UserSchema.statics.addSearch = async function (userId, includeList, excludeList,
     };
 };
 
+UserSchema.statics.removeSearch = async function (userId, searchId) {
+    const user = await this.findById(userId).populate(SEARCH_FIELD);
+    user.searches = user.searches.filter(item => item.id !== searchId);
+    await user.save();
+    await SearchModel.findOneAndRemove({_id: searchId});
+    return {
+        searchId
+    };
+};
+
 UserSchema.statics.getUserByEmail = async function (email) {
-    const user = await this.findOne({email}).populate({
+    return await this.findOne({email}).populate({
         path: CATEGORIES_FIELD,
         populate: {
             path: 'paperItems',
@@ -84,11 +94,10 @@ UserSchema.statics.getUserByEmail = async function (email) {
             model: 'Search'
         }
     });
-    return user;
 };
 
 UserSchema.statics.getUserById = async function (userId) {
-    const user = await this.findById(userId).populate({
+    return await this.findById(userId).populate({
         path: CATEGORIES_FIELD,
         populate: {
             path: 'paperItems',
@@ -101,7 +110,6 @@ UserSchema.statics.getUserById = async function (userId) {
             model: 'Search'
         }
     });
-    return user;
 };
 
 UserSchema.statics.getCategories = async function (userId) {

@@ -98,7 +98,7 @@ function MyPapersContainer(props) {
         const categoryId = selectedCategoryId;
         dispatch(removeCategoryAction({
             data: {categoryId},
-            onSuccess: () => onRemoveCategorySuccess(categoryId), //TODO
+            onSuccess: () => onRemoveCategorySuccess(categoryId),
             onError: (err) => {
                 console.log(err);
             }

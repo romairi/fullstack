@@ -30,7 +30,7 @@ function SearchPaperListContainer(props) {
     const [currentSearchIncTags, setCurrentSearchIncTags] = React.useState([]);
     const [currentSearchExcTags, setCurrentSearchExcTags] = React.useState([]);
     const [isModalOpen, setModalOpen] = React.useState(false);
-    const [selectedPaperId, setSelectedPaperId] = React.useState(null);
+    const [selectedPaperId, setSelectedPapgiterId] = React.useState(null);
 
 
     const onSearchPapersSuccess = (response) => {
@@ -42,7 +42,6 @@ function SearchPaperListContainer(props) {
         dispatch(setSearchPapersAction(papers));
 
         if (response.data.search) {
-            debugger
             //TODO
             dispatch(addSearchAction(response.data.search));
         }
