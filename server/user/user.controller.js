@@ -14,7 +14,7 @@ function loadUser(req, res, user) {
     const token = jwt.sign({_id: user._id, hash: req.fingerprint.hash},
         serverConfig.jwt.secret,
         {expiresIn: TOKEN_EXPIRATION_TIME});
-    const {password: userPass, ...userArgs} = user.toObject(); // TODO CHECK ERROR
+    const {password: userPass, ...userArgs} = user.toObject();
 
     res
         .cookie('token', token, {
@@ -53,7 +53,7 @@ async function signup(req, res, next) {
 async function login(req, res, next) {
     const {email, password} = req.body;
 
-    try {   
+    try {
         const user = await UserModel.getUserByEmail(email);
         if (!user) {
             res.status(HttpStatus.BAD_REQUEST).json({type: 'error', message: ERROR_MESSAGE});

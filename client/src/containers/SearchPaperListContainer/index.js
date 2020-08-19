@@ -17,7 +17,7 @@ import Pagination from "../../components/Pagination";
 import {RESULTS_PER_PAGE} from "./constants";
 import SelectCategoryModal from "../../components/SelectCategoryModal";
 import {findCategoryByPaperId} from "../../services/findCategoryByPaperId";
-import {addPaperAction, deletePaperAction} from "../../redux/reducers/UserReducer/actions";
+import {addPaperAction, addSearchAction, deletePaperAction} from "../../redux/reducers/UserReducer/actions";
 
 
 function SearchPaperListContainer(props) {
@@ -35,15 +35,14 @@ function SearchPaperListContainer(props) {
 
     const onSearchPapersSuccess = (response) => {
         setIsLoading(false);
-        const papers =  response.data.papers;
+        const papers = response.data.papers;
         if (papers.length < RESULTS_PER_PAGE) {
             setIsLastPage(true);
         }
         dispatch(setSearchPapersAction(papers));
 
-        if ( response.data.search) {
-            debugger
-            //TODO
+        if (response.data.search) {
+            dispatch(addSearchAction(response.data.search));
         }
     };
 
@@ -52,7 +51,11 @@ function SearchPaperListContainer(props) {
         console.log(err);
     };
 
-    const onSearchButtonClicked = (searchIncTags, searchExcTags, saveSearch) => {
+    const onSearchButtonClicked = (searchIncTags, searchExcTags, saveSearch, searchName) => {
+        if (saveSearch && _.isEmpty(searchName)) {
+            searchName = searchIncTags[0];
+        }
+
         if (!_.isEmpty(searchIncTags) || !_.isEmpty(searchExcTags)) {
             setIsLoading(true);
             setCurrentPage(0);
@@ -66,6 +69,7 @@ function SearchPaperListContainer(props) {
                     start: 0,
                     maxResults: RESULTS_PER_PAGE,
                     saveSearch: saveSearch,
+                    searchName: searchName
                 },
                 onSuccess: onSearchPapersSuccess,
                 onError: onSearchPapersFailed

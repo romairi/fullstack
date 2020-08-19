@@ -44,7 +44,6 @@ function SelectCategoryModal({categories, onSelectCategoryClicked, isModalOpen, 
                         <Select
                             className="select_item"
                             native
-                            defaultValue=""
                             id="grouped-native-select"
                             value={selectedCategoryId}
                             onChange={onSelectedCategoryChange}
