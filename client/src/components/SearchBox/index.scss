@@ -25,10 +25,13 @@
 
       .search_box_textField {
         margin-right: 10px;
-        //flex-grow: 2;
         flex-grow: 0.5;
 
         .MuiInputLabel-formControl {
+          font-family: 'Dancing Script', cursive;
+        }
+
+        .MuiInputBase-input {
           font-family: 'Dancing Script', cursive;
         }
       }
@@ -57,13 +60,27 @@
 
     .search_check_box {
       margin-right: 10px;
+
       .title_check_box {
         margin: 5px;
         font-family: 'Dancing Script', cursive;
       }
-      .check_box{
+
+      .check_box {
         display: flex;
         margin-top: 2px;
+      }
+
+      .save_name_search_textField {
+        display: flex;
+
+        .MuiInputLabel-formControl {
+          font-family: 'Dancing Script', cursive;
+        }
+
+        .MuiInputBase-input {
+          font-family: 'Dancing Script', cursive;
+        }
       }
     }
 

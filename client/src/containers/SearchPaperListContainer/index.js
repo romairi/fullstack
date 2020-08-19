@@ -51,7 +51,11 @@ function SearchPaperListContainer(props) {
         console.log(err);
     };
 
-    const onSearchButtonClicked = (searchIncTags, searchExcTags, saveSearch) => {
+    const onSearchButtonClicked = (searchIncTags, searchExcTags, saveSearch, searchName) => {
+        if (saveSearch && _.isEmpty(searchName)) {
+            searchName = searchIncTags[0];
+        }
+
         if (!_.isEmpty(searchIncTags) || !_.isEmpty(searchExcTags)) {
             setIsLoading(true);
             setCurrentPage(0);
@@ -65,6 +69,7 @@ function SearchPaperListContainer(props) {
                     start: 0,
                     maxResults: RESULTS_PER_PAGE,
                     saveSearch: saveSearch,
+                    searchName: searchName
                 },
                 onSuccess: onSearchPapersSuccess,
                 onError: onSearchPapersFailed

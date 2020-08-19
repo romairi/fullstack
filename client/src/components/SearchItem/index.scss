@@ -31,6 +31,12 @@
         color: $primary_color;
         font-family: 'Dancing Script', cursive;
         text-align: start;
+
+        .search_name {
+          color: $color_black;
+          font-family: 'Dancing Script', cursive;
+          margin-left: 10px;
+        }
       }
 
       .search_list {
@@ -54,6 +60,7 @@
             flex-wrap: wrap;
             margin: 5px 5px 10px 0;
             font-size: medium;
+            font-family: 'Dancing Script', cursive;
 
             &:last-child {
               margin-right: 0;
@@ -61,7 +68,6 @@
           }
         }
       }
-
     }
 
     .card_footer {

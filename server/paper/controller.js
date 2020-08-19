@@ -4,7 +4,7 @@ const UserModel = require('../user/user.model');
 const {formatPaper} = require("../services/formatPaper");
 
 async function searchPapers(req, res, next) {
-    const {includeList, excludeList, start, maxResults, saveSearch} = req.body;
+    const {includeList, excludeList, start, maxResults, saveSearch, searchName} = req.body;
     // TODO update search list on pagination
 
     const resultPapers = await arxiv.search({
@@ -23,7 +23,7 @@ async function searchPapers(req, res, next) {
         const viewedPapers = resultPapers.map(item => item.id);
         try {
             const papers = await resultPapers.map(formatPaper);
-            const data = await UserModel.addSearch(userId, includeList, excludeList, viewedPapers);
+            const data = await UserModel.addSearch(userId, includeList, excludeList, viewedPapers, searchName);
             return res.status(HttpStatus.CREATED).json({search: data.search, papers});
 
         } catch (err) {
