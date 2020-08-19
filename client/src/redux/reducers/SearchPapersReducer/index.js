@@ -4,7 +4,6 @@ export default function searchPapersReducer(state = [], action) {
     let newState;
     switch (action.type) {
         case SET_SEARCH_PAPERS_ACTION_TYPE:
-            debugger
             newState = [...action.payload];
             break;
         default:

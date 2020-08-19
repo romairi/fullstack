@@ -54,7 +54,6 @@ export function deleteCategoryAction(categoryId) {
 }
 
 export function addSearchAction(search) {
-    debugger
     return {
         type: ADD_SEARCH_ACTION_TYPE,
         payload: {
@@ -64,7 +63,6 @@ export function addSearchAction(search) {
 }
 
 export function removeSearchAction(searchId) {
-    debugger
     return {
         type: REMOVE_SEARCH_ACTION_TYPE,
         payload: {

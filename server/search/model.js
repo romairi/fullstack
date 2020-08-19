@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const SearchSchema = new mongoose.Schema({
+    searchName: {
+        type: String,
+        required: true,
+    },
+
     include_tags: [{
         type: String,
     }],
@@ -23,7 +28,6 @@ const SearchSchema = new mongoose.Schema({
         required: true,
     },
 });
-
 
 
 SearchSchema.statics.getSearches = async function (userId) {

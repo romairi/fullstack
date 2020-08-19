@@ -1,11 +1,8 @@
 const express = require('express');
-const {saveLastSearch} = require("./controller");
-const {removeLastSearch} = require('./controller');
+const {addSearch, removeSearch} = require("./controller");
+const router = express.Router();
 
-router = express.Router();
-
-
-router.post('/save_last_search', saveLastSearch);
-router.post('/remove_last_search', removeLastSearch);
+router.post('/add_search', addSearch);
+router.post('/remove_search', removeSearch);
 
 module.exports = router;

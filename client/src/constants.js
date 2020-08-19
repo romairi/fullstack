@@ -1,4 +1,3 @@
-
 const BASE_API_PATH = '/api';
 
 // AUTH API
@@ -18,3 +17,8 @@ export const REMOVE_PAPER_PATH = `${PAPERS_API_PATH}/remove_paper`;
 const CATEGORIES_API_PATH = `${BASE_API_PATH}/categories`;
 export const ADD_CATEGORY_PATH = `${CATEGORIES_API_PATH}/add_category`;
 export const REMOVE_CATEGORY_PATH = `${CATEGORIES_API_PATH}/remove_category`;
+
+// SEARCHES API
+const SEARCHES_API_PATH = `${BASE_API_PATH}/searches`;
+export const ADD_SEARCH_PATH = `${SEARCHES_API_PATH}/add_search`;
+export const REMOVE_SEARCH_PATH = `${SEARCHES_API_PATH}/remove_search`;
