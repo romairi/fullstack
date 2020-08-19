@@ -19,6 +19,7 @@ function SearchTags({searchList, onDeleteTag}) {
 
 function SearchBox({onSearchButtonClicked}) {
     const [searchParam, setSearchParam] = React.useState('');
+    const [searchNameParam, setSearchNameParam] = React.useState('');
     const [searchIncTags, setSearchIncTags] = React.useState([]);
     const [searchExcTags, setSearchExcTags] = React.useState([]);
     const [checked, setChecked] = React.useState(false);
@@ -29,12 +30,17 @@ function SearchBox({onSearchButtonClicked}) {
     };
 
 
-    const onSearchFieldChange = event => { //TODO CHECK IF
+    const onSearchFieldChange = event => { //TODO CHECK IF + check on undefined
 
-        if(event.target.value.length > 100) {
+        if (event.target.value.length > 100) {
             return;
         }
         setSearchParam(event.target.value);
+    };
+
+    const onSearchNameChange = event => {
+
+        setSearchNameParam(event.target.value);
     };
 
     const onAddButtonClicked = (cb, tags) => {
@@ -58,6 +64,8 @@ function SearchBox({onSearchButtonClicked}) {
         setSearchIncTags([]);
         setSearchExcTags([]);
         setSearchParam('');
+        setSearchNameParam('');
+        setChecked(false);
     };
 
     return (
@@ -93,12 +101,20 @@ function SearchBox({onSearchButtonClicked}) {
                     </div>
 
                     <div className="search_check_box">
-                        <h4 className="title_check_box"><strong>To save your search, please click here</strong></h4>
+                        <h4 className="title_check_box">
+                            <strong>To save your search, please click here</strong>
+                        </h4>
                         <Checkbox
                             className="check_box"
                             checked={checked}
                             onChange={handleCheckBox}
                             inputProps={{'aria-label': 'primary checkbox'}}
+                        />
+                        <TextField className="save_name_search_textField"
+                                   type="text"
+                                   label="name search"
+                                   onChange={onSearchNameChange}
+                                   value={searchNameParam}
                         />
                     </div>
                 </div>
@@ -120,7 +136,7 @@ function SearchBox({onSearchButtonClicked}) {
                         size="medium"
                         color="primary"
                         type="submit"
-                        onClick={() => onSearchButtonClicked(searchIncTags, searchExcTags, checked)}>
+                        onClick={() => onSearchButtonClicked(searchIncTags, searchExcTags, checked, searchNameParam)}>
                         Search
                     </Button>
                     <Button

@@ -18,9 +18,9 @@ function FilterSearchTags({searchList}) {
 }
 
 function SearchItem(props) {
-
     const {
         id,
+        searchName,
         incTagsList,
         excTagsList,
         onDeleteButtonClicked
@@ -31,7 +31,10 @@ function SearchItem(props) {
             <Card className="my_searches_card">
                 <h3 className="my_searches_title"><strong>My Last Searches</strong></h3>
                 <div className="my_searches_filter_lists">
-                    <h3 className="my_last_search_title"><strong>Search Name: {id} </strong></h3>
+                    <h3 className="my_last_search_title">
+                        <strong>Search Name:</strong>
+                        <span className="search_name">{searchName}</span>
+                    </h3>
                     <div className="search_list">
                         <div className="chip_items">
                             <h4 className="title_list">

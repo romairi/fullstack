@@ -56,12 +56,13 @@ UserSchema.statics.getSearches = async function (userId) {
     return user.searches;
 };
 
-UserSchema.statics.addSearch = async function (userId, includeList, excludeList, viewedPapers) {
+UserSchema.statics.addSearch = async function (userId, includeList, excludeList, viewedPapers, searchName) {
     const searchObj = new SearchModel({
         include_tags: includeList,
         exclude_tags: excludeList,
         viewed_papers: viewedPapers,
-        user: userId
+        user: userId,
+        searchName: searchName
     });
     await this.findByIdAndUpdate(userId, {$push: {searches: searchObj.id}}, {});
     return {

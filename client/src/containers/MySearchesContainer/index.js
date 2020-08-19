@@ -10,7 +10,6 @@ function MySearchesContainer() {
     const dispatch = useDispatch();
     const searches = useSelector(state => state.user.searches);
 
-
     const onRemoveSearchSuccess = (searchId) => {
         dispatch(removeSearchAction(searchId))
     };
@@ -34,6 +33,7 @@ function MySearchesContainer() {
             return <SearchItem
                 id={item._id}
                 key={item._id}
+                searchName={item.searchName}
                 incTagsList={item.include_tags}
                 excTagsList={item.exclude_tags}
                 onDeleteButtonClicked={onRemoveSearch}/>
