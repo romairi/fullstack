@@ -16,6 +16,7 @@ services:
     restart: always
     depends_on:
       - mongo
+      - redis
 
   mongo:
     image: mongo:latest
@@ -37,5 +38,20 @@ services:
     depends_on:
       - mongo
 
+  redis:
+    image: redis
+    volumes:
+      - redis_data:/data
+
+    # rq-dashboard
+  rq-dashboard:
+    build: redis/.
+    ports:
+      - "9181:9181"
+    depends_on:
+      - redis
+    command: "rq-dashboard -H redis"
+
 volumes:
   mongodbdata:
+  redis_data:

@@ -7,6 +7,10 @@ const mongoConfig = {
     host: 'mongo',
 };
 
+const redisQueueConfig = {
+    uri: envVar.REDIS_URI,
+};
+
 const devServer = {
     hostUri: 'http://localhost:3000'
 };
@@ -23,7 +27,7 @@ const config = {
     },
     isProduction,
     publicPath: isProduction ? '' : devServer.hostUri,
-
+    redis: redisQueueConfig
 };
 
 module.exports = config;
