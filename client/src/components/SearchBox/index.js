@@ -102,7 +102,7 @@ function SearchBox({onSearchButtonClicked}) {
 
                     <div className="search_check_box">
                         <h4 className="title_check_box">
-                            <strong>To save your search, please click here</strong>
+                            <strong>To save your search, please click here </strong>
                         </h4>
                         <Checkbox
                             className="check_box"

@@ -18,7 +18,7 @@ import {
 
 function MyPapersContainer(props) {
     const dispatch = useDispatch();
-    const categories = useSelector(state => state.user.categories);
+    const categories = useSelector(state => state?.user?.categories ?? []);
     const [selectedCategoryId, setSelectedCategoryId] = React.useState(undefined);
     const [searchParam, setSearchParam] = React.useState('');
     const [isModalOpen, setModalOpen] = React.useState(false);

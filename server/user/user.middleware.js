@@ -15,6 +15,8 @@ async function auth(req, res, next) {
                     const {password: userPass, ...useArgs} = userObj.toObject();
                     user = useArgs;
                     authenticated = true;
+                } else {
+                    res.clearCookie('token');
                 }
             } else {
                 res.clearCookie('token');

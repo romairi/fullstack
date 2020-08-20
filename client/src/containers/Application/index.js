@@ -11,7 +11,6 @@ class App extends React.PureComponent {
 
     componentDidMount() {
         const {user, router} = this.props;
-
         if (_.isEmpty(user) && !_.find([LOGIN_ROUTE, SIGNUP_ROUTE],
             path => path === router.location.pathname)) {
             this.props.replace(LOGIN_ROUTE);
