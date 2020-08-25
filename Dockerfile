@@ -28,4 +28,5 @@ COPY index.js index.js
 COPY ecosystem.config.js ecosystem.config.js
 COPY server server
 
+# TODO use pm2 directlly
 CMD ["npm", "start"]

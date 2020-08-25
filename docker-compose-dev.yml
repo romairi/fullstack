@@ -12,11 +12,32 @@ services:
       - PORT=${PORT}
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - REDIS_URI=redis://:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}
     volumes:
       - ./:/usr/src/app
     restart: always
     depends_on:
       - mongo
+      - redis
+
+  workers:
+    build:
+      context: ./
+      dockerfile: ./workers/Dockerfile
+    environment:
+      - NODE_ENV="dev"
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - REDIS_URI=redis://:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}
+    volumes:
+      - ./:/usr/src/app
+    restart: always
+    depends_on:
+      - mongo
+      - redis
+    deploy:
+      mode: replicated
+      replicas: 2
 
   mongo:
     image: mongo:latest
@@ -37,6 +58,24 @@ services:
       - HOST=mongo
     depends_on:
       - mongo
+  redis:
+    build: redis/.
+    volumes:
+      - redis_data:/data
+
+  bullboard:
+    image: deadly0/bull-board
+    ports:
+      - 9181:3000
+    environment:
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      BULL_PREFIX: bull
+    depends_on:
+      - redis
+
 
 volumes:
   mongodbdata:
+  redis_data:

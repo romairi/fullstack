@@ -8,8 +8,7 @@ import {removeSearchDataAction} from "../../redux/reducers/MySearchesReducer/act
 
 function MySearchesContainer() {
     const dispatch = useDispatch();
-    const searches = useSelector(state => state.user.searches);
-
+    const searches = useSelector(state => state?.user?.searches ?? []);
     const onRemoveSearchSuccess = (searchId) => {
         dispatch(removeSearchAction(searchId))
     };
