@@ -20,6 +20,25 @@ services:
       - mongo
       - redis
 
+  workers:
+    build:
+      context: ./
+      dockerfile: ./workers/Dockerfile
+    environment:
+      - NODE_ENV="dev"
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - REDIS_URI=redis://:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}
+    volumes:
+      - ./:/usr/src/app
+    restart: always
+    depends_on:
+      - mongo
+      - redis
+    deploy:
+      mode: replicated
+      replicas: 2
+
   mongo:
     image: mongo:latest
     restart: always
@@ -56,12 +75,6 @@ services:
     depends_on:
       - redis
 
-  cron:
-    build: cron/.
-    depends_on:
-      - server
-    environment:
-      - SERVER_PORT=${PORT}
 
 volumes:
   mongodbdata:

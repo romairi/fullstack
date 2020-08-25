@@ -2,6 +2,9 @@ const HttpStatus = require('http-status-codes');
 const arxiv = require('arxiv-api');
 const UserModel = require('../user/user.model');
 const {formatPaper} = require("../services/formatPaper");
+const {getUpdatePapersQueue} = require('../configs/queueConfig'); // TODO move the function to a service
+
+const updatePapersQueue = getUpdatePapersQueue();
 
 async function searchPapers(req, res, next) {
     const {includeList, excludeList, start, maxResults, saveSearch, searchName} = req.body;
@@ -19,11 +22,14 @@ async function searchPapers(req, res, next) {
     });
 
     if (saveSearch) {
+        // TODO add only new searches
         const userId = req.user._id;
         const viewedPapers = resultPapers.map(item => item.id);
         try {
             const papers = await resultPapers.map(formatPaper);
             const data = await UserModel.addSearch(userId, includeList, excludeList, viewedPapers, searchName);
+            const job = await updatePapersQueue.add({userId, searchId: data.search.id}, { repeat: { cron: '* * * * *' } });
+
             return res.status(HttpStatus.CREATED).json({search: data.search, papers});
 
         } catch (err) {

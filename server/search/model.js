@@ -29,10 +29,8 @@ const SearchSchema = new mongoose.Schema({
     },
 });
 
-
-SearchSchema.statics.getSearches = async function (userId) {
-    const search = await this.findById(userId).populate('include_tags').populate('exclude_tags');
-    return search.include_tags;
+SearchSchema.statics.getSearchById = async function (searchId, userId) {
+    return await this.findOne({_id: searchId, user: userId});
 };
 
 module.exports = mongoose.model('Search', SearchSchema);
