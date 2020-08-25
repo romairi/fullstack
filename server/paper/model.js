@@ -5,6 +5,10 @@ const PaperItemSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    paper_id: {
+        type: String,
+        required: true,
+    },
     title: {
         type: String,
         required: true,

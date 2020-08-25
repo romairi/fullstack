@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const SearchSchema = new mongoose.Schema({
-    searchName: {
+    search_name: {
         type: String,
         required: true,
     },

@@ -1,8 +1,10 @@
 const HttpStatus = require('http-status-codes');
 const arxiv = require('arxiv-api');
 const UserModel = require('../user/user.model');
+const {MAX_PAPERS_SEARCH} = require("./constants");
 const {formatPaper} = require("../services/formatPaper");
-const {getUpdatePapersQueue} = require('../configs/queueConfig'); // TODO move the function to a service
+const {getUpdatePapersQueue} = require('../services/updateQueueService');
+// const {sentMail} = require('../../mailer/index');
 
 const updatePapersQueue = getUpdatePapersQueue();
 
@@ -18,7 +20,7 @@ async function searchPapers(req, res, next) {
             }
         ],
         start,
-        maxResults: Math.min(maxResults, 30),
+        maxResults: Math.min(maxResults, MAX_PAPERS_SEARCH),
     });
 
     if (saveSearch) {
@@ -28,8 +30,8 @@ async function searchPapers(req, res, next) {
         try {
             const papers = await resultPapers.map(formatPaper);
             const data = await UserModel.addSearch(userId, includeList, excludeList, viewedPapers, searchName);
-            const job = await updatePapersQueue.add({userId, searchId: data.search.id}, { repeat: { cron: '* * * * *' } });
-
+            const job = await updatePapersQueue.add({userId, searchId: data.search.id}, {repeat: {cron: '* * * * *'}});
+            // sentMail();
             return res.status(HttpStatus.CREATED).json({search: data.search, papers});
 
         } catch (err) {
@@ -52,7 +54,7 @@ async function getCategories(req, res, next) {
 }
 
 async function savePaper(req, res, next) {
-    const {paper, categoryId} = req.body; // TODO (If new User Check category on undefined)
+    const {paper, categoryId} = req.body;
     const userId = req.user._id;
 
     try {

@@ -62,7 +62,7 @@ UserSchema.statics.addSearch = async function (userId, includeList, excludeList,
         exclude_tags: excludeList,
         viewed_papers: viewedPapers,
         user: userId,
-        searchName: searchName
+        search_name: searchName
     });
     await this.findByIdAndUpdate(userId, {$push: {searches: searchObj.id}}, {});
     return {

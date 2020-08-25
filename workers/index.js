@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const arxiv = require('arxiv-api');
 const serverConfig = require('../server/configs/serverConfig');
-const {getUpdatePapersQueue} = require('../server/configs/queueConfig'); // TODO move the function to a service
-const UserModel = require('../server/user/user.model');
+const {getUpdatePapersQueue} = require('../server/services/updateQueueService');
 const SearchModel = require('../server/search/model');
+const {MAX_PAPERS_SEARCH} = require("../server/paper/constants");
 
 const updatePapersQueue = getUpdatePapersQueue();
 mongoose.connect(serverConfig.mongo.hostUri, {
@@ -26,7 +26,7 @@ updatePapersQueue.process(async (job) => {
             }
         ],
         start: 0,
-        maxResults: 30, // TODO make 30 const
+        maxResults: MAX_PAPERS_SEARCH,
     });
 
     const newPapers = resultPapers.filter(paper => !viewedPapersMap[paper.id]);

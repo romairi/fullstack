@@ -65,13 +65,11 @@ async function login(req, res, next) {
         if (!isMatch) {
             return res.status(HttpStatus.BAD_REQUEST).json({type: 'error', message: ERROR_MESSAGE});
         }
-
         return loadUser(req, res, user);
 
     } catch (err) {
         next(error);
     }
-
 }
 
 function logout(req, res, next) {
