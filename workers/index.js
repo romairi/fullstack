@@ -4,6 +4,7 @@ const serverConfig = require('../server/configs/serverConfig');
 const {getUpdatePapersQueue} = require('../server/services/updateQueueService');
 const SearchModel = require('../server/search/model');
 const {MAX_PAPERS_SEARCH} = require("../server/paper/constants");
+const nodemailer = require("nodemailer");
 
 const updatePapersQueue = getUpdatePapersQueue();
 mongoose.connect(serverConfig.mongo.hostUri, {
@@ -31,11 +32,12 @@ updatePapersQueue.process(async (job) => {
 
     const newPapers = resultPapers.filter(paper => !viewedPapersMap[paper.id]);
 
+
     // TODO send email - read about how to send email using nodejs, the email should include some info about the papers as following:
     // 1. card of papers: each card should include the paper's title and description (maybe some images if you want)
     // TODO add to views papers
 
-    // if users delete search (in the UI), we should remove the cron jub of the update
+    // if users delete search (in the UI), we should remove the cron job of the update
 
     console.log(viewedPapersMap);
     console.log(newPapers);
