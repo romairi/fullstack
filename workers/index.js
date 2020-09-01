@@ -18,6 +18,7 @@ console.info(`Worker is running!!`);
 updatePapersQueue.process(async (job) => {
     const {searchId, userId} = job.data;
     const searchItem = await SearchModel.getSearchById(searchId, userId);
+    console.log(searchItem)
     const {include_tags: includeList=[], exclude_tags: excludeList=[], viewed_papers: viewedPapers} = searchItem;
     const viewedPapersMap = viewedPapers.reduce((acc, cur) => ({...acc, [cur]: true}), {});
     const resultPapers = await arxiv.search({
@@ -30,7 +31,6 @@ updatePapersQueue.process(async (job) => {
         start: 0,
         maxResults: MAX_PAPERS_SEARCH,
     });
-    console.info(`after arxiv search`);
 
     const newPapers = resultPapers.filter(paper => !viewedPapersMap[paper.id]);
 
@@ -51,7 +51,7 @@ updatePapersQueue.process(async (job) => {
         replyto: workerConfig.email.addr,
         to: 'irinarhovr@gmail.com', // TODO get it from the user
         subject: "TEST TITLE",
-        html: `<p>${newPapers}</p>`,
+        html: `<p>search id ${searchId}</p>`,
     };
     smtpTransport.sendMail(mailOptions,
         (error, response) => {
@@ -76,4 +76,3 @@ process.on('SIGTERM', async () => {
     await updatePapersQueue.close();
     mongoose.connection.close();
 });
-
