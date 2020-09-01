@@ -4,8 +4,11 @@ FROM node:10.19.0-slim as base
 ARG WORKDIR_PATH=/usr/src/app
 RUN mkdir -p ${WORKDIR_PATH}
 WORKDIR ${WORKDIR_PATH}
+RUN mkdir -p ${WORKDIR_PATH}/workers
+RUN mkdir -p ${WORKDIR_PATH}/server
 
-COPY package.json .
+COPY ./workers/package*.json ${WORKDIR_PATH}/
 RUN npm i --production
-COPY . .
+COPY workers ./workers/
+COPY server ./server/
 CMD ["node", "workers"]

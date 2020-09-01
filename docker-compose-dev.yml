@@ -28,16 +28,15 @@ services:
       - NODE_ENV="dev"
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - EMAIL=${EMAIL}
+      - EMAIL_PASS=${EMAIL_PASS}
       - REDIS_URI=redis://:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}
     volumes:
-      - ./:/usr/src/app
+      - ./workers/index.js:/usr/src/app/workers/index.js
     restart: always
     depends_on:
       - mongo
       - redis
-    deploy:
-      mode: replicated
-      replicas: 2
 
   mongo:
     image: mongo:latest

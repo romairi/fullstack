@@ -55,7 +55,6 @@ function SearchPaperListContainer(props) {
         if (saveSearch && _.isEmpty(searchName)) {
             searchName = searchIncTags[0];
         }
-
         if (!_.isEmpty(searchIncTags) || !_.isEmpty(searchExcTags)) {
             setIsLoading(true);
             setCurrentPage(0);
