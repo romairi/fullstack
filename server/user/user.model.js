@@ -75,6 +75,7 @@ UserSchema.statics.removeSearch = async function (userId, searchId) {
     user.searches = user.searches.filter(item => item.id !== searchId);
     await user.save();
     await SearchModel.findOneAndRemove({_id: searchId});
+    // TODO remove the search from the queue
     return {
         searchId
     };

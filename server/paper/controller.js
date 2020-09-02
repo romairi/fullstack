@@ -30,8 +30,7 @@ async function searchPapers(req, res, next) {
         try {
             const papers = await resultPapers.map(formatPaper);
             const data = await UserModel.addSearch(userId, includeList, excludeList, viewedPapers, searchName);
-            const job = await updatePapersQueue.add({userId, searchId: data.search.id}, {repeat: {cron: '* * * * *'}});
-            // sentMail();
+            await updatePapersQueue.add({userId, searchId: data.search.id}, {repeat: {cron: '* * * * *'}});
             return res.status(HttpStatus.CREATED).json({search: data.search, papers});
 
         } catch (err) {

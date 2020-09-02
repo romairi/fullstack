@@ -32,7 +32,7 @@ services:
       - EMAIL_PASS=${EMAIL_PASS}
       - REDIS_URI=redis://:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}
     volumes:
-      - ./workers/index.js:/usr/src/app/workers/index.js
+      - ./workers/build/index.js:/usr/src/app/workers/build/index.js
     restart: always
     depends_on:
       - mongo
