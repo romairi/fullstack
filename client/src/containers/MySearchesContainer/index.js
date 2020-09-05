@@ -32,7 +32,7 @@ function MySearchesContainer() {
             return <SearchItem
                 id={item._id}
                 key={item._id}
-                searchName={item.searchName}
+                searchName={item.search_name}
                 incTagsList={item.include_tags}
                 excTagsList={item.exclude_tags}
                 onDeleteButtonClicked={onRemoveSearch}/>

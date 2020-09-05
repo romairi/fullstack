@@ -62,7 +62,7 @@ UserSchema.statics.addSearch = async function (userId, includeList, excludeList,
         exclude_tags: excludeList,
         viewed_papers: viewedPapers,
         user: userId,
-        searchName: searchName
+        search_name: searchName
     });
     await this.findByIdAndUpdate(userId, {$push: {searches: searchObj.id}}, {});
     return {
@@ -75,6 +75,7 @@ UserSchema.statics.removeSearch = async function (userId, searchId) {
     user.searches = user.searches.filter(item => item.id !== searchId);
     await user.save();
     await SearchModel.findOneAndRemove({_id: searchId});
+    // TODO remove the search from the queue
     return {
         searchId
     };

@@ -1,0 +1,35 @@
+{
+  "name": "worker",
+  "version": "1.0.0",
+  "description": "workers",
+  "main": "build/index.js",
+  "scripts": {
+    "start": "node build/index.js",
+    "build": "webpack",
+    "watch": "npm run build -- --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "arxiv-api": "^1.1.1",
+    "bull": "^3.18.0",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.9.7",
+    "nodemailer": "^6.4.11",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-html-email": "^3.0.0",
+    "redis": "^3.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.11.5",
+    "@babel/core": "^7.11.5",
+    "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-node-externals": "^2.5.2"
+  }
+}

@@ -1,5 +1,5 @@
 const Bull = require('bull');
-const {redis} = require('./serverConfig');
+const {redis} = require('../configs/serverConfig');
 
 const UPDATE_PAPERS_QUEUE_NAME = 'UPDATE_PAPERS';
 
