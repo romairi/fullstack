@@ -1,15 +1,14 @@
-// TODO convert every require to import
-
 import React from 'react';
-const mongoose = require('mongoose');
-const arxiv = require('arxiv-api');
-const serverConfig = require('../../server/configs/serverConfig');
-const workerConfig = require('../../server/configs/workerConfig');
-const {getUpdatePapersQueue} = require('../../server/services/updateQueueService');
-const {MAX_PAPERS_SEARCH} = require("../../server/paper/constants");
-const nodemailer = require("nodemailer");
-const {renderEmail} = require('react-html-email');
+import mongoose from 'mongoose';
+import arxiv from 'arxiv-api';
+import serverConfig from '../../server/configs/serverConfig';
+import workerConfig from '../../server/configs/workerConfig';
+import {getUpdatePapersQueue} from '../../server/services/updateQueueService';
+import {MAX_PAPERS_SEARCH} from "../../server/paper/constants";
+import nodemailer from "nodemailer";
+import {renderEmail} from 'react-html-email';
 import PaperList from './components/PaperList';
+import SearchModel from '../../server/search/model';
 
 const updatePapersQueue = getUpdatePapersQueue();
 mongoose.connect(serverConfig.mongo.hostUri, {
@@ -17,7 +16,7 @@ mongoose.connect(serverConfig.mongo.hostUri, {
     useUnifiedTopology: true,
     useFindAndModify: false
 });
-const SearchModel = require('../../server/search/model');
+
 
 console.info(`Worker is running!!`);
 updatePapersQueue.process(async (job) => {
@@ -43,6 +42,7 @@ updatePapersQueue.process(async (job) => {
         // 1. card of papers: each card should include the paper's title and description (maybe some images if you want)
 
         const html = renderEmail(<PaperList papers={newPapers}/>);
+        // const getUserEmail =
 
         // TODO extract mail function to a service
         const smtpTransport = nodemailer.createTransport({

@@ -4,8 +4,6 @@ const UserModel = require('../user/user.model');
 const {MAX_PAPERS_SEARCH} = require("./constants");
 const {formatPaper} = require("../services/formatPaper");
 const {getUpdatePapersQueue} = require('../services/updateQueueService');
-// const {sentMail} = require('../../mailer/index');
-
 const updatePapersQueue = getUpdatePapersQueue();
 
 async function searchPapers(req, res, next) {
