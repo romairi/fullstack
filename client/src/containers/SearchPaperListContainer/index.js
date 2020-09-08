@@ -42,6 +42,7 @@ function SearchPaperListContainer(props) {
         dispatch(setSearchPapersAction(papers));
 
         if (response.data.search) {
+            debugger
             dispatch(addSearchAction(response.data.search));
         }
     };

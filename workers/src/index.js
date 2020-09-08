@@ -8,7 +8,6 @@ import {MAX_PAPERS_SEARCH} from "../../server/paper/constants";
 import nodemailer from "nodemailer";
 import {renderEmail} from 'react-html-email';
 import PaperList from './components/PaperList';
-import SearchModel from '../../server/search/model';
 
 const updatePapersQueue = getUpdatePapersQueue();
 mongoose.connect(serverConfig.mongo.hostUri, {
@@ -17,6 +16,7 @@ mongoose.connect(serverConfig.mongo.hostUri, {
     useFindAndModify: false
 });
 
+import SearchModel from '../../server/search/model';
 
 console.info(`Worker is running!!`);
 updatePapersQueue.process(async (job) => {
