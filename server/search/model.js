@@ -22,6 +22,11 @@ const SearchSchema = new mongoose.Schema({
         type: String,
     }],
 
+    job_id: [{
+        type: String,
+        required: false,
+    }],
+
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

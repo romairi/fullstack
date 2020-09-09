@@ -3,12 +3,12 @@ import {Box, Item, A} from 'react-html-email';
 
 const cardStyle = {
     backgroundColor: "#f7f7f7",
-    padding: "10px 40px",
+    padding: "10px 20px",
 };
 
 export default function PaperCard({paper}) {
     return (
-        <Box>
+        <Box cellspacing={20}>
             <Item style={cardStyle}>
                 <h3>{paper.title}</h3>
 

@@ -4,7 +4,7 @@ ARG WORKDIR_PATH=/usr/src/app
 RUN mkdir -p ${WORKDIR_PATH}
 WORKDIR ${WORKDIR_PATH}
 
-COPY client/package.json .
+COPY ./client/package*.json ${WORKDIR_PATH}/
 RUN npm i
 COPY client .
 RUN npm run build

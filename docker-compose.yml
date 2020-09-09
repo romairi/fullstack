@@ -6,13 +6,29 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "${EXTERNAL_PORT}:${PORT}"
-      - "${EXTERNAL_PORT}:${PORT}"
     environment:
       - NODE_ENV="production"
       - PORT=${PORT}
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - REDIS_URI=redis://:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}
 
+    restart: always
+    depends_on:
+      - mongo
+      - redis
+
+  workers:
+    build:
+      context: ./
+      dockerfile: ./workers/Dockerfile
+    environment:
+      - NODE_ENV="production"
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - EMAIL=${EMAIL}
+      - EMAIL_PASS=${EMAIL_PASS}
+      - REDIS_URI=redis://:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}
     restart: always
     depends_on:
       - mongo
@@ -37,14 +53,17 @@ services:
       - HOST=mongo
     depends_on:
       - mongo
+    restart: always
 
   redis:
     image: redis
+    restart: always
     volumes:
       - redis_data:/data
 
   bullboard:
     image: deadly0/bull-board
+    restart: always
     ports:
       - 9181:3000
     environment:

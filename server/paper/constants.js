@@ -1,3 +1,3 @@
 const MAX_PAPERS_SEARCH = 30;
-
-module.exports = {MAX_PAPERS_SEARCH};
+const MAX_SAVES_SEARCH = 5;
+module.exports = {MAX_PAPERS_SEARCH, MAX_SAVES_SEARCH};
