@@ -56,7 +56,7 @@ function SearchPaperListContainer(props) {
 
     const onSearchButtonClicked = (searchIncTags, searchExcTags, saveSearch, searchName) => {
         if (saveSearch && _.isEmpty(searchName)) {
-            searchName = searchIncTags[0];
+            searchName = searchIncTags.join();
         }
         if (!_.isEmpty(searchIncTags) || !_.isEmpty(searchExcTags)) {
             setIsLoading(true);

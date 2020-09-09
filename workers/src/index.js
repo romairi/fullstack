@@ -22,7 +22,12 @@ console.info(`Worker is running!!`);
 updatePapersQueue.process('searches', async (job) => {
     const {searchId, userId} = job.data;
     const searchItem = await SearchModel.getSearchById(searchId, userId);
-    const {include_tags: includeList = [], exclude_tags: excludeList = [], viewed_papers: viewedPapers, search_name: searchName} = searchItem;
+    const {
+        include_tags: includeList = [],
+        exclude_tags: excludeList = [],
+        viewed_papers: viewedPapers,
+        search_name: searchName
+    } = searchItem;
     const viewedPapersMap = viewedPapers.reduce((acc, cur) => ({...acc, [cur]: true}), {});
     const resultPapers = await arxiv.search({
         searchQueryParams: [
@@ -40,10 +45,10 @@ updatePapersQueue.process('searches', async (job) => {
     if (newPapers.length > 0) {
         const user = await UserModel.findById(userId);
 
-        if(user) {
+        if (user) {
             sendEmail({
                 to: user.email,
-                subject: `new papers were found for search "${searchName}"`,
+                subject: `New papers were found for the search "${searchName}"`,
                 html: renderEmail(<PaperList papers={newPapers}/>),
                 callback: error => {
                     if (error) {
@@ -53,9 +58,8 @@ updatePapersQueue.process('searches', async (job) => {
             });
 
             await SearchModel.addNewPapers(searchId, newPapers.map(p => p.id));
-            // TODO add to views papers
         } else {
-            console.log("can't find user id: ", userId);
+            console.log("Can't find user-id: ", userId);
         }
 
     }
