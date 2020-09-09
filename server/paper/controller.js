@@ -2,7 +2,7 @@ const HttpStatus = require('http-status-codes');
 const arxiv = require('arxiv-api');
 const UserModel = require('../user/user.model');
 const {searchCronValue} = require("../configs/queueConfig");
-const {MAX_PAPERS_SEARCH, MAX_SAVES_SEARCH} = require("./constants");
+const {MAX_PAPERS_SEARCH, MAX_SAVES_SEARCH, ERROR_SEARCH} = require("./constants");
 const {formatPaper} = require("../services/formatPaper");
 const {getUpdatePapersQueue} = require('../services/updateQueueService');
 const updatePapersQueue = getUpdatePapersQueue();
@@ -27,7 +27,7 @@ async function searchPapers(req, res, next) {
         const userId = req.user._id;
         const countSearches = req.user.searches.length;
         if(countSearches === MAX_SAVES_SEARCH){
-            return res.json({papers: resultPapers.map(formatPaper)}); // TODO return proper message
+            return res.json({ papers: resultPapers.map(formatPaper), error: ERROR_SEARCH});
         }
 
         const viewedPapers = resultPapers.map(item => item.id);

@@ -19,7 +19,6 @@ import SelectCategoryModal from "../../components/SelectCategoryModal";
 import {findCategoryByPaperId} from "../../services/findCategoryByPaperId";
 import {addPaperAction, addSearchAction, deletePaperAction} from "../../redux/reducers/UserReducer/actions";
 
-
 function SearchPaperListContainer(props) {
     const categories = useSelector(state => state.user.categories);
     const papers = useSelector(state => state.searchPapers);
@@ -35,6 +34,10 @@ function SearchPaperListContainer(props) {
 
     const onSearchPapersSuccess = (response) => {
         setIsLoading(false);
+        const error = response.data.error;
+        if (error) {
+            window.alert(error);
+        }
         const papers = response.data.papers;
         if (papers.length < RESULTS_PER_PAGE) {
             setIsLastPage(true);
@@ -42,7 +45,6 @@ function SearchPaperListContainer(props) {
         dispatch(setSearchPapersAction(papers));
 
         if (response.data.search) {
-            debugger
             dispatch(addSearchAction(response.data.search));
         }
     };
