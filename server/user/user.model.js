@@ -58,7 +58,7 @@ UserSchema.statics.getSearches = async function (userId) {
     return user.searches;
 };
 
-UserSchema.statics.addSearch = async function (userId, includeList, excludeList, viewedPapers, searchName) {
+UserSchema.statics.addSearch = async function (userId, includeList, excludeList, viewedPapers, searchName, saveSearch) {
     const searchObj = new SearchModel({
         include_tags: includeList,
         exclude_tags: excludeList,
@@ -66,7 +66,17 @@ UserSchema.statics.addSearch = async function (userId, includeList, excludeList,
         user: userId,
         search_name: searchName
     });
-
+    if (saveSearch) {
+        const user = await this.findById(userId).populate(SEARCH_FIELD);
+        const prevSearches = user.searches.map(s => s).map(item => item.include_tags[0]).map(tag => tag.toLowerCase());
+        const currentSearch = searchObj.include_tags.map(item => item).map(tag => tag.toLowerCase());
+        const found = prevSearches.includes(currentSearch);
+        if (found) {
+            return {
+                search: null
+            }
+        }
+    }
     await this.findByIdAndUpdate(userId, {$push: {searches: searchObj.id}}, {});
     return {
         search: await searchObj.save(),
