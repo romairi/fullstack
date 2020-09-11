@@ -18,6 +18,7 @@ import {RESULTS_PER_PAGE} from "./constants";
 import SelectCategoryModal from "../../components/SelectCategoryModal";
 import {findCategoryByPaperId} from "../../services/findCategoryByPaperId";
 import {addPaperAction, addSearchAction, deletePaperAction} from "../../redux/reducers/UserReducer/actions";
+import MessageAlert from "../../components/Alert";
 
 function SearchPaperListContainer(props) {
     const categories = useSelector(state => state.user.categories);
@@ -30,13 +31,13 @@ function SearchPaperListContainer(props) {
     const [currentSearchExcTags, setCurrentSearchExcTags] = React.useState([]);
     const [isModalOpen, setModalOpen] = React.useState(false);
     const [selectedPaperId, setSelectedPaperId] = React.useState(null);
-
+    const [error, setError] = React.useState(null);
 
     const onSearchPapersSuccess = (response) => {
         setIsLoading(false);
         const error = response.data.error;
         if (error) {
-            window.alert(error);
+            setError(error)
         }
         const papers = response.data.papers;
         if (papers.length < RESULTS_PER_PAGE) {
@@ -178,6 +179,7 @@ function SearchPaperListContainer(props) {
     return (
         <div className="papers_container">
             <SearchBox onSearchButtonClicked={onSearchButtonClicked}/>
+            <MessageAlert error={error}/>
             <SpinnerContainer isLoading={isLoading}>
                 {paperElements}
                 {pagination}

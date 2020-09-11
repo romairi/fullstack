@@ -24,7 +24,6 @@ function SearchBox({onSearchButtonClicked}) {
     const [searchExcTags, setSearchExcTags] = React.useState([]);
     const [checked, setChecked] = React.useState(false);
 
-
     const handleCheckBox = (event) => {
         setChecked(event.target.checked);
     };
