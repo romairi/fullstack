@@ -2,7 +2,13 @@ const HttpStatus = require('http-status-codes');
 const arxiv = require('arxiv-api');
 const UserModel = require('../user/user.model');
 const {searchCronValue} = require("../configs/queueConfig");
-const {MAX_PAPERS_SEARCH, MAX_SAVES_SEARCH, ERROR_COUNT_SEARCH, ERROR_UNIQUE_SEARCH} = require("./constants");
+const {
+    MAX_PAPERS_SEARCH,
+    MAX_SAVES_SEARCH,
+    ERROR_COUNT_SEARCH,
+    ERROR_UNIQUE_SEARCH,
+    ERROR_INCLUDE_TAG
+} = require("./constants");
 const {formatPaper} = require("../services/formatPaper");
 const {getUpdatePapersQueue} = require('../services/updateQueueService');
 const updatePapersQueue = getUpdatePapersQueue();
@@ -10,6 +16,10 @@ const updatePapersQueue = getUpdatePapersQueue();
 async function searchPapers(req, res, next) {
     const {includeList, excludeList, start, maxResults, saveSearch, searchName} = req.body;
     // TODO update search list on pagination
+
+    if (includeList.length < 1) {
+        return res.json({papers: [], error: ERROR_INCLUDE_TAG});
+    }
 
     const resultPapers = await arxiv.search({
         searchQueryParams: [

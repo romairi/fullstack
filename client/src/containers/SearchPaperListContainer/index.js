@@ -56,10 +56,14 @@ function SearchPaperListContainer(props) {
     };
 
     const onSearchButtonClicked = (searchIncTags, searchExcTags, saveSearch, searchName) => {
-        if (saveSearch && _.isEmpty(searchName)) {
-            searchName = searchIncTags.join();
-        }
-        if (!_.isEmpty(searchIncTags) || !_.isEmpty(searchExcTags)) {
+        if (_.isEmpty(searchIncTags)) {
+            setError('You must fill at least one include tags for searching');
+        } else {
+
+            if (saveSearch && _.isEmpty(searchName)) {
+                searchName = searchIncTags.join();
+            }
+
             setIsLoading(true);
             setCurrentPage(0);
             setCurrentSearchIncTags(searchIncTags);
@@ -77,6 +81,7 @@ function SearchPaperListContainer(props) {
                 onSuccess: onSearchPapersSuccess,
                 onError: onSearchPapersFailed
             }));
+            setError(null);
         }
     };
 
