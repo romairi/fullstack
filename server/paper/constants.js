@@ -1,5 +1,5 @@
 const MAX_PAPERS_SEARCH = 30;
-const MAX_SAVES_SEARCH = 8;
+const MAX_SAVES_SEARCH = 10;
 const ERROR_COUNT_SEARCH = 'Exceeding the search limit. If you want to save the current' +
     ' search you must delete one of the previous ones';
 const ERROR_UNIQUE_SEARCH = 'The parameters of the search have already existed, your search has not been saved';
