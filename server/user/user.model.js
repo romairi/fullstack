@@ -1,6 +1,7 @@
 const CategoryModel = require('../category/model');
 const SearchModel = require('../search/model');
 const mongoose = require('mongoose');
+const {uniqueSearch} = require("../services/addUniqueSearchService");
 const {searchCronValue} = require("../configs/queueConfig");
 const {getUpdatePapersQueue} = require("../services/updateQueueService");
 
@@ -58,7 +59,7 @@ UserSchema.statics.getSearches = async function (userId) {
     return user.searches;
 };
 
-UserSchema.statics.addSearch = async function (userId, includeList, excludeList, viewedPapers, searchName) {
+UserSchema.statics.addSearch = async function (userId, includeList, excludeList, viewedPapers, searchName, saveSearch) {
     const searchObj = new SearchModel({
         include_tags: includeList,
         exclude_tags: excludeList,
@@ -66,7 +67,17 @@ UserSchema.statics.addSearch = async function (userId, includeList, excludeList,
         user: userId,
         search_name: searchName
     });
+    if (saveSearch) {
+        const user = await this.findById(userId).populate(SEARCH_FIELD);
+        const foundSimilarSearch  = uniqueSearch(user.searches, searchObj.include_tags, searchObj.exclude_tags);
 
+        if (foundSimilarSearch) {
+            return {
+                search: null
+            }
+        }
+
+    }
     await this.findByIdAndUpdate(userId, {$push: {searches: searchObj.id}}, {});
     return {
         search: await searchObj.save(),

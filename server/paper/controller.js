@@ -2,7 +2,13 @@ const HttpStatus = require('http-status-codes');
 const arxiv = require('arxiv-api');
 const UserModel = require('../user/user.model');
 const {searchCronValue} = require("../configs/queueConfig");
-const {MAX_PAPERS_SEARCH, MAX_SAVES_SEARCH} = require("./constants");
+const {
+    MAX_PAPERS_SEARCH,
+    MAX_SAVES_SEARCH,
+    ERROR_COUNT_SEARCH,
+    ERROR_UNIQUE_SEARCH,
+    ERROR_INCLUDE_TAG
+} = require("./constants");
 const {formatPaper} = require("../services/formatPaper");
 const {getUpdatePapersQueue} = require('../services/updateQueueService');
 const updatePapersQueue = getUpdatePapersQueue();
@@ -10,6 +16,10 @@ const updatePapersQueue = getUpdatePapersQueue();
 async function searchPapers(req, res, next) {
     const {includeList, excludeList, start, maxResults, saveSearch, searchName} = req.body;
     // TODO update search list on pagination
+
+    if (includeList.length < 1) {
+        return res.json({papers: [], error: ERROR_INCLUDE_TAG});
+    }
 
     const resultPapers = await arxiv.search({
         searchQueryParams: [
@@ -26,20 +36,27 @@ async function searchPapers(req, res, next) {
         // TODO add only new searches
         const userId = req.user._id;
         const countSearches = req.user.searches.length;
-        if(countSearches === MAX_SAVES_SEARCH){
-            return res.json({papers: resultPapers.map(formatPaper)}); // TODO return proper message
+        if (countSearches === MAX_SAVES_SEARCH) {
+            return res.json({papers: resultPapers.map(formatPaper), error: ERROR_COUNT_SEARCH});
         }
 
         const viewedPapers = resultPapers.map(item => item.id);
         try {
             const papers = await resultPapers.map(formatPaper);
-            const {search} = await UserModel.addSearch(userId, includeList, excludeList, viewedPapers, searchName);
-            const job = await updatePapersQueue.add('searches', {userId, searchId: search.id}, {repeat: {cron: searchCronValue}});
+            const {search} = await UserModel.addSearch(userId, includeList, excludeList, viewedPapers, searchName, saveSearch);
+            if (search === null) {
+                return res.json({papers: resultPapers.map(formatPaper), error: ERROR_UNIQUE_SEARCH});
+            }
+
+            const job = await updatePapersQueue.add('searches', {
+                userId,
+                searchId: search.id
+            }, {repeat: {cron: searchCronValue}});
+
             search.job_id = job.opts.jobId;
             await search.save();
 
             return res.status(HttpStatus.CREATED).json({search, papers});
-
         } catch (err) {
             next(err);
         }

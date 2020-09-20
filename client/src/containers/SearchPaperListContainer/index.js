@@ -18,7 +18,7 @@ import {RESULTS_PER_PAGE} from "./constants";
 import SelectCategoryModal from "../../components/SelectCategoryModal";
 import {findCategoryByPaperId} from "../../services/findCategoryByPaperId";
 import {addPaperAction, addSearchAction, deletePaperAction} from "../../redux/reducers/UserReducer/actions";
-
+import MessageAlert from "../../components/Alert";
 
 function SearchPaperListContainer(props) {
     const categories = useSelector(state => state.user.categories);
@@ -31,10 +31,14 @@ function SearchPaperListContainer(props) {
     const [currentSearchExcTags, setCurrentSearchExcTags] = React.useState([]);
     const [isModalOpen, setModalOpen] = React.useState(false);
     const [selectedPaperId, setSelectedPaperId] = React.useState(null);
-
+    const [error, setError] = React.useState(null);
 
     const onSearchPapersSuccess = (response) => {
         setIsLoading(false);
+        const error = response.data.error;
+        if (error) {
+            setError(error)
+        }
         const papers = response.data.papers;
         if (papers.length < RESULTS_PER_PAGE) {
             setIsLastPage(true);
@@ -42,7 +46,6 @@ function SearchPaperListContainer(props) {
         dispatch(setSearchPapersAction(papers));
 
         if (response.data.search) {
-            debugger
             dispatch(addSearchAction(response.data.search));
         }
     };
@@ -53,10 +56,14 @@ function SearchPaperListContainer(props) {
     };
 
     const onSearchButtonClicked = (searchIncTags, searchExcTags, saveSearch, searchName) => {
-        if (saveSearch && _.isEmpty(searchName)) {
-            searchName = searchIncTags[0];
-        }
-        if (!_.isEmpty(searchIncTags) || !_.isEmpty(searchExcTags)) {
+        if (_.isEmpty(searchIncTags)) {
+            setError('You must fill at least one include tags for searching');
+        } else {
+
+            if (saveSearch && _.isEmpty(searchName)) {
+                searchName = searchIncTags.join();
+            }
+
             setIsLoading(true);
             setCurrentPage(0);
             setCurrentSearchIncTags(searchIncTags);
@@ -74,6 +81,7 @@ function SearchPaperListContainer(props) {
                 onSuccess: onSearchPapersSuccess,
                 onError: onSearchPapersFailed
             }));
+            setError(null);
         }
     };
 
@@ -176,6 +184,7 @@ function SearchPaperListContainer(props) {
     return (
         <div className="papers_container">
             <SearchBox onSearchButtonClicked={onSearchButtonClicked}/>
+            <MessageAlert error={error}/>
             <SpinnerContainer isLoading={isLoading}>
                 {paperElements}
                 {pagination}
