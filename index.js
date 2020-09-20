@@ -15,4 +15,4 @@ mongoose.connect(serverConfig.mongo.hostUri, {
 
 middleware(app);
 
-app.listen(serverConfig.port, () => console.log(`Example app listening on port ${serverConfig.port}!`));
+app.listen(serverConfig.port, () => console.log(`app listening on port ${serverConfig.port}!`));
