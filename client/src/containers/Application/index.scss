@@ -46,27 +46,8 @@
     @media(max-width: $max-xs) {
       .nav_another_page {
         margin-top: 5px;
-        width: 300px;
+        width: $max-xs;
         margin-left: -8px;
-        font-family: 'Dancing Script', cursive;
-
-        a:link, a:visited {
-          display: inline-block;
-          padding: 5px 10px;
-          text-align: center;
-          text-decoration: none;
-          color: $color_black;
-          font-weight: 500;
-          font-family: 'Dancing Script', cursive;
-        }
-      }
-    }
-
-    @media(max-width: $max-xxs) {
-      .nav_another_page {
-        margin-top: 5px;
-        width: $max-xxs;
-        margin-left: -12px;
         font-family: 'Dancing Script', cursive;
 
         a:link, a:visited {

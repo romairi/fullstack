@@ -66,6 +66,20 @@
             background-color: $primary_hover_color;
           }
         }
+
+        @media(max-width: $max-sm) {
+          .remove_category {
+            margin: 30px 0 0 0;
+            width: 100%;
+            font-family: "Dancing Script", cursive;
+            color: #fff;
+            background-color: #3f51b5;
+
+            &:hover {
+              background-color: $primary_hover_color;
+            }
+          }
+        }
       }
 
       .category_item_footer {
@@ -84,7 +98,7 @@
           }
         }
 
-        @media(max-width: 1250px) {
+        @media(max-width: $max-sm) {
           display: flex;
           justify-content: flex-start;
 
@@ -97,60 +111,10 @@
           .btn_topic {
             margin-top: 30px;
             width: 100%;
-            background-color: $primary_color;
-            color: $color_white;
-            font-size: large;
-            font-family: 'Dancing Script', cursive;
-
-            &:hover {
-              background-color: $primary_hover_color;
-            }
-          }
-
-          .remove_category {
-            margin-top: 30px;
-            margin-left: 45px;
-            width: 100%;
-            font-family: 'Dancing Script', cursive;
-            color: $color_white;
-            background-color: $primary_color;
-
-            &:hover {
-              background-color: $primary_hover_color;
-            }
-          }
-        }
-
-        @media(max-width: 800px) {
-          display: flex;
-          justify-content: flex-start;
-
-          .select_item {
-            font-family: 'Dancing Script', cursive;
-            font-size: large;
-            width: 100%;
-          }
-
-          .btn_topic {
-            margin-top: 30px;
-            width: 100%;
-            background-color: $primary_color;
-            color: $color_white;
-            font-size: large;
-            font-family: 'Dancing Script', cursive;
-
-            &:hover {
-              background-color: $primary_hover_color;
-            }
-          }
-
-          .remove_category {
-            margin-top: 30px;
-            margin-left: 45px;
-            width: 100%;
-            font-family: 'Dancing Script', cursive;
-            color: $color_white;
-            background-color: $primary_color;
+            background-color: #3f51b5;
+            color: #fff;
+            font-size: medium;
+            font-family: "Dancing Script", cursive;
 
             &:hover {
               background-color: $primary_hover_color;

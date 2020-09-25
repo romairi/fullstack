@@ -51,7 +51,7 @@
           display: inline-flex;
         }
 
-        @media(max-width: $max-xxs) {
+        @media(max-width: $max-xs) {
           display: flex;
           flex-direction: column;
         }
