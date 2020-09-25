@@ -10,7 +10,7 @@ import Select from "@material-ui/core/Select/Select";
 function SelectCategoryModal({categories, onSelectCategoryClicked, isModalOpen, setModalOpen}) {
     let [selectedCategoryId, setSelectedCategoryId] = React.useState(undefined);
 
-    const categoriesOptions = categories.map(c => <option key={c._id} value={c._id}>{c.name}</option>);
+    const categoriesOptions = categories?.map(c => <option key={c._id} value={c._id}>{c.name}</option>);
 
     const onSelectButtonClicked = () => {
         if (selectedCategoryId === undefined) {

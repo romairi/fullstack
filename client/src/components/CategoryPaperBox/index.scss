@@ -121,6 +121,10 @@
             }
           }
         }
+        @media(max-width: $max-xl) {
+          display: flex;
+          justify-content: flex-start;
+        }
       }
     }
   }
