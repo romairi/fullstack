@@ -72,6 +72,10 @@
       .btn_save {
         margin-top: 22px;
         font-family: 'Dancing Script', cursive;
+
+        @media(max-width: $max-sm) {
+          width: 100%;
+        }
       }
     }
   }

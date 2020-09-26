@@ -40,6 +40,11 @@
         margin-right: 10px;
         margin-left: 10px;
         font-family: 'Dancing Script', cursive;
+
+        @media(min-width: $min-sm) {
+          display: inline-flex;
+          margin-bottom: 15px
+        }
       }
 
       .search_box_buttons {
@@ -49,12 +54,14 @@
 
         @media(max-width: $max-sm) {
           display: inline-flex;
+          margin-bottom: 15px;
+          justify-content: center;
         }
+      }
 
-        @media(max-width: $max-xxs) {
-          display: flex;
-          flex-direction: column;
-        }
+      @media(max-width: $max-sm) {
+        display: flex;
+        flex-direction: column;
       }
     }
 
@@ -82,6 +89,13 @@
           font-family: 'Dancing Script', cursive;
         }
       }
+
+      @media(max-width: $max-sm) {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        margin-bottom: 20px;
+      }
     }
 
     .search_box_result {
@@ -99,7 +113,22 @@
       .search_box_submit_btn {
         margin-left: 15px;
         font-family: 'Dancing Script', cursive;
+
+        @media(max-width: $max-sm) {
+          margin-top: 15px;
+          width: 90%;
+          //margin-left: 0;
+          font-family: 'Dancing Script', cursive;
+        }
       }
+
+      @media(max-width: $max-sm) {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    @media(max-width: $max-sm) {
+      padding: 35px 30px;
     }
   }
 }

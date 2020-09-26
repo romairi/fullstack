@@ -33,7 +33,6 @@ async function searchPapers(req, res, next) {
     });
 
     if (saveSearch) {
-        // TODO add only new searches
         const userId = req.user._id;
         const countSearches = req.user.searches.length;
         if (countSearches === MAX_SAVES_SEARCH) {
@@ -99,6 +98,5 @@ async function removePaper(req, res, next) {
         next(err);
     }
 }
-
 
 module.exports = {getCategories, searchPapers, savePaper, removePaper};
