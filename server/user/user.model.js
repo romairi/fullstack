@@ -13,6 +13,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    is_admin: {
+        type: Boolean,
+        default: false
+    },
     email: {
         type: String,
         required: true,
@@ -69,7 +73,7 @@ UserSchema.statics.addSearch = async function (userId, includeList, excludeList,
     });
     if (saveSearch) {
         const user = await this.findById(userId).populate(SEARCH_FIELD);
-        const isUnique  = uniqueSearch(user.searches, searchObj.include_tags, searchObj.exclude_tags);
+        const isUnique = uniqueSearch(user.searches, searchObj.include_tags, searchObj.exclude_tags);
 
         if (!isUnique) {
             return {

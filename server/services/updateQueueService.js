@@ -17,3 +17,4 @@ const limiter = {
 const getUpdatePapersQueue = () => new Bull(UPDATE_PAPERS_QUEUE_NAME, redis.uri, {defaultJobOptions, limiter});
 
 module.exports = {getUpdatePapersQueue, UPDATE_PAPERS_QUEUE_NAME};
+

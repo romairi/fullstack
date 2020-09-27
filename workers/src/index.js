@@ -19,7 +19,9 @@ import {renderEmail} from "react-html-email";
 import PaperList from "./components/PaperList";
 
 console.info(`Worker is running!!`);
-updatePapersQueue.process('searches', async (job) => {
+
+// TODO KUE NEW KEU
+updatePapersQueue.process('searches', async (job, done) => {  // call lfunction done if
     const {searchId, userId} = job.data;
     const searchItem = await SearchModel.getSearchById(searchId, userId);
     const {

@@ -13,9 +13,7 @@ router.use('/api/papers', paperRoutes);
 router.use('/api/categories', categoriesRoutes);
 router.use('/api/searches', searchesRoutes);
 
-router.use('/api/update_data', (req, res) => {
-    console.log('UPDATE_DATA!!!!!!');
-});
+//router.use('/admin', adminRoutes)
 
 router.use('/', (req, res) => {
     const clientData = JSON.stringify({user: req.user});

@@ -47,13 +47,14 @@ async function searchPapers(req, res, next) {
                 return res.json({papers: resultPapers.map(formatPaper), error: ERROR_UNIQUE_SEARCH});
             }
 
-            const job = await updatePapersQueue.add('searches', {
-                userId,
-                searchId: search.id
-            }, {repeat: {cron: searchCronValue}});
-
-            search.job_id = job.opts.jobId;
-            await search.save();
+            // TODO CREATE KUE instances ADD ITEM TO THE  quename = Searcjes, delay = 1000
+            // const job = await updatePapersQueue.add('searches', {
+            //     userId,
+            //     searchId: search.id
+            // }, {repeat: {cron: searchCronValue}});
+            //
+            // search.job_id = job.opts.jobId;
+            // await search.save();
 
             return res.status(HttpStatus.CREATED).json({search, papers});
         } catch (err) {
