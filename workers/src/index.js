@@ -2,10 +2,11 @@ import React from 'react';
 import mongoose from 'mongoose';
 import arxiv from 'arxiv-api';
 import serverConfig from '../../server/configs/serverConfig';
-import {getUpdatePapersQueue} from '../../server/services/updateQueueService';
+import {KueService} from '../../server/services/queueService';
 import {MAX_PAPERS_SEARCH} from "../../server/paper/constants";
 
-const updatePapersQueue = getUpdatePapersQueue();
+
+const updatePapersQueue = new KueService();
 mongoose.connect(serverConfig.mongo.hostUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -20,9 +21,10 @@ import PaperList from "./components/PaperList";
 
 console.info(`Worker is running!!`);
 
-// TODO KUE NEW KEU
-updatePapersQueue.process('searches', async (job, done) => {  // call lfunction done if
+updatePapersQueue.process('searches', async (job, done) => {
     const {searchId, userId} = job.data;
+    console.log(searchId);
+    console.log(userId);
     const searchItem = await SearchModel.getSearchById(searchId, userId);
     const {
         include_tags: includeList = [],
@@ -68,6 +70,7 @@ updatePapersQueue.process('searches', async (job, done) => {  // call lfunction 
 
     // if users delete search (in the UI), we should remove the cron job of the update
     console.log('finish job');
+    done();
 });
 
 

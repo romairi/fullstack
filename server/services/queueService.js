@@ -1,8 +1,11 @@
 const kue = require('kue');
 
 class QueueService {
-    addItem(queueName, data, options) {}
-    process(queueName, callback) {}
+    addItem(queueName, data, options) {
+    }
+
+    process(queueName, callback) {
+    }
 }
 
 class KueService extends QueueService {
@@ -17,12 +20,19 @@ class KueService extends QueueService {
         });
     }
 
-    addItem(queueName, data, {priority = "high", delay}) {
+    //
+    // addItem(queueName, data, {priority = "high", delay}) {
+    //     let item = this.queue.create(queueName, data)
+    //         .priority(priority);
+    //     if (delay) {
+    //         item = item.delay(delay);
+    //     }
+    //     item.save();
+    // }
+    //
+    addItem(queueName, data) {
         let item = this.queue.create(queueName, data)
-            .priority(priority);
-        if (delay) {
-            item = item.delay(delay);
-        }
+            .priority("high");
         item.save();
     }
 

@@ -24,6 +24,7 @@
     "express-validation": "^3.0.2",
     "http-status-codes": "^1.4.0",
     "jsonwebtoken": "^8.5.1",
+    "kue": "^0.11.6",
     "lodash": "^4.17.15",
     "mongoose": "^5.9.7",
     "pm2": "^4.4.0",

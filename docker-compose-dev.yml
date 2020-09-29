@@ -20,23 +20,23 @@ services:
       - mongo
       - redis
 
-#  workers:
-#    build:
-#      context: ./
-#      dockerfile: ./workers/Dockerfile
-#    environment:
-#      - NODE_ENV=dev
-#      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
-#      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
-#      - EMAIL=${EMAIL}
-#      - EMAIL_PASS=${EMAIL_PASS}
-#      - REDIS_URI=redis://:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}
-#    volumes:
-#      - ./workers/build/index.js:/usr/src/app/workers/build/index.js
-#    restart: always
-#    depends_on:
-#      - mongo
-#      - redis
+  workers:
+    build:
+      context: ./
+      dockerfile: ./workers/Dockerfile
+    environment:
+      - NODE_ENV=dev
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - EMAIL=${EMAIL}
+      - EMAIL_PASS=${EMAIL_PASS}
+      - REDIS_URI=redis://:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}
+    volumes:
+      - ./workers/build/index.js:/usr/src/app/workers/build/index.js
+    restart: always
+    depends_on:
+      - mongo
+      - redis
 
   mongo:
     image: mongo:latest

@@ -1,7 +1,7 @@
 const HttpStatus = require('http-status-codes');
 const arxiv = require('arxiv-api');
 const UserModel = require('../user/user.model');
-const {searchCronValue} = require("../configs/queueConfig");
+// const {searchCronValue} = require("../configs/queueConfig");
 const {
     MAX_PAPERS_SEARCH,
     MAX_SAVES_SEARCH,
@@ -10,8 +10,8 @@ const {
     ERROR_INCLUDE_TAG
 } = require("./constants");
 const {formatPaper} = require("../services/formatPaper");
-const {getUpdatePapersQueue} = require('../services/updateQueueService');
-const updatePapersQueue = getUpdatePapersQueue();
+const {KueService} = require('../services/queueService');
+const updatePapersQueue = new KueService();
 
 async function searchPapers(req, res, next) {
     const {includeList, excludeList, start, maxResults, saveSearch, searchName} = req.body;
@@ -47,14 +47,15 @@ async function searchPapers(req, res, next) {
                 return res.json({papers: resultPapers.map(formatPaper), error: ERROR_UNIQUE_SEARCH});
             }
 
-            // TODO CREATE KUE instances ADD ITEM TO THE  quename = Searcjes, delay = 1000
-            // const job = await updatePapersQueue.add('searches', {
-            //     userId,
-            //     searchId: search.id
-            // }, {repeat: {cron: searchCronValue}});
-            //
-            // search.job_id = job.opts.jobId;
-            // await search.save();
+            // TODO  adding delay to queue
+
+            const job = await updatePapersQueue.addItem('searches', {
+                userId,
+                searchId: search.id,
+            });
+
+            search.job_id = search.id;
+            await search.save();
 
             return res.status(HttpStatus.CREATED).json({search, papers});
         } catch (err) {

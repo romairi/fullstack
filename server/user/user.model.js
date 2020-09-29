@@ -3,7 +3,7 @@ const SearchModel = require('../search/model');
 const mongoose = require('mongoose');
 const {uniqueSearch} = require("../services/addUniqueSearchService");
 const {searchCronValue} = require("../configs/queueConfig");
-const {getUpdatePapersQueue} = require("../services/updateQueueService");
+// const {getUpdatePapersQueue} = require("../services/updateQueueService");
 
 const CATEGORIES_FIELD = 'categories';
 const SEARCH_FIELD = 'searches';
@@ -94,8 +94,8 @@ UserSchema.statics.removeSearch = async function (userId, searchId) {
     user.searches = user.searches.filter(item => item.id !== searchId);
     await user.save();
     await SearchModel.findOneAndRemove({_id: searchId});
-    const updatePapersQueue = getUpdatePapersQueue();
-    updatePapersQueue.removeRepeatable('searches', {jobId: search.job_id, cron: searchCronValue});
+    // const updatePapersQueue = getUpdatePapersQueue();
+    // updatePapersQueue.removeRepeatable('searches', {jobId: search.job_id, cron: searchCronValue});
 
     return {
         searchId
