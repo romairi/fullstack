@@ -4,7 +4,7 @@ class QueueService {
     addItem(queueName, data, options) {
     }
 
-    process(queueName, callback) {
+    process(queueName, number, callback) {
     }
 }
 
@@ -20,24 +20,14 @@ class KueService extends QueueService {
         });
     }
 
-    //
-    // addItem(queueName, data, {priority = "high", delay}) {
-    //     let item = this.queue.create(queueName, data)
-    //         .priority(priority);
-    //     if (delay) {
-    //         item = item.delay(delay);
-    //     }
-    //     item.save();
-    // }
-    //
-    addItem(queueName, data) {
-        let item = this.queue.create(queueName, data)
-            .priority("high");
+    addItem(queueName, data, priorityLevel = 'high') {
+        let item = this.queue.create(queueName, data).delay(10000)
+            .priority(priorityLevel);
         item.save();
     }
 
     process(queueName, callback) {
-        this.queue.process(queueName, callback);
+        this.queue.process(queueName, 8, callback);
     }
 }
 
