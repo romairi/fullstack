@@ -2,9 +2,6 @@ const CategoryModel = require('../category/model');
 const SearchModel = require('../search/model');
 const mongoose = require('mongoose');
 const {uniqueSearch} = require("../services/addUniqueSearchService");
-const {searchCronValue} = require("../configs/queueConfig");
-// const {getUpdatePapersQueue} = require("../services/updateQueueService");
-
 const CATEGORIES_FIELD = 'categories';
 const SEARCH_FIELD = 'searches';
 

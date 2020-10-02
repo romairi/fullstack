@@ -1,7 +1,6 @@
 const HttpStatus = require('http-status-codes');
 const arxiv = require('arxiv-api');
 const UserModel = require('../user/user.model');
-// const {searchCronValue} = require("../configs/queueConfig");
 const {
     MAX_PAPERS_SEARCH,
     MAX_SAVES_SEARCH,
@@ -50,9 +49,11 @@ async function searchPapers(req, res, next) {
             // TODO  adding delay to queue
 
             const job = await updatePapersQueue.addItem('searches', {
-                userId,
-                searchId: search.id,
-            });
+                    title: searchName,
+                    userId,
+                    searchId: search.id,
+                },
+            );
 
             search.job_id = search.id;
             await search.save();

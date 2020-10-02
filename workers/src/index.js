@@ -20,11 +20,8 @@ import {renderEmail} from "react-html-email";
 import PaperList from "./components/PaperList";
 
 console.info(`Worker is running!!`);
-
 updatePapersQueue.process('searches', async (job, done) => {
     const {searchId, userId} = job.data;
-    console.log(searchId);
-    console.log(userId);
     const searchItem = await SearchModel.getSearchById(searchId, userId);
     const {
         include_tags: includeList = [],
