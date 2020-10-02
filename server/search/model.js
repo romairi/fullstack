@@ -18,13 +18,9 @@ const SearchSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+
     viewed_papers: [{
         type: String,
-    }],
-
-    job_id: [{
-        type: String,
-        required: false,
     }],
 
     user: {

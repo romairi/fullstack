@@ -55,9 +55,6 @@ async function searchPapers(req, res, next) {
                 },
             );
 
-            search.job_id = search.id;
-            await search.save();
-
             return res.status(HttpStatus.CREATED).json({search, papers});
         } catch (err) {
             next(err);
