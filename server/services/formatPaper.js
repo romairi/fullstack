@@ -1,5 +1,5 @@
 function formatPaper({ id, categories, links, ...paperArgs } ) {
-    const pdfLinkObject = links.find(link => link.title === 'pdf');
+    const pdfLinkObject = links ? links.find(link => link.title === 'pdf'): ''; // TODO
     const pdfLink = pdfLinkObject ? pdfLinkObject.href : null;
     return {
         ...paperArgs,
