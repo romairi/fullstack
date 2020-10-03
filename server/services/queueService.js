@@ -20,15 +20,40 @@ class KueService extends QueueService {
         });
     }
 
-    addItem(queueName, data, priorityLevel = 'high') {
-        let item = this.queue.create(queueName, data).delay(10000)
+    addItem(queueName, data, {priorityLevel = 'high', delay}) {
+        let item = this.queue.create(queueName, data)
+            // .removeOnComplete(true)
             .priority(priorityLevel);
+
+        if (delay) {
+            item = item.delay(delay);
+        }
         item.save();
     }
 
-    process(queueName, callback) {
-        this.queue.process(queueName, 8, callback);
+    process(queueName, number, callback) {
+        this.queue.process(queueName, number, callback);
     }
 }
+
+// class QueueFactory {
+//     static list = {
+//         kue: KueService,
+//     };
+//
+//     createQueue(type = 'kue') {
+//         const KueService = KueService.list[type] || KueService.list.kue;
+//         const kueQueue = new KueService();
+//         kueQueue.type = type;
+//         return kueQueue;
+//     }
+// }
+
+
+// class QueueFactory {
+//     create() {
+//         return new KueService();
+//     }
+// }
 
 module.exports = {QueueService, KueService};

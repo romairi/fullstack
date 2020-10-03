@@ -1,6 +1,7 @@
 const HttpStatus = require('http-status-codes');
 const arxiv = require('arxiv-api');
 const UserModel = require('../user/user.model');
+const {SCHEDULE_TIME_JOB} = require("../search/constants");
 const {
     MAX_PAPERS_SEARCH,
     MAX_SAVES_SEARCH,
@@ -46,13 +47,11 @@ async function searchPapers(req, res, next) {
                 return res.json({papers: resultPapers.map(formatPaper), error: ERROR_UNIQUE_SEARCH});
             }
 
-            // TODO  adding delay to queue
-
             const job = await updatePapersQueue.addItem('searches', {
                     title: searchName,
                     userId,
                     searchId: search.id,
-                },
+                }, {delay: SCHEDULE_TIME_JOB},
             );
 
             return res.status(HttpStatus.CREATED).json({search, papers});
