@@ -23,10 +23,9 @@ const updatePapersQueue = new KueService();
 console.info(`Worker is running!!`);
 updatePapersQueue.process('searches', 10, async (job, done) => {
     const {searchId, userId} = job.data;
-    console.log(searchId);
     const searchItem = await SearchModel.getSearchById(searchId, userId);
     if (!searchItem) {
-        console.log('SEARCH ITEM DOES NOT EXISTS'); // TODO REMOVE ACTIVE JOB FROM THE QUEUE
+        console.log('Search item does not exists'); // TODO REMOVE ACTIVE JOB FROM THE QUEUE
         done();
         return;
     }
@@ -61,7 +60,6 @@ updatePapersQueue.process('searches', 10, async (job, done) => {
                     }
                 }
             });
-            console.log(searchId);
             await SearchModel.addNewPapers(searchId, newPapers.map(p => p.id));
         } else {
             console.log("Can't find user-id: ", userId);

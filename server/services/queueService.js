@@ -22,7 +22,7 @@ class KueService extends QueueService {
 
     addItem(queueName, data, {priorityLevel = 'high', delay}) {
         let item = this.queue.create(queueName, data)
-            // .removeOnComplete(true)
+            .removeOnComplete(true)
             .priority(priorityLevel);
 
         if (delay) {
