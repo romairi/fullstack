@@ -1,13 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const serverConfig = require('./server/configs/serverConfig');
+const securityMiddleware = require('./server/securityMiddleware');
 const middleware = require('./server/middleware');
 const kue = require('kue');
+
 
 require('dotenv').config();
 
 const app = express();
-
 
 mongoose.connect(serverConfig.mongo.hostUri, {
     useNewUrlParser: true,
@@ -17,6 +18,7 @@ mongoose.connect(serverConfig.mongo.hostUri, {
 
 app.use('/kue-api/', kue.app);
 
+securityMiddleware(app);
 middleware(app);
 
 
