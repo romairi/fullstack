@@ -13,7 +13,7 @@ router.use('/api/papers', paperRoutes);
 router.use('/api/categories', categoriesRoutes);
 router.use('/api/searches', searchesRoutes);
 
-//router.use('/admin', adminRoutes)
+//router.use('/api/admin', adminRoutes)
 
 router.use('/', (req, res) => {
     const clientData = JSON.stringify({user: req.user});

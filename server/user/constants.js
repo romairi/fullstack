@@ -6,7 +6,7 @@ const ERROR_EMAIL_EXIST_MESSAGE = 'Email already exists';
 const ERROR_MESSAGE = 'Email or Password is invalid';
 const TOKEN_EXPIRATION_TIME = '24h';
 const COOKIE_EXPIRATION_TIME = 86400000;
-
+const EMAIL_VALID_NAMES = ["com", "net", "ru", "co.il"];
 
 module.exports = {
     EMAIL_FIELD,
@@ -16,5 +16,6 @@ module.exports = {
     ERROR_EMAIL_EXIST_MESSAGE,
     ERROR_MESSAGE,
     TOKEN_EXPIRATION_TIME,
-    COOKIE_EXPIRATION_TIME
+    COOKIE_EXPIRATION_TIME,
+    EMAIL_VALID_NAMES
 };
