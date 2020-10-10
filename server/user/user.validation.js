@@ -12,7 +12,7 @@ const login = {
     }),
 };
 
-const singup = {
+const signup = {
     body: Joi.object({
         [USER_NAME_FIELD]: Joi.string()
             .alphanum()
@@ -33,6 +33,6 @@ const singup = {
 
 module.exports = {
     login,
-    singup
+    signup
 };
 

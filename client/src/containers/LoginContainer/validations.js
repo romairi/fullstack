@@ -1,4 +1,4 @@
-import Joi from "@hapi/joi";
+import Joi from "joi";
 import {EMAIL_FIELD, EMAIL_VALID_NAMES, PASSWORD_FIELD} from "./constants";
 
 export const schemaLogin = Joi.object({
