@@ -25,7 +25,7 @@ updatePapersQueue.process('searches', 10, async (job, done) => {
     const {searchId, userId} = job.data;
     const searchItem = await SearchModel.getSearchById(searchId, userId);
     if (!searchItem) {
-        console.log('Search item does not exists'); // TODO REMOVE ACTIVE JOB FROM THE QUEUE
+        console.log('Search item does not exists');
         done();
         return;
     }
@@ -62,10 +62,12 @@ updatePapersQueue.process('searches', 10, async (job, done) => {
             });
             await SearchModel.addNewPapers(searchId, newPapers.map(p => p.id));
         } else {
-            console.log("Can't find user-id: ", userId);
-            //return done(new Error('Can't find user-id')); // TODO
+            console.error("Can't find user-id: ", userId);
+            return;
         }
 
+    } else {
+        console.log('can not find new papers');
     }
 
     console.log('finish job');

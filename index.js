@@ -1,9 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const serverConfig = require('./server/configs/serverConfig');
-const securityMiddleware = require('./server/securityMiddleware');
-const middleware = require('./server/middleware');
-const kue = require('kue');
+const middleware = require('./server/appMiddleware');
+
 
 
 require('dotenv').config();
@@ -16,9 +15,8 @@ mongoose.connect(serverConfig.mongo.hostUri, {
     useFindAndModify: false
 });
 
-app.use('/kue-api/', kue.app);
 
-securityMiddleware(app);
+
 middleware(app);
 
 

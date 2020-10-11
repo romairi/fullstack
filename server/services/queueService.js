@@ -16,7 +16,7 @@ class KueService extends QueueService {
                 port: 6379,
                 host: 'redis',
                 auth: 'roman123'
-            }
+            } // TODO GET REDIS DATA FROM ENV
         });
     }
 
