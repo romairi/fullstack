@@ -62,19 +62,6 @@ services:
     volumes:
       - redis_data:/data
 
-  bullboard:
-    image: deadly0/bull-board
-    ports:
-      - 9181:3000
-    environment:
-      REDIS_HOST: ${REDIS_HOST}
-      REDIS_PORT: ${REDIS_PORT}
-      REDIS_PASSWORD: ${REDIS_PASSWORD}
-      BULL_PREFIX: bull
-    depends_on:
-      - redis
-
-
 volumes:
   mongodbdata:
   redis_data:

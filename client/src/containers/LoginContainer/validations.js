@@ -1,9 +1,9 @@
-import Joi from "@hapi/joi";
-import {EMAIL_FIELD, PASSWORD_FIELD} from "../SignUpContainer/constants";
+import Joi from "joi";
+import {EMAIL_FIELD, EMAIL_VALID_NAMES, PASSWORD_FIELD} from "./constants";
 
 export const schemaLogin = Joi.object({
     [EMAIL_FIELD]: Joi.string()
-        .email({ minDomainSegments: 2, tlds: { allow: ["com", "net", "ru", "co.il"] } })
+        .email({ minDomainSegments: 2, tlds: { allow: EMAIL_VALID_NAMES } })
         .required(),
     [PASSWORD_FIELD]: Joi.string()
         .min(7)

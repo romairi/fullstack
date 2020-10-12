@@ -2,9 +2,6 @@ const CategoryModel = require('../category/model');
 const SearchModel = require('../search/model');
 const mongoose = require('mongoose');
 const {uniqueSearch} = require("../services/addUniqueSearchService");
-const {searchCronValue} = require("../configs/queueConfig");
-const {getUpdatePapersQueue} = require("../services/updateQueueService");
-
 const CATEGORIES_FIELD = 'categories';
 const SEARCH_FIELD = 'searches';
 
@@ -12,6 +9,10 @@ const UserSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
+    },
+    is_admin: {
+        type: Boolean,
+        default: false
     },
     email: {
         type: String,
@@ -69,7 +70,7 @@ UserSchema.statics.addSearch = async function (userId, includeList, excludeList,
     });
     if (saveSearch) {
         const user = await this.findById(userId).populate(SEARCH_FIELD);
-        const isUnique  = uniqueSearch(user.searches, searchObj.include_tags, searchObj.exclude_tags);
+        const isUnique = uniqueSearch(user.searches, searchObj.include_tags, searchObj.exclude_tags);
 
         if (!isUnique) {
             return {
@@ -86,12 +87,9 @@ UserSchema.statics.addSearch = async function (userId, includeList, excludeList,
 
 UserSchema.statics.removeSearch = async function (userId, searchId) {
     const user = await this.findById(userId).populate(SEARCH_FIELD);
-    const search = user.searches.find(item => item.id === searchId);
     user.searches = user.searches.filter(item => item.id !== searchId);
     await user.save();
     await SearchModel.findOneAndRemove({_id: searchId});
-    const updatePapersQueue = getUpdatePapersQueue();
-    updatePapersQueue.removeRepeatable('searches', {jobId: search.job_id, cron: searchCronValue});
 
     return {
         searchId

@@ -1,10 +1,10 @@
 const {Joi} = require('express-validation');
-const {CONFIRM_PASSWORD_FIELD, EMAIL_FIELD, PASSWORD_FIELD, USER_NAME_FIELD} = require('./constants');
+const {CONFIRM_PASSWORD_FIELD, EMAIL_FIELD, PASSWORD_FIELD, USER_NAME_FIELD, EMAIL_VALID_NAMES} = require('./constants');
 
 const login = {
     body: Joi.object({
         [EMAIL_FIELD]: Joi.string()
-            .email({minDomainSegments: 2, tlds: {allow: ["com", "net", "ru", "co.il"]}})
+            .email({minDomainSegments: 2, tlds: {allow: EMAIL_VALID_NAMES}})
             .required(),
         [PASSWORD_FIELD]: Joi.string()
             .min(7)
@@ -12,7 +12,7 @@ const login = {
     }),
 };
 
-const singup = {
+const signup = {
     body: Joi.object({
         [USER_NAME_FIELD]: Joi.string()
             .alphanum()
@@ -21,7 +21,7 @@ const singup = {
             .required(),
 
         [EMAIL_FIELD]: Joi.string()
-            .email({minDomainSegments: 2, tlds: {allow: ["com", "net", "ru", "co.il"]}})
+            .email({minDomainSegments: 2, tlds: {allow: EMAIL_VALID_NAMES}})
             .required(),
         [PASSWORD_FIELD]: Joi.string()
             .min(7)
@@ -33,6 +33,6 @@ const singup = {
 
 module.exports = {
     login,
-    singup
+    signup
 };
 

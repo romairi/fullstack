@@ -76,7 +76,14 @@ describe('validateValuesService', () => {
             expect(results).toMatchSnapshot();
         });
         it('should return the formatted error only for the valid detail', () => {
-            schema.validate.mockReturnValueOnce({error: {details: [{context: {key: 'key'}, message: 'message'}, {message: 'message2'}, {context: {key: 'key3'}}]}});
+            schema.validate.mockReturnValueOnce({
+                error: {
+                    details: [{
+                        context: {key: 'key'},
+                        message: 'message'
+                    }, {message: 'message2'}, {context: {key: 'key3'}}]
+                }
+            });
 
             const results = validateValues(values, schema);
 

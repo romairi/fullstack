@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const HttpStatus = require('http-status-codes');
 const UserModel = require('./user.model');
 const serverConfig = require('../configs/serverConfig');
 
@@ -9,9 +10,9 @@ async function auth(req, res, next) {
     if (token) {
         try {
             const {_id: userId, hash} = jwt.verify(token, serverConfig.jwt.secret);
-            if (hash === req.fingerprint.hash) {    
+            if (hash === req.fingerprint.hash) {
                 const userObj = await UserModel.getUserById(userId);
-                if(userObj !== null){
+                if (userObj !== null) {
                     const {password: userPass, ...useArgs} = userObj.toObject();
                     user = useArgs;
                     authenticated = true;
@@ -33,7 +34,15 @@ async function auth(req, res, next) {
     next();
 }
 
+async function isAdmin(req, res, next) {
+    if (req.user && req.user.is_admin) {
+        next();
+    } else {
+        res.status(HttpStatus.FORBIDDEN).send();
+    }
+}
 
 module.exports = {
     auth,
+    isAdmin
 };

@@ -5,8 +5,10 @@ const Fingerprint = require('express-fingerprint');
 const routes = require('./routes');
 const {auth} = require('./user/user.middleware');
 const {validationError, logErrors, clientErrorHandler, errorHandler} = require('./services/errorHandling');
+const securityMiddleware = require('./middleware/securityMiddleware');
+const nonceMiddleware = require('./middleware/nonceMiddleware');
 
-const middleware = app => {
+const appMiddleware = app => {
     app.set('view engine', 'ejs');
     app.set('views', path.join(__dirname, './views'));
 
@@ -17,6 +19,8 @@ const middleware = app => {
     }));
     app.use(cookieParser());
     app.use(express.json());
+    app.use(nonceMiddleware);
+    securityMiddleware(app);
     app.use('/static', express.static(path.join(__dirname + '/../client/build/static')));
     app.use('/', auth, routes);
 
@@ -27,4 +31,4 @@ const middleware = app => {
     app.use(errorHandler);
 };
 
-module.exports = middleware;
+module.exports = appMiddleware;
