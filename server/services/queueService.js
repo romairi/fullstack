@@ -36,24 +36,4 @@ class KueService extends QueueService {
     }
 }
 
-// class QueueFactory {
-//     static list = {
-//         kue: KueService,
-//     };
-//
-//     createQueue(type = 'kue') {
-//         const KueService = KueService.list[type] || KueService.list.kue;
-//         const kueQueue = new KueService();
-//         kueQueue.type = type;
-//         return kueQueue;
-//     }
-// }
-
-
-// class QueueFactory {
-//     create() {
-//         return new KueService();
-//     }
-// }
-
 module.exports = {QueueService, KueService};

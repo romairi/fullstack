@@ -7,7 +7,8 @@ const {
     MAX_SAVES_SEARCH,
     ERROR_COUNT_SEARCH,
     ERROR_UNIQUE_SEARCH,
-    ERROR_INCLUDE_TAG
+    ERROR_INCLUDE_TAG,
+    QUEUE_NAME
 } = require("./constants");
 const {formatPaper} = require("../services/formatPaper");
 const {KueService} = require('../services/queueService');
@@ -42,12 +43,18 @@ async function searchPapers(req, res, next) {
         const viewedPapers = resultPapers.map(item => item.id);
         try {
             const papers = await resultPapers.map(formatPaper);
-            const {search} = await UserModel.addSearch(userId, includeList, excludeList, viewedPapers, searchName, saveSearch);
+            const {search} = await UserModel.addSearch(
+                userId,
+                includeList,
+                excludeList,
+                viewedPapers,
+                searchName,
+                saveSearch);
             if (search === null) {
                 return res.json({papers: resultPapers.map(formatPaper), error: ERROR_UNIQUE_SEARCH});
             }
 
-            const job = await updatePapersQueue.addItem('searches', {
+            const job = await updatePapersQueue.addItem(QUEUE_NAME, {
                     title: searchName,
                     userId,
                     searchId: search.id,

@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import arxiv from 'arxiv-api';
 import serverConfig from '../../server/configs/serverConfig';
 import {KueService} from '../../server/services/queueService';
-import {MAX_PAPERS_SEARCH} from "../../server/paper/constants";
+import {MAX_PAPERS_SEARCH, QUEUE_NAME} from "../../server/paper/constants";
 import SearchModel from '../../server/search/model';
 import UserModel from '../../server/user/user.model';
 import {sendEmail} from "./services/sendEmail";
@@ -21,7 +21,7 @@ mongoose.connect(serverConfig.mongo.hostUri, {
 
 const updatePapersQueue = new KueService();
 console.info(`Worker is running!!`);
-updatePapersQueue.process('searches', 10, async (job, done) => {
+updatePapersQueue.process(QUEUE_NAME, 10, async (job, done) => {
     const {searchId, userId} = job.data;
     const searchItem = await SearchModel.getSearchById(searchId, userId);
     if (!searchItem) {
@@ -71,7 +71,7 @@ updatePapersQueue.process('searches', 10, async (job, done) => {
     }
 
     console.log('finish job');
-    await updatePapersQueue.addItem('searches', {
+    await updatePapersQueue.addItem(QUEUE_NAME, {
             title: searchName,
             userId,
             searchId,
