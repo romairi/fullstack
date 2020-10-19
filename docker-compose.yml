@@ -1,11 +1,21 @@
 version: '3.5'
 services:
+  webserver:
+    build: nginx/.
+    ports:
+      - "80:80"
+    environment:
+      - SERVER_PORT=${PORT}
+    restart: always
+    depends_on:
+      - server
+    networks:
+      - app-network
+
   server:
     build:
       context: ./
       dockerfile: ./Dockerfile
-    ports:
-      - "${EXTERNAL_PORT}:${PORT}"
     environment:
       - NODE_ENV=production
       - PORT=${PORT}
@@ -16,6 +26,8 @@ services:
     depends_on:
       - mongo
       - redis
+    networks:
+      - app-network
 
   workers:
     build:
@@ -32,6 +44,9 @@ services:
     depends_on:
       - mongo
       - redis
+    networks:
+      - app-network
+
 
   mongo:
     image: mongo:latest
@@ -41,6 +56,9 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
     volumes:
       - mongodbdata:/data/db
+    networks:
+      - app-network
+
 
   admin-mongo:
     # mongodb://ROMAN:12345@mongo
@@ -53,13 +71,22 @@ services:
     depends_on:
       - mongo
     restart: always
+    networks:
+      - app-network
+
 
   redis:
     build: redis/.
     restart: always
     volumes:
       - redis_data:/data
+    networks:
+      - app-network
+
 
 volumes:
   mongodbdata:
   redis_data:
+
+networks:
+  app-network:
