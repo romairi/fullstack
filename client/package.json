@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "webpack",
+    "build": "webpack --env.NODE_ENV=production",
     "test": "jest test"
   },
   "eslintConfig": {
