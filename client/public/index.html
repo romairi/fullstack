@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta property="csp-nonce" content="<%- styleNonce %>">
-    <link href="https://fonts.googleapis.com/css2?family=Martel:wght@600&family=Pacifico&family=Sriracha&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preload"
+          href="https://fonts.googleapis.com/css2?family=Martel:wght@600&family=Pacifico&family=Sriracha&display=swap">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap">
+    <link rel="preload" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <script nonce="<%- scriptNonce %>">
-      window.clientData = <%- clientData %>;
-    </script>
-  </body>
+</head>
+<body>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<div id="root"></div>
+<script nonce="<%- scriptNonce %>">
+    window.clientData = <%- clientData %>;
+</script>
+</body>
 </html>
