@@ -7,12 +7,12 @@ const securityMiddleware = app => {
         contentSecurityPolicy: {
             directives: {
                 defaultSrc,
-                scriptSrc: [...defaultSrc, (req, res) => `'nonce-${res.locals.scriptNonce}'`],
+                scriptSrc: [...defaultSrc, (req, res) => (req.originalUrl === '/admin/kue-api/' ? "'unsafe-inline'" : `'nonce-${res.locals.scriptNonce}'`)],
                 styleSrc: [...defaultSrc, 'fonts.googleapis.com', 'stackpath.bootstrapcdn.com',
-                    function (req, res) {
-                        return "'nonce-" + res.locals.styleNonce + "'";
+                   (req, res) => {
+                        return req.originalUrl === '/admin/kue-api/' ? "'unsafe-inline'" : "'nonce-" + res.locals.styleNonce + "'";
                     }],
-                fontSrc: [...defaultSrc, 'fonts.gstatic.com', 'stackpath.bootstrapcdn.com'],
+                fontSrc: [...defaultSrc, 'fonts.gstatic.com', 'stackpath.bootstrapcdn.com', 'fonts.googleapis.com'],
                 connectSrc: [...defaultSrc, 'ws://localhost:3000']
             }
         }
