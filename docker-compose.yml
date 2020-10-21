@@ -4,13 +4,30 @@ services:
     build: nginx/.
     ports:
       - "80:80"
+      - "443:443"
     environment:
       - SERVER_PORT=${PORT}
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - web-root:/var/www/html
+      - ./dhparam:/etc/ssl/certs
     restart: always
     depends_on:
       - server
     networks:
       - app-network
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - web-root:/var/www/html
+    depends_on:
+      - webserver
+    command: certonly --webroot --webroot-path=/var/www/html --email paperemailsubscriber@gmail.com --agree-tos --no-eff-email --force-renewal -d paper-reporter.com -d www.paper-reporter.com
 
   server:
     build:
@@ -87,6 +104,9 @@ services:
 volumes:
   mongodbdata:
   redis_data:
+  certbot-etc:
+  certbot-var:
+  web-root:
 
 networks:
   app-network:
