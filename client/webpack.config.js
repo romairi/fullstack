@@ -64,7 +64,7 @@ module.exports = env => {
                 filename: `static/css/${devMode ? '[name].css' : '[name].[hash].css'}`,
                 chunkFilename: `static/css/${devMode ? '[id].css' : 'chunk-[name].[id].[hash].css'}`,
             }),
-            new PreloadWebpackPlugin(),
+            // new PreloadWebpackPlugin(),
         ],
         devServer: {
             contentBase: path.join(__dirname, 'build'),
