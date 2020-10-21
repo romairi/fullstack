@@ -3,6 +3,8 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const TerserJSPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const PreloadWebpackPlugin = require('preload-webpack-plugin');
+
 
 module.exports = env => {
     const devMode = !env || !env.NODE_ENV  || env.NODE_ENV !== 'production';
@@ -62,6 +64,7 @@ module.exports = env => {
                 filename: `static/css/${devMode ? '[name].css' : '[name].[hash].css'}`,
                 chunkFilename: `static/css/${devMode ? '[id].css' : 'chunk-[name].[id].[hash].css'}`,
             }),
+            new PreloadWebpackPlugin(),
         ],
         devServer: {
             contentBase: path.join(__dirname, 'build'),
