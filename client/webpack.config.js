@@ -65,7 +65,11 @@ module.exports = env => {
                 chunkFilename: `static/css/${devMode ? '[id].css' : 'chunk-[name].[id].[hash].css'}`,
             }),
             // new PreloadWebpackPlugin(),
-
+            new PreloadWebpackPlugin({
+                rel: 'preload',
+                include: 'allAssets',
+                fileBlacklist: [/\.(js|ttf|png|eot|jpe?g|svg)/]
+            }),
         ],
         devServer: {
             contentBase: path.join(__dirname, 'build'),
