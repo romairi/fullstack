@@ -7,7 +7,7 @@ const PreloadWebpackPlugin = require('preload-webpack-plugin');
 
 
 module.exports = env => {
-    const devMode = !env || !env.NODE_ENV  || env.NODE_ENV !== 'production';
+    const devMode = !env || !env.NODE_ENV || env.NODE_ENV !== 'production';
 
     return ({
         entry: './src/index.js',
@@ -65,15 +65,7 @@ module.exports = env => {
                 chunkFilename: `static/css/${devMode ? '[id].css' : 'chunk-[name].[id].[hash].css'}`,
             }),
             // new PreloadWebpackPlugin(),
-            new PreloadWebpackPlugin({
-                rel: 'preload',
-                as(entry) {
-                    if (/\.css$/.test(entry)) return 'style';
-                    if (/\.woff$/.test(entry)) return 'font';
-                    if (/\.png$/.test(entry)) return 'image';
-                    return 'script';
-                }
-            })
+
         ],
         devServer: {
             contentBase: path.join(__dirname, 'build'),
