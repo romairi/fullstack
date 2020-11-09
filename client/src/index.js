@@ -16,3 +16,10 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('root')
 );
+
+if ('serviceWorker' in navigator) {
+    import('workbox-window').then(({Workbox}) => {
+        const wb = new Workbox(`/static/service-worker.js`);
+        wb.register();
+    });
+}
