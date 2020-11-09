@@ -21,7 +21,9 @@ const appMiddleware = app => {
     app.use(express.json());
     app.use(nonceMiddleware);
     securityMiddleware(app);
-    app.use('/static', express.static(path.join(__dirname + '/../client/build/static')));
+    app.use('/static', express.static(path.join(__dirname + '/../client/build/static'), {
+        maxAge: "1y"
+    }));
     app.use('/', auth, routes);
 
 
