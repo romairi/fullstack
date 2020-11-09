@@ -19,7 +19,7 @@ function loadUser(req, res, user) {
     res
         .cookie('token', token, {
             expires: new Date(Date.now() + COOKIE_EXPIRATION_TIME), // 24 X 60 X 60 X 1000
-            secure: false, //TODO change it when we move to ssl
+            secure: serverConfig.isProduction,
             httpOnly: true,
         })
         .json(userArgs);
