@@ -1,7 +1,7 @@
 const helmet = require('helmet');
 // const limiter = require('./configs/securityConfig');
 
-const defaultSrc = ["'self'", 'localhost:3000'];
+const defaultSrc = ["'self'", 'localhost:3000', 'ajax.cloudflare.com'];
 const securityMiddleware = app => {
     app.use(helmet({
         contentSecurityPolicy: {
