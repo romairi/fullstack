@@ -3,7 +3,7 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const TerserJSPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const PreloadWebpackPlugin = require('preload-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 
 module.exports = env => {
@@ -64,7 +64,10 @@ module.exports = env => {
                 filename: `static/css/${devMode ? '[name].css' : '[name].[hash].css'}`,
                 chunkFilename: `static/css/${devMode ? '[id].css' : 'chunk-[name].[id].[hash].css'}`,
             }),
-            // new PreloadWebpackPlugin(),
+            new WorkboxPlugin.InjectManifest({
+                swSrc: './src/ServiceWorker',
+                swDest: 'static/service-worker.js',
+            })
         ],
         devServer: {
             contentBase: path.join(__dirname, 'build'),

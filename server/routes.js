@@ -4,6 +4,7 @@ const paperRoutes = require('./paper/routes');
 const categoriesRoutes = require('./category/routes');
 const searchesRoutes = require('./search/routes');
 const adminRoutes = require('./admin/routes');
+const {publicPath} = require('./configs/serverConfig');
 
 const router = express.Router();
 
@@ -18,7 +19,10 @@ router.use('/admin', adminRoutes);
 
 // endpoints
 router.use('/', (req, res) => {
-    const clientData = JSON.stringify({user: req.user});
+    const clientData = JSON.stringify({
+        user: req.user,
+        publicPath,
+    });
     res.render('index.ejs', {
         clientData,
         scriptNonce: res.locals.scriptNonce,
