@@ -8,7 +8,9 @@ const mongoConfig = {
 };
 
 const redisQueueConfig = {
-    uri: envVar.REDIS_URI,
+    port: envVar.REDIS_PORT,
+    auth: envVar.REDIS_PASSWORD,
+    host: envVar.REDIS_HOST,
 };
 
 const devServer = {
@@ -26,7 +28,7 @@ const config = {
     },
     isProduction,
     publicPath: isProduction ? '' : devServer.hostUri,
-    redis: redisQueueConfig
+    redisQueueConfig,
 };
 
 module.exports = config;

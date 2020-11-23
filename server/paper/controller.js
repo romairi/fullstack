@@ -16,7 +16,6 @@ const updatePapersQueue = new KueService();
 
 async function searchPapers(req, res, next) {
     const {includeList, excludeList, start, maxResults, saveSearch, searchName} = req.body;
-    // TODO update search list on pagination
 
     if (includeList.length < 1) {
         return res.json({papers: [], error: ERROR_INCLUDE_TAG});

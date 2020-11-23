@@ -176,7 +176,7 @@ UserSchema.statics.addPaper = async function (userId, categoryId, paper) {
     if (foundCategory) {
         return await CategoryModel.addPaper(categoryId, paper);
     } else {
-        throw new Error(); // TODO make it better error
+        throw new Error();
     }
 };
 
@@ -186,7 +186,7 @@ UserSchema.statics.removePaper = async function (userId, categoryId, paperId) {
     if (foundCategory) {
         return await CategoryModel.removePaper(categoryId, paperId);
     } else {
-        throw new Error(); // TODO make it better error
+        throw new Error();
     }
 };
 

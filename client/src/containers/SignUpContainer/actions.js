@@ -1,16 +1,14 @@
 import _ from 'lodash';
-import {API_ACTION_TYPE, API_METHOD_POST} from "../../redux/middleware/ApiMiddleware/constants";
+import {API_METHOD_POST} from "../../redux/middleware/ApiMiddleware/constants";
 import {SIGNUP_PATH} from "../../constants";
+import {createApiRequestAction} from "../../redux/middleware/ApiMiddleware/actions";
 
 export function signupAction({data, onSuccess = _.noop, onError = _.noop}) {
-    return {
-        type: API_ACTION_TYPE,
-        payload: {
-            method: API_METHOD_POST,
-            url: SIGNUP_PATH,
-            data,
-            onSuccess,
-            onError
-        }
-    };
+    return createApiRequestAction({
+        method: API_METHOD_POST,
+        url: SIGNUP_PATH,
+        data,
+        onSuccess,
+        onError
+    });
 }

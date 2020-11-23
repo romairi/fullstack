@@ -1,4 +1,5 @@
 const kue = require('kue');
+const {redisQueueConfig} = require('../configs/serverConfig');
 
 class QueueService {
     addItem(queueName, data, options) {
@@ -12,11 +13,7 @@ class KueService extends QueueService {
     constructor() {
         super();
         this.queue = kue.createQueue({
-            redis: {
-                port: 6379,
-                host: 'redis',
-                auth: 'roman123'
-            } // TODO GET REDIS DATA FROM ENV
+            redis: redisQueueConfig
         });
     }
 

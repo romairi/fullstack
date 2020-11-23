@@ -6,15 +6,12 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Chip from "@material-ui/core/Chip";
 
 
-function FilterSearchTags({searchList}) {
-    if (searchList !== undefined) {
-        return (
-            <>
-                {searchList.map((tag, idx) => <Chip className="chip_item" key={idx} label={tag}/>)}
-            </>
-        );
-    }
-    return [];  // TODO CHECK MASTER
+function SearchTagsList({searchList}) {
+    return (
+        <>
+            {Array.isArray(searchList) ? searchList.map((tag, idx) => <Chip className="chip_item" key={idx} label={tag}/>) : searchList}
+        </>
+    );
 }
 
 function SearchItem(props) {
@@ -40,13 +37,13 @@ function SearchItem(props) {
                             <h4 className="title_list">
                                 <strong>Include tags:</strong>
                             </h4>
-                            <FilterSearchTags searchList={incTagsList}/>
+                            <SearchTagsList searchList={incTagsList}/>
                         </div>
                         <div className="chip_items">
                             <h4 className="title_list">
                                 <strong>Exclude tags:</strong>
                             </h4>
-                            <FilterSearchTags searchList={excTagsList}/>
+                            <SearchTagsList searchList={excTagsList}/>
                         </div>
                     </div>
                 </div>

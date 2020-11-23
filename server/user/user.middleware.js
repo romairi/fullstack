@@ -21,7 +21,6 @@ async function auth(req, res, next) {
                 }
             } else {
                 res.clearCookie('token');
-                // TODO add log about attempt to login with different fingerprint
             }
         } catch (err) {
             console.log(err);

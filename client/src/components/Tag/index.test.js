@@ -1,32 +1,36 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import Tag from './index';
+import Chip from "@material-ui/core/Chip";
+
+const id = 'SOME_ID';
+let onDeleteClicked = jest.fn();
 
 describe('Tag', () => {
+    beforeEach(() => {
+        onDeleteClicked.mockClear();
+    });
+
     describe('render', () => {
         it('should render the component - without children', () => {
-            const onDeleteClicked = jest.fn();
             const component = renderer.create(
-                <Tag id='SOME_ID' onDeleteClicked={onDeleteClicked} />,
+                <Tag id={id} onDeleteClicked={onDeleteClicked} />,
             );
             expect(component.toJSON()).toMatchSnapshot();
         });
         it('should render the component - with children', () => {
-            const onDeleteClicked = jest.fn();
             const component = renderer.create(
-                <Tag id='SOME_ID' onDeleteClicked={onDeleteClicked} ><div>CHILDREN</div></Tag>,
+                <Tag id={id} onDeleteClicked={onDeleteClicked} ><div>CHILDREN</div></Tag>,
             );
             expect(component.toJSON()).toMatchSnapshot();
         });
     });
     describe('onClick', () => {
-        const id = 'SOME_ID';
-        const onDeleteClicked = jest.fn();
         const component = renderer.create(
             <Tag id={id} onDeleteClicked={onDeleteClicked} />,
         );
-        // const spanElement = component.root.findByType('span'); // TODO
-        // spanElement.props.onClick();
-        // expect(onDeleteClicked).toHaveBeenCalledWith(id);
+        const chipElement = component.root.findByType(Chip);
+        chipElement.props.onDelete();
+        expect(onDeleteClicked).toHaveBeenCalledWith(id);
     });
 });

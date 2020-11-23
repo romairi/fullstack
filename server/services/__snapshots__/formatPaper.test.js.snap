@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`formatPaper should return formatted paper including link 1`] = `
+Object {
+  "paperId": "MOCK_ID",
+  "pdfLink": "http://arxiv.org/pdf/2005.12184v2",
+  "someArg": "123",
+}
+`;
+
+exports[`formatPaper should return formatted paper without additional args 1`] = `
+Object {
+  "paperId": "MOCK_ID",
+  "pdfLink": "http://arxiv.org/pdf/2005.12184v2",
+}
+`;
+
+exports[`formatPaper should return formatted paper without any link - the links arg is no an array 1`] = `
+Object {
+  "paperId": "MOCK_ID",
+  "pdfLink": null,
+  "someArg": "123",
+}
+`;
+
+exports[`formatPaper should return formatted paper without any link 1`] = `
+Object {
+  "paperId": "MOCK_ID",
+  "pdfLink": null,
+  "someArg": "123",
+}
+`;
